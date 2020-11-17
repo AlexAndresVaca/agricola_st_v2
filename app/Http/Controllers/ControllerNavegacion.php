@@ -8,6 +8,7 @@ class ControllerNavegacion extends Controller
 {
     //
     public function index(){
+        $a=1+3;
         return view('welcome');
     }
     public function login(){
