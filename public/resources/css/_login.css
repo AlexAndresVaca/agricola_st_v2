@@ -1,0 +1,14 @@
+body {
+    background-image: url(../img/bg-login-3.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    min-width: 100vw;
+    min-height: 100vh;
+    /* border: 1px solid red; */
+    overflow: hidden;
+}
+
+.bg-transparent-5 {
+    background-color: rgba(0, 0, 0, .5);
+}
