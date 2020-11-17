@@ -11,6 +11,7 @@ class ControllerNavegacion extends Controller
         return view('welcome');
     }
     public function login(){
+        $b = 1 + 3;
         return view('dashboard.login');
     }
 }
