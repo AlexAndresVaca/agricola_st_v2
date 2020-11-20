@@ -16,7 +16,7 @@ Login
 @section('slot-body')
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-md-8  mx-auto">
+        <div class="col-lg-4 col-md-6  mx-auto">
             <div class="card border-dark faded">
                 <h5 class="card-header bg-danger text-white">
                     Inicio de Sesión
