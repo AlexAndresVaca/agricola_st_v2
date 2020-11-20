@@ -22,7 +22,7 @@ Login
                     Inicio de Sesión
                 </h5>
                 <div class="card-body bg-dark">
-                    <form class="my-5">
+                    <form class="my-2">
                         <div class="form-group">
                             <label class="h4 text-white" for="exampleInputEmail1">Usuario</label>
                             <input type="email" class="form-control" id="exampleInputEmail1"
@@ -37,7 +37,6 @@ Login
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label text-white" for="exampleCheck1">Recordarme</label>
                         </div>
-                        <div style="height: 50px;"></div>
                         <a href="{{route('index')}}" class="btn btn-block btn-outline-secondary">Cancelar</a>
                         <button type="submit" class="btn btn-block btn-danger">Ingresar</button>
                     </form>
