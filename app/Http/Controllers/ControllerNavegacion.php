@@ -30,6 +30,7 @@ class ControllerNavegacion extends Controller
     }
     public function negociantes(){
         // return "dash";
+        return view('dashboard.negociantes');
     }
 
 }
