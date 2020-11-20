@@ -23,5 +23,9 @@ class ControllerNavegacion extends Controller
         // return "dash";
         return view('dashboard.inicio');
     }
+    public function productos(){
+        // return "dash";
+        return view('dashboard.productos');
+    }
 
 }

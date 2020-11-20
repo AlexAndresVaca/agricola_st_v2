@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Santa Teresita</title>
+    <title>@yield('name-page') | Santa Teresita</title>
 
     <!-- Bootstrap -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.css')}}" rel="stylesheet"> -->
@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item @yield('home-item')">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('dashboard')}}">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span></a>
             </li>
@@ -53,7 +53,7 @@
                 Inventario
             </div>
             <li class="nav-item @yield('products-item')">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{route('productos')}}">
                     <i class="fas fa-box-open rotate-n-15"></i>
                     <span>Productos</span></a>
             </li>
