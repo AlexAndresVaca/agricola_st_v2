@@ -17,7 +17,7 @@ Login
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-6  mx-auto">
-            <div class="card border-dark faded">
+            <div class="card border-dark shadow">
                 <h5 class="card-header bg-danger text-white">
                     Inicio de Sesión
                 </h5>
