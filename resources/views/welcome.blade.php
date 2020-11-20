@@ -1,6 +1,6 @@
 @extends('plantillaBootstrap')
 @section('slot-name-page')
-Bienvenido!
+Bienvenido
 @endsection
 
 @section('slot-nav')
@@ -9,7 +9,7 @@ Bienvenido!
     <form class="form-inline">
         <a class="btn btn-danger my-2 my-sm-0" href="{{route('login')}}">Iniciar Sesión</a>
         <div class="px-1"></div>
-        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Registrarte</button>
+        <a href="{{route('register')}}" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Registrarte</a>
     </form>
 </nav>
 @endsection

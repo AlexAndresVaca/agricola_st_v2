@@ -8,11 +8,20 @@ class ControllerNavegacion extends Controller
 {
     //
     public function index(){
-        $a=1+3;
+        
         return view('welcome');
     }
     public function login(){
-        $b = 1 + 3;
+        
         return view('dashboard.login');
     }
+    public function register(){
+        return "Estas en el registro!";
+        // return view('dashboard.login');
+    }
+    public function dashboard(){
+        // return "dash";
+        return view('dashboard.inicio');
+    }
+
 }

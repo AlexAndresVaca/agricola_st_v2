@@ -44,7 +44,7 @@ Login
                     
                 </div>
                 <div class="card-footer bg-dark text-center text-white">
-                    Universidad Técnica de Cotopaxi
+                    <a href="{{route('dashboard')}}" class="text-white">Universidad Técnica de Cotopaxi</a>
                 </div>
             </div>
         </div>

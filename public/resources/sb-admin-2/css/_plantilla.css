@@ -1,0 +1,9 @@
+.bg-gradient-panel-izq {
+    background: rgb(210, 0, 0);
+    background: linear-gradient(120deg, rgba(210, 0, 0, 1) 0%, rgba(121, 9, 9, 1) 86%, rgba(77, 4, 4, 1) 100%);
+}
+
+.bg-black-a {
+    background: rgb(60, 60, 60);
+    background: linear-gradient(0deg, rgba(60, 60, 60, 1) 0%, rgba(15, 15, 15, 1) 5%, rgba(10, 10, 10, 1) 100%);
+}
