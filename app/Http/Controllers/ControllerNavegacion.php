@@ -26,6 +26,10 @@ class ControllerNavegacion extends Controller
     public function productos(){
         // return "dash";
         return view('dashboard.productos');
+        
+    }
+    public function negociantes(){
+        // return "dash";
     }
 
 }

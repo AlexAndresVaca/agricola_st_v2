@@ -101,7 +101,7 @@
                 Personas
             </div>
             <li class="nav-item @yield('dealer-item')">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('negociantes')}}">
                     <i class="fas fa-people-arrows"></i>
                     <span>Negociantes</span></a>
             </li>

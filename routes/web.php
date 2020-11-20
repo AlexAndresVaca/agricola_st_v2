@@ -21,3 +21,4 @@ Route::get('/login', [ControllerNavegacion::class, 'login'])->name('login');
 Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->name('dashboard');
 Route::get('dashboard/productos/',[ControllerNavegacion::class, 'productos'] )->name('productos');
+Route::get('dashboard/negociantes',[ControllerNavegacion::class, 'negociantes'] )->name('negociantes');
