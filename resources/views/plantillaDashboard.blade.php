@@ -18,6 +18,8 @@
     <link href="{{asset('/resources/sb-admin-2/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <!-- CSS PROPIO -->
     <link href="{{asset('/resources/sb-admin-2/css/_plantilla.css')}}" rel="stylesheet">
+    <!-- CSS TABLAS -->
+    <link href="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <!-- SLOT CSS -->
     @yield('css')
 </head>
@@ -239,6 +241,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('resources/sb-admin-2/js/sb-admin-2.min.js')}}"></script>
+    <!-- DATATABLES -->
+    <!-- Page level plugins -->
+    <script src="{{asset('resources/sb-admin-2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
 
 </body>
 
