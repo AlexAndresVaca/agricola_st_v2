@@ -12,6 +12,27 @@ $(document).ready(function() {
                 "next": "Siguiente",
                 "previous": "Anterior",
             }
-        }
+        }, // Target escoge la fila (es un arrya desde 0), visible, controla si aparece o no en el dom, y searchable, permite o no su busqueda por esa fila
+        // orderable permite hablitar o desaviliar el ordenamiento
+        "columnDefs": [{
+                // Habilitar que se muestre
+                "targets": [0],
+                "visible": false,
+            },
+            {
+                // Ser un parámetro de búsqueda
+                "targets": [0],
+                "searchable": false
+            },
+            {
+                // Habilitar el orden
+                "targets": [6],
+                "orderable": false
+            }
+        ],
+        // Ordenamiento inicial por columna
+        "order": [
+            [0, "desc"]
+        ]
     });
 });

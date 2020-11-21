@@ -25,7 +25,12 @@ class ControllerNavegacion extends Controller
     }
     public function productos(){
         // return "dash";
-        return view('dashboard.productos');
+        return view('dashboard.productos.index');
+        
+    }
+    public function productosInfo(){
+        // return "dash";
+        return view('dashboard.productos.info');
         
     }
     public function negociantes(){

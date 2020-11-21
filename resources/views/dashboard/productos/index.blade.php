@@ -21,16 +21,42 @@ active
                     class="fa fa-plus-circle"></i> Nuevo producto</button>
         </form>
     </div>
-    <div class="dropdown-divider my-1"></div>
-    <div class="card-body">
-        <div class="row mb-4">
-          <div class="col-md-5 col-sm-6" >
-            <div class="text-center h3 text-gray-800">Lista de productos</div>
-          </div>
-          <div class="col-md-2  col-sm-6 justify-self-end">
-            <a href="" class=""><button class="btn btn-danger btn-block"><i class="fas fa-file-pdf"></i> Descargar PDF</button></a>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Producto agregado!</strong> puedes editar su información <a href="{{route('productosInfo')}}">aquí</a>.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Producto actualizado!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Producto eliminado!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="card-header">
+        <div class="container mb-0">
+            <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                <h1 class="h3 mb-0 text-gray-800 text-center">Lista de productos</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
+                    <i class="fas fa-file-pdf"></i>
+                    Descargar PDF
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
         <div class="table-responsive">
             <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos" width="100%"
                 cellspacing="0">
@@ -53,68 +79,25 @@ active
                         <td>Extranjero</td>
                         <td>Largo</td>
                         <td>16000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">5</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">6</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">7</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">8</td>
-                        <td>Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>15000</td>
-                        <td><a href="">Editar</a></td>
-                    </tr>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="d-block d-sm-none card-footer">
+        <div class="container">
+            <div class="col d-flex justify-content-center">
+                <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i>
+                    Descargar PDF</a>
+            </div>
+        </div>
+    </div>
 </div>
-
 @endsection
 @section('modal')
 <!-- Modal -->
@@ -193,4 +176,6 @@ active
         </div>
     </div>
 </div>
+@endsection
+@section('js')
 @endsection
