@@ -33,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-panel-izq sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-mountain"></i>
                 </div>
@@ -248,7 +248,13 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
-
+    <!-- Comprueba si es movil o pc para mostrar u ocultar el menu -->
+    <script>
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // estamos desde un movil o tablet
+        $("#accordionSidebar").addClass("toggled");
+    }
+    </script>
 </body>
 
 </html>
