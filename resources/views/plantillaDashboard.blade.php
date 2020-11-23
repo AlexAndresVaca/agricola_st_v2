@@ -86,7 +86,7 @@
                 Transacción
             </div>
             <li class="nav-item @yield('production-item')">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('produccion')}}">
                     <i class="fas fa-people-carry"></i>
                     <span>Producción</span></a>
             </li>
@@ -132,8 +132,8 @@
                 <nav class="navbar navbar-expand navbar-dark bg-black-a topbar static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars text-danger"></i>
+                    <button id="sidebarToggleTop" class="btn btn-circle d-md-none mr-3 bg-gradient-danger">
+                        <i class="fa fa-bars text-white"></i>
                     </button>
 
                     <!-- Topbar Navbar -->

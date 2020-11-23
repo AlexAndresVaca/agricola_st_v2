@@ -23,4 +23,6 @@ Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->name('dash
 Route::get('dashboard/productos/',[ControllerNavegacion::class, 'productos'] )->name('productos');
 Route::get('dashboard/productos/informacion/',[ControllerNavegacion::class, 'productosInfo'] )->name('productosInfo');
 Route::get('dashboard/negociantes',[ControllerNavegacion::class, 'negociantes'] )->name('negociantes');
-
+Route::get('dashboard/negociantes/informacion',[ControllerNavegacion::class, 'negociantesInfo'] )->name('negociantesInfo');
+Route::get('dashboard/produccion',[ControllerNavegacion::class, 'produccion'] )->name('produccion');
+Route::get('dashboard/produccion/informacion',[ControllerNavegacion::class, 'produccionInfo'] )->name('produccionInfo');

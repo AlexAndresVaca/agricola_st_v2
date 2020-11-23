@@ -24,7 +24,7 @@ Bienvenido
 
 @section('slot-body')
 <div class="jumbotron">
-    <h1 class="display-4">Santa Teresita te da la bienvenida Allison!</h1>
+    <h1 class="display-4">Santa Teresita te da la bienvenida!</h1>
     <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, doloribus sequi numquam atque
         suscipit facilis quibusdam quae dolorum similique nulla. Aspernatur inventore eligendi nam placeat animi in
         facilis nemo excepturi!</p>

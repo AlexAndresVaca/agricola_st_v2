@@ -35,7 +35,19 @@ class ControllerNavegacion extends Controller
     }
     public function negociantes(){
         // return "dash";
-        return view('dashboard.negociantes');
+        return view('dashboard.negociantes.index');
+    }
+    public function negociantesInfo(){
+        // return "dash";
+        return view('dashboard.negociantes.info');
+    }
+    public function produccion(){
+        // return "dash";
+        return view('dashboard.produccion.index');
+    }
+    public function produccionInfo(){
+        // return "dash";
+        return view('dashboard.produccion.info');
     }
 
 }
