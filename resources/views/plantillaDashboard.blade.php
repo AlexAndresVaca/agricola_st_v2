@@ -10,14 +10,14 @@
     <!-- Bootstrap -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.css')}}" rel="stylesheet"> -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.min.css')}}" rel="stylesheet"> -->
+    <link href="{{asset('/resources/fontawesome/css/all.css')}}" rel="stylesheet"
+    type="text/css">
     <!-- Styles -->
-    <!-- <link href="" rel="stylesheet"> -->
     <!-- SB ADMIN 2  -->
-    <link href="{{asset('/resources/sb-admin-2/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
-        type="text/css">
     <link href="{{asset('/resources/sb-admin-2/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <!-- CSS PROPIO -->
     <link href="{{asset('/resources/sb-admin-2/css/_plantilla.css')}}" rel="stylesheet">
+    <link href="{{asset('/resources/css/custom.css')}}" rel="stylesheet">
     <!-- CSS TABLAS -->
     <link href="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <!-- SLOT CSS -->
@@ -91,7 +91,7 @@
                     <span>Producción</span></a>
             </li>
             <li class="nav-item @yield('purchase-item')">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('compra')}}">
                     <i class="fas fa-shopping-cart"></i>
                     <span>Compra</span></a>
             </li>
@@ -154,12 +154,12 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('perfil_usuario')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
                                 <!-- En caso de ser administrador -->
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('usuarios')}}">
                                     <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Usuarios
                                 </a>
@@ -245,9 +245,9 @@
     <!-- Page level plugins -->
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
     <!-- Comprueba si es movil o pc para mostrar u ocultar el menu -->
     <script>
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {

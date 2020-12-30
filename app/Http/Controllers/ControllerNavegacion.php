@@ -28,7 +28,7 @@ class ControllerNavegacion extends Controller
         return view('dashboard.productos.index');
         
     }
-    public function productosInfo(){
+    public function productos_info(){
         // return "dash";
         return view('dashboard.productos.info');
         
@@ -37,7 +37,7 @@ class ControllerNavegacion extends Controller
         // return "dash";
         return view('dashboard.negociantes.index');
     }
-    public function negociantesInfo(){
+    public function negociantes_info(){
         // return "dash";
         return view('dashboard.negociantes.info');
     }
@@ -45,9 +45,29 @@ class ControllerNavegacion extends Controller
         // return "dash";
         return view('dashboard.produccion.index');
     }
-    public function produccionInfo(){
+    public function produccion_info(){
         // return "dash";
         return view('dashboard.produccion.info');
+    }
+    public function compra(){
+        // return "Compra";
+        return view('dashboard.compras.index');
+    }
+    public function compra_info(){
+        // return "CompraInfo";
+        return view('dashboard.compras.info');
+    }
+    public function perfil_usuario(){
+        // return "Perfil usuario";
+        return view('dashboard.opciones_admin.info');
+    }
+    public function usuarios(){
+        // return "Perfil usuario";
+        return view('dashboard.opciones_admin.index');
+    }
+    public function usuarios_info(){
+        // return "Perfil usuario";
+        return view('dashboard.opciones_admin.usuariosInfo');
     }
 
 }

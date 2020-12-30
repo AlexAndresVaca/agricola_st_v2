@@ -19,6 +19,13 @@ active
         <h1 class="h3">Editar producto</h1>
     </div>
     <div class="card-body">
+        <!-- Si existe algún error -->
+        <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oops!</strong> No se realizaron cambios, ya existe otro producto con las mismas características.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> -->
         <form action="" method="post">
             @CSRF
             <div class="modal-body">
@@ -78,15 +85,17 @@ active
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <a href="{{route('productos')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i> Regresar</a>
+                <a href="{{route('productos')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i>
+                    Regresar</a>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </form>
     </div>
     <div class="card-footer">
-        <div class="container">
+        <div class="alert-danger px-4 py-2 rounded ">
+            <div class="h4"><i class="fas fa-exclamation-triangle"></i> Precaución</div>
             <div class="row justify-content-end">
-                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
+                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
                     data-target="#eliminarProducto"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>

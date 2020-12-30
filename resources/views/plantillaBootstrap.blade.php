@@ -10,6 +10,8 @@
     <!-- Bootstrap -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.css')}}" rel="stylesheet"> -->
     <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="{{asset('/resources/fontawesome/css/all.css')}}" rel="stylesheet">
     <!-- Styles -->
     <link href="" rel="stylesheet">
 </head>

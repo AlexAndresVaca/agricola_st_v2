@@ -25,7 +25,8 @@ active
         <div class="row">
             <div class="col">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Producto agregado!</strong> puedes editar su información <a href="{{route('productosInfo')}}">aquí</a>.
+                    <strong>Producto agregado!</strong> puedes editar su información <a
+                        href="{{route('productosInfo')}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -45,22 +46,19 @@ active
             </div>
         </div>
     </div>
-    <div class="card-header">
-        <div class="container mb-0">
-            <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                <h1 class="h3 mb-0 text-gray-800 text-center">Lista de productos</h1>
-                <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
-                    <i class="fas fa-file-pdf"></i>
-                    Descargar PDF
-                </a>
-            </div>
+    <div class="card-header bg-light">
+        <div class="d-sm-flex align-items-center justify-content-between mb-2">
+            <div class="h4 mb-0 text-gray-800 text-center text-uppercase">Lista de productos</div>
+            <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
+                <i class="fas fa-file-pdf"></i>
+                Descargar PDF
+            </a>
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos" width="100%"
-                cellspacing="0">
-                <thead class="thead-dark">
+            <table class="table table-hover tr-hover-red border table-bordered " id="tablaProductos" width="100%" cellspacing="0">
+                <thead class="text-gray-900 ">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Tipo</th>
@@ -71,10 +69,10 @@ active
                         <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
                     </tr>
                 </thead>
-                <tbody class="">
-                    <tr>
+                <tbody class="text-gray-900">
+                    <tr class="alert-danger">
                         <td scope="row">1</td>
-                        <td>Rosa</td>
+                        <td class="border-left-danger ">Rosa</td>
                         <td>Rojo</td>
                         <td>Extranjero</td>
                         <td>Largo</td>
@@ -85,6 +83,147 @@ active
                                 <span class="d-none d-sm-inline">Editar</span>
                             </a>
                         </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-primary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td class="border-left-secondary">Rosa</td>
+                        <td>Rojo</td>
+                        <td>Extranjero</td>
+                        <td>Largo</td>
+                        <td>16000</td>
+                        <td class="text-center w-75px">
+                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                                <i class="fas fa-edit"></i>
+                                <span class="d-none d-sm-inline">Editar</span>
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

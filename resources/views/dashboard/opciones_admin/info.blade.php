@@ -1,27 +1,24 @@
 @extends('plantillaDashboard')
 @section('name-page')
-Perfil del negociante
-@endsection
-@section('dealer-item')
-active
+Tu perfil
 @endsection
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{{route('negociantes')}}">Negociantes</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Información</li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{{route('dashboard')}}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tu perfil</li>
     </ol>
 </nav>
 @endsection
 @section('body')
 <div class="card shadow">
     <div class="card-header">
-        <h1 class="h3">Perfil del negociante</h1>
+        <h1 class="h3">Tu perfil</h1>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-2 col-sm-12">
-                <img src="{{asset('resources/img/undraw_businessman_97x4.svg')}}" alt="" class="img-thumbnail border-0"
+                <img src="{{asset('resources/img/undraw_pie_graph_x9dy.svg')}}" alt="" class="img-thumbnail border-0"
                     style="width: 400px;">
             </div>
             <div class="col-lg-6 text-gray-900 mb-3">
@@ -34,10 +31,6 @@ active
                 <div class="my-2">
                     <span class="h2">Alex</span>
                     <span class="h2">Vaca</span>
-                    <span class="mx-2">
-                        <a type="button" class="" data-toggle="modal" data-target="#editarNegociante"><i
-                                class="far fa-edit"></i> Editar</a>
-                    </span>
                 </div>
                 <hr>
                 <div class="my-2">
@@ -45,26 +38,33 @@ active
                         <span class=""><i class="fas fa-map-marker-alt text-gray-500"></i> </span><span>Cayambe, Av. 10
                             de agosto y Juan montalvo</span>
                     </div>
-                    <div class="">
+                    <div class="mb-3">
                         <span class=""><i class="fas fa-envelope text-gray-500"></i>
                         </span><span>alex80ghero@gmail.com</span>
+                    </div>
+                    <div class="">
+                        <span class=""><i class="fas fa-key text-gray-500"></i>
+                        </span><a type="button" class="" data-toggle="modal" data-target="#cambiarPass">Cambiar
+                            contraseña</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div class="h3 text-center text-gray-800">Actividad</div>
+                <div class="h3 text-center text-gray-800 mb-4"><i class="fa fa-cog"></i> Opciones</div>
                 <div class="row">
-                    <div class="col-6 border-right text-success">
-                        <div class="h5">Compras</div>
-                        <div class="h2">150</div>
+                    <div class="col-lg-12 text-success">
+                        <span class="badge badge-primary text-lg mr-4">Administrador</span>
+                        <a type="button" class="" data-toggle="modal" data-target="#editarUsuario"><i
+                                class="far fa-edit"></i> Editar</a>
+                        <hr>
                     </div>
-                    <div class="col-6 text-primary">
-                        <div class="h5">Ventas</div>
-                        <div class="h2">150</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 my-3">
+                    <!-- <div class="col-lg-12">
+                        <span class="badge badge-warning text-lg px-4 d-block">Empleado</span>
+                        <span class="text-xs"><span class="font-weight-bolder">Deseas actualizar información?</span>
+                        Comunicate con un administrador.</span>
+                        <hr>
+                    </div> -->
+                    <div class="col-lg-12">
                         <a href="" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
                                 class="fab fa-whatsapp"></i> 0987654321</a>
                     </div>
@@ -110,24 +110,17 @@ active
         </div>
     </div>
     <div class="card-footer">
-        <div class="alert-danger px-4 py-2 rounded ">
-            <div class="h4"><i class="fas fa-exclamation-triangle"></i> Precaución</div>
-            <div class="row justify-content-end">
-                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
-                    data-target="#eliminarNegociante"><i class="far fa-trash-alt"></i> Eliminar</button>
-            </div>
-        </div>
     </div>
 </div>
 
 @endsection
 @section('modal')
 <!-- Modal Editar -->
-<div class="modal fade" id="editarNegociante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar negociante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar información del usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -183,6 +176,15 @@ active
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
+                            <label for="">Tipo</label>
+                            <select name="" id="" class="form-control">
+                                <option value="">Administrador</option>
+                                <option value="">Empleado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
                             <label for="">Dirección</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Ej: Av.Principal y 10 de Agosto">
@@ -219,24 +221,70 @@ active
         </div>
     </div>
 </div>
-<!-- Modal Eliminar -->
-<div class="modal fade" id="eliminarNegociante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cambiarPass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar negociante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>Estas seguro de eliminar este negociante?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
-            </div>
+            <form action="" method="post">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="">Contraseña actual</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="***********">
+                                <div class="invalid-feedback">
+                                    Mensaje error
+                                </div>
+                                <div class="valid-feedback">
+                                    Mensaje confirmación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="">Nueva contraseña</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="***********">
+                                <small id="passwordHelpBlock1" class="form-text text-muted col-12">
+                                    La contraseña debe constar de al menos 8 caracteres.
+                                </small>
+                                <div class="invalid-feedback">
+                                    Mensaje error
+                                </div>
+                                <div class="valid-feedback">
+                                    Mensaje confirmación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="">Repita contraseña</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="***********">
+                                <div class="invalid-feedback">
+                                    Mensaje error
+                                </div>
+                                <div class="valid-feedback">
+                                    Mensaje confirmación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 @endsection

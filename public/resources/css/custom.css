@@ -1,0 +1,18 @@
+.shdw {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tr-hover-red>tbody>tr:hover {
+    background: rgba(119, 119, 119, 0.226);
+    color: black;
+}
+
+.page-item.active .page-link {
+    background-color: #e74a3b !important;
+    border: #e74a3b;
+    color: white !important;
+}
+
+.page-link {
+    color: gray !important;
+}
