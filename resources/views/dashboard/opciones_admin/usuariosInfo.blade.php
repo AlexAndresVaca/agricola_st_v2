@@ -302,21 +302,6 @@ Tu perfil
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="">Contraseña actual</label>
-                            <div class="input-group">
-                                <input type="password"
-                                    class="form-control @if($errors->get('clave_ant_usu'))is-invalid @endif"
-                                    placeholder="***********" name="clave_ant_usu" value="{{old('clave_ant_usu')}}">
-                                @if($errors->get('clave_ant_usu'))
-                                <div class="invalid-feedback">
-                                    {{$errors->first('clave_ant_usu')}}
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col">
                             <label for="">Nueva contraseña</label>
                             <div class="input-group">
                                 <input type="password"

@@ -63,7 +63,6 @@ class UsuariosController extends Controller
     public function usuarios_editar_clave(Request $request, $id){
         // return $update_user;
         $request->validate([
-            'clave_ant_usu' => 'required',
             'clave_act_usu' => 'required|min:8',
             'clave_rep_usu' => 'required|same:clave_act_usu',
         ],[
