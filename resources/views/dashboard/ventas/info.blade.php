@@ -1,14 +1,14 @@
 @extends('plantillaDashboard')
 @section('name-page')
-Detalles de la compra
+Detalles de la venta
 @endsection
-@section('purchase-item')
+@section('sail-item')
 active
 @endsection
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{{route('compra')}}">Compras</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{{route('venta')}}">Ventas</a></li>
         <li class="breadcrumb-item active" aria-current="page">Información</li>
     </ol>
 </nav>
@@ -16,9 +16,9 @@ active
 @section('body')
 <div class="card shadow">
     <div class="card-header">
-        <h1 class="h3">Detalles de compra</h1>
+        <h1 class="h3">Detalles de venta</h1>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Compra lista!</strong> Ahora puedes ingresar los productos a la compra.
+            <strong>Venta lista!</strong> Ahora puedes ingresar los productos a la venta.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -29,7 +29,7 @@ active
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                        <h6 class="m-0 font-weight-bold text-secondary">Información de la compra</h6>
+                        <h6 class="m-0 font-weight-bold text-secondary">Información de la venta</h6>
                     </a>
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample" style="">
@@ -154,7 +154,7 @@ active
                     <div class="table-responsive">
                         <div class="col-12 text-right my-4">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#cerrarCompra">Cerrar compra</button>
+                                data-target="#cerrarventa">Cerrar venta</button>
                         </div>
                         <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
                             width="100%" cellspacing="0">
@@ -194,10 +194,10 @@ active
     <div class="card-footer">
         <div class="container">
             <div class="row justify-content-between">
-                <a href="{{route('compra')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
+                <a href="{{route('venta')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
                 <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Cancelar compra</button>
+                    data-target="#cancelarventa"><i class="far fa-trash-alt"></i> Cancelar venta</button>
             </div>
         </div>
     </div>
@@ -205,44 +205,44 @@ active
 
 @endsection
 @section('modal')
-<!-- Modal Cancelar compra -->
-<div class="modal fade" id="cancelarCompra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Cancelar venta -->
+<div class="modal fade" id="cancelarventa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cancelar compra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cancelar venta</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de cancelar la compra? <strong class="text-gray-900">No podrás deshacer esta
+                <p>Estas seguro de cancelar la venta? <strong class="text-gray-900">No podrás deshacer esta
                         acción.</strong></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Cancelar compra</button>
+                <button type="button" class="btn btn-danger">Cancelar venta</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Cerrar compra -->
-<div class="modal fade" id="cerrarCompra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Cerrar venta -->
+<div class="modal fade" id="cerrarventa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cerrar compra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar venta</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de cerrar la compra? <strong class="text-gray-900">No podrás deshacer esta
+                <p>Estas seguro de cerrar la venta? <strong class="text-gray-900">No podrás deshacer esta
                         acción.</strong></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Cerrar compra</button>
+                <button type="button" class="btn btn-primary">Cerrar venta</button>
             </div>
         </div>
     </div>

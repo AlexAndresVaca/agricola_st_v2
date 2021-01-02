@@ -1,0 +1,6 @@
+lib
+use Illuminate\Support\Facades\Crypt;
+Encriptar
+Crypt::encrypt($request->clave_usu);
+Desencriptar
+Crypt::decrypt($new_user->clave_usu);

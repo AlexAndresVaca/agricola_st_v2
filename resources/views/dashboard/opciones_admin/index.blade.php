@@ -21,25 +21,23 @@ Gestión de Usuarios
     <div class="container">
         <div class="row">
             <div class="col">
+                @if(session('add_user') == true)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Usuario agregado!</strong> puedes <ins>ver</ins> o <ins>editar</ins> su información <a
-                        href="{{route('usuariosInfo')}}">aquí</a>.
+                        href="{{route('usuariosInfo',session('id_user'))}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Usuario actualizado!</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                @endif
+                @if(session('delete_user') == true)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Usuario eliminado!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -61,39 +59,33 @@ Gestión de Usuarios
                 <thead class="text-gray-900">
                     <tr>
                         <th scope="col">CI / ID</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido y Nombre</th>
                         <th scope="col">Cargo</th>
                         <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-900">
-                    <tr class="alert-danger">
-                        <td scope="row" class="border-left-danger">1712957396</td>
-                        <td>Vaca</td>
-                        <td>Alex</td>
-                        <td><span class="badge badge-primary">Administrador</span></td>
-                        <!-- <td><span class="badge badge-warning">Empleado</span></td> -->
+                    @foreach($list_usuarios as $item)
+                    <tr class="@if($item->estado_usu == false) alert-danger @endif">
+                        <td scope="row"
+                            class="@if($item->estado_usu == false)border-left-danger @else border-left-success @endif">
+                            {{$item->ci_usu}}</td>
+                        <td class="text-capitalize">{{$item->apellido_usu}} {{$item->nombre_usu}}</td>
+                        <td>
+                            @if($item->cargo_usu == 'Administrador')
+                            <span class="badge badge-primary">Administrador</span>
+                            @else
+                            <span class="badge badge-warning px-3">Empleado</span>
+                            @endif
+                        </td>
                         <td class="text-center w-75px">
-                            <a href="{{route('usuariosInfo')}}" class="text-secondary">
+                            <a href="{{route('usuariosInfo',$item->cod_usu)}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
                                 <span class="d-none d-sm-inline">Ver perfil</span>
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td scope="row" class="border-left-success">1712957396</td>
-                        <td>Vaca</td>
-                        <td>Alex</td>
-                        <td><span class="badge badge-primary">Administrador</span></td>
-                        <!-- <td><span class="badge badge-warning">Empleado</span></td> -->
-                        <td class="text-center w-75px">
-                            <a href="{{route('usuariosInfo')}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver perfil</span>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -109,7 +101,7 @@ Gestión de Usuarios
 </div>
 @endsection
 @section('modal')
-<div class="modal fade" id="nuevoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" hidden id="nuevoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -118,31 +110,32 @@ Gestión de Usuarios
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post">
+            <form action="{{route('usuarios_add')}}" method="POST" autocomplete="off">@CSRF
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="">CI/ID</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="Ej: 1705XXXXXX">
+                                <input type="text" class="form-control @if($errors->get('ci_usu')) is-invalid @endif"
+                                    placeholder="Ej: 1705XXXXXX" name="ci_usu" value="{{old('ci_usu')}}" maxlength="10" required>
+                                @if($errors->has('ci_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('ci_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col">
                             <label for="">Telefono</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="Ej: 0987XXXXXX">
+                                <input type="text" maxlength="13" minlength="9"
+                                    class="form-control @if($errors->get('telefono_usu')) is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="telefono_usu" value="{{old('telefono_usu')}}">
+                                @if($errors->has('telefono_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('telefono_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
 
                         </div>
@@ -151,28 +144,36 @@ Gestión de Usuarios
                         <div class="form-group col">
                             <label for="">Apellido</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Lee">
+                                <input type="text" maxlength="50" required
+                                    class="form-control @if($errors->get('apellido_usu')) is-invalid @endif"
+                                    placeholder="Ej: Lee" name="apellido_usu" value="{{old('apellido_usu')}}">
+                                @if($errors->has('apellido_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('apellido_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col">
                             <label for="">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Steve">
+                                <input type="text" maxlength="50" required
+                                    class="form-control @if($errors->get('nombre_usu')) is-invalid @endif"
+                                    placeholder="Ej: Steve" name="nombre_usu" value="{{old('nombre_usu')}}">
+                                @if($errors->has('nombre_usu'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('nombre_usu')}}
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="">Tipo</label>
-                            <select name="" id="" class="form-control">
-                                <option value="">Administrador</option>
-                                <option value="">Empleado</option>
+                            <select class="form-control" name="cargo_usu">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Empleado" selected>Empleado</option>
                             </select>
                         </div>
                     </div>
@@ -180,28 +181,30 @@ Gestión de Usuarios
                         <div class="form-group col">
                             <label for="">Contraseña</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" placeholder="*******************">
+                                <input type="password" minlength="8" required
+                                    class="form-control @if($errors->get('clave_usu')) is-invalid @endif"
+                                    placeholder="*******************" name="clave_usu">
                                 <small id="passwordHelpBlock" class="form-text text-muted">
                                     La contraseña debe constar de al menos 8 caracteres.
                                 </small>
+                                @if($errors->has('clave_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('clave_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col">
                             <label for="">Repita contraseña</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" placeholder="*******************">
+                                <input type="password" minlength="8" required
+                                    class="form-control @if($errors->get('clave_usu_rep')) is-invalid @endif"
+                                    placeholder="*******************" name="clave_usu_rep">
+                                @if($errors->has('clave_usu_rep'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('clave_usu_rep')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -209,13 +212,15 @@ Gestión de Usuarios
                         <div class="form-group col">
                             <label for="">Dirección</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Av.Principal y 10 de Agosto">
+                                <input type="text" maxlength="150"
+                                    class="form-control @if($errors->get('direccion_usu')) is-invalid @endif"
+                                    placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_usu"
+                                    value="{{old('direccion_usu')}}">
+                                @if($errors->has('direccion_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('direccion_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -223,13 +228,14 @@ Gestión de Usuarios
                         <div class="form-group col">
                             <label for="">Correo electronico</label>
                             <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Ej: correo@gmail.com">
+                                <input type="email" maxlength="60" required
+                                    class="form-control @if($errors->get('correo_usu')) is-invalid @endif"
+                                    placeholder="Ej: correo@gmail.com" name="correo_usu" value="{{old('correo_usu')}}">
+                                @if($errors->has('correo_usu'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('correo_usu')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -237,10 +243,23 @@ Gestión de Usuarios
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+@section('js')
+<script>
+$(document).ready(function() {
+    $("#nuevoUsuario").removeAttr("hidden");
+});
+</script>
+@if($errors->any())
+<script>
+$(document).ready(function() {
+    $('#nuevoUsuario').modal('show');
+});
+</script>
+@endif
 @endsection

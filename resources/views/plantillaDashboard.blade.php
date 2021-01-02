@@ -96,7 +96,7 @@
                     <span>Compra</span></a>
             </li>
             <li class="nav-item @yield('sail-item')">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('venta')}}">
                     <i class="fas fa-cash-register"></i>
                     <span>Venta</span></a>
             </li>
@@ -147,7 +147,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-100 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small font-weight-bold text-capitalize">{{session('nombre_usuario_activo')}} {{session('apellido_usuario_activo')}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('resources/img/undraw_profile.svg')}}">
                             </a>
@@ -159,10 +159,12 @@
                                     Perfil
                                 </a>
                                 <!-- En caso de ser administrador -->
+                                @if(session('cargo_usuario_activo')=='Administrador')
                                 <a class="dropdown-item" href="{{route('usuarios')}}">
                                     <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Usuarios
                                 </a>
+                                @endif
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -223,22 +225,21 @@
                 <div class="modal-body">Selecciona "Cerrar Sesión" si deseas salir al menu principal.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="{{route('index')}}">Cerrar Sesión</a>
+                    <form action="{{route('logout')}}" method="POST">@CSRF
+                        <button class="btn btn-danger" type="submit">Cerrar Sesión</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- SLOT MODALES -->
-    @yield('modal')
-    <!-- SLOT JS -->
-    @yield('js')
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('resources/sb-admin-2/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
+    
     <!-- Core plugin JavaScript-->
     <script src="{{asset('resources/sb-admin-2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
+    
     <!-- Custom scripts for all pages-->
     <script src="{{asset('resources/sb-admin-2/js/sb-admin-2.min.js')}}"></script>
     <!-- DATATABLES -->
@@ -246,8 +247,9 @@
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
-
+    
     <!-- Page level custom scripts -->
+    
     <!-- Comprueba si es movil o pc para mostrar u ocultar el menu -->
     <script>
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -255,6 +257,10 @@
         $("#accordionSidebar").addClass("toggled");
     }
     </script>
+    <!-- SLOT MODALES -->
+    @yield('modal')
+    <!-- SLOT JS -->
+    @yield('js')
 </body>
 
 </html>

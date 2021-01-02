@@ -64,7 +64,7 @@ $(document).ready(function() {
             },
             {
                 // Habilitar el orden
-                "targets": [4],
+                "targets": [3],
                 "orderable": false
             }
         ],
@@ -176,13 +176,13 @@ $(document).ready(function() {
             },
             {
                 // Habilitar el orden
-                "targets": [0, 4],
+                "targets": [0, 3],
                 "orderable": false
             }
         ],
         // Ordenamiento inicial por columna
         "order": [
-            [1, "desc"]
+            [1, "asc"]
         ]
     });
 });

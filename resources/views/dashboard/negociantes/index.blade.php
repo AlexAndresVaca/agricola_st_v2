@@ -23,25 +23,23 @@ active
     <div class="container">
         <div class="row">
             <div class="col">
+                @if(session('add_negociante'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Negociante agregado!</strong> puedes editar su información <a
-                        href="{{route('negociantesInfo')}}">aquí</a>.
+                        href="{{route('negociantesInfo',session('id_neg'))}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Negociante actualizado!</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                @endif
+                @if(session('delete_negociante'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Negociante eliminado!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -49,10 +47,10 @@ active
         <div class="container mb-0">
             <div class="d-sm-flex align-items-center justify-content-between mb-2">
                 <div class="h4 mb-0 text-gray-800">Lista de negociantes</div>
-                <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
                     <i class="fas fa-file-pdf"></i>
                     Descargar PDF
-                </a>
+                </a> -->
             </div>
         </div>
     </div>
@@ -63,24 +61,25 @@ active
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">CI / ID</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Contacto</th>
+                        <th scope="col">Apellido y Nombre</th>
+                        <th scope="col">Correo</th>
                         <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
                     </tr>
                 </thead>
                 <tbody class="">
+                    @foreach($list_negociantes as $item)
                     <tr>
-                        <td scope="row">1712957396</td>
-                        <td>Vaca</td>
-                        <td>Alex</td>
-                        <td>0999999999</td>
+                        <td scope="row">{{$item->ci_neg}}</td>
+                        <td class="text-capitalize">{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
+                        <td>{{$item->correo_neg}}</td>
                         <td class="text-center w-75px">
-                            <a href="{{route('negociantesInfo')}}" class="text-secondary">
+                            <a href="{{route('negociantesInfo',$item)}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
                                 <span class="d-none d-sm-inline">Ver perfil</span>
                             </a>
                         </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -105,31 +104,34 @@ active
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post">
+            <form action="{{route('negociantes_add')}}" method="POST" autocomplete="off"> @CSRF
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="">CI/ID</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="Ej: 1705XXXXXX">
+                                <input type="text" class="form-control @if($errors->has('ci_neg'))is-invalid @endif"
+                                    placeholder="Ej: 1705XXXXXX" name="ci_neg" value="{{old('ci_neg')}}" minlength="10"
+                                    maxlength="13" required>
+                                @if($errors->has('ci_neg'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('ci_neg')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col">
                             <label for="">Telefono</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="Ej: 0987XXXXXX">
+                                <input type="text"
+                                    class="form-control @if($errors->has('telefono_neg'))is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="telefono_neg" value="{{old('telefono_neg')}}"
+                                    minlength="9" maxlength="13">
+                                @if($errors->has('telefono_neg'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('telefono_neg')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
 
                         </div>
@@ -138,19 +140,28 @@ active
                         <div class="form-group col">
                             <label for="">Apellido</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Lee">
+                                <input type="text"
+                                    class="form-control @if($errors->has('apellido_neg'))is-invalid @endif"
+                                    placeholder="Ej: Lee" name="apellido_neg" value="{{old('apellido_neg')}}"
+                                    maxlength="50" required>
+                                @if($errors->has('apellido_neg'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('apellido_neg')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col">
                             <label for="">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Steve">
+                                <input type="text" class="form-control @if($errors->has('nombre_neg'))is-invalid @endif"
+                                    placeholder="Ej: Steve" name="nombre_neg" value="{{old('nombre_neg')}}"
+                                    maxlength="50" required>
+                                @if($errors->has('nombre_neg'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('nombre_neg')}}
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -158,13 +169,15 @@ active
                         <div class="form-group col">
                             <label for="">Dirección</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ej: Av.Principal y 10 de Agosto">
+                                <input type="text"
+                                    class="form-control @if($errors->has('direccion_neg'))is-invalid @endif"
+                                    placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_neg"
+                                    value="{{old('direccion_neg')}}" maxlength="150">
+                                @if($errors->has(''))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('direccion_neg')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -172,13 +185,15 @@ active
                         <div class="form-group col">
                             <label for="">Correo electronico</label>
                             <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Ej: correo@gmail.com">
+                                <input type="email"
+                                    class="form-control @if($errors->has('correo_neg'))is-invalid @endif"
+                                    placeholder="Ej: correo@gmail.com" name="correo_neg" value="{{old('correo_neg')}}"
+                                    maxlength="60" required>
+                                @if($errors->has('correo_neg'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('correo_neg')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -186,10 +201,19 @@ active
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+@if($errors->any())
+<script>
+$(document).ready(function() {
+    $('#nuevoNegociante').modal('show');
+});
+</script>
+@endif
 @endsection
