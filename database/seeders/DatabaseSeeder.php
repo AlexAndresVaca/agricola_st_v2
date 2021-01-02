@@ -28,6 +28,20 @@ class DatabaseSeeder extends Seeder
         $usuario->estado_usu = true;
         $usuario->save();
 
+
+
+        $usuario1 = new User;
+        $usuario1->ci_usu = '0503656902';
+        $usuario1->apellido_usu = 'Vanessa';
+        $usuario1->nombre_usu = 'Allison';
+        $usuario1->cargo_usu = 'Administrador';
+        $usuario1->telefono_usu = '';
+        $usuario1->direccion_usu = '';
+        $usuario1->correo_usu = 'allison@gmail.com';
+        $usuario1->clave_usu = Crypt::encrypt('123456789');
+        $usuario1->estado_usu = true;
+        $usuario1->save();
+
         // 
 
         $negociante = new Negociante;
