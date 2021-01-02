@@ -45,11 +45,12 @@ class DatabaseSeeder extends Seeder
         // 
 
         $negociante = new Negociante;
-        $negociante->ci_neg = '1712121212';
+        $negociante->cod_neg = 1;
+        $negociante->ci_neg = '0502402811';
         $negociante->apellido_neg = 'Banda';
         $negociante->nombre_neg = 'Monica';
-        $negociante->telefono_neg = '0987654321';
-        $negociante->direccion_neg = '';
+        $negociante->telefono_neg = '983413686';
+        $negociante->direccion_neg = 'Tanicuchi';
         $negociante->correo_neg = 'mony@gmail.com';
         $negociante->save();
     }

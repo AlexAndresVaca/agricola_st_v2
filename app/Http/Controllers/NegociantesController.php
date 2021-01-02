@@ -69,6 +69,9 @@ class NegociantesController extends Controller
         return back()->with(['update_negociante'=> true]);
     }
     public function negociantes_delete($id){
+        if($id == 1){
+            return back()->with(['error'=>true]);
+        }
         $delete_neg = Negociante::findOrFail($id);
         $delete_neg->delete();
         return redirect()->route('negociantes')->with(['delete_negociante'=> true]);
