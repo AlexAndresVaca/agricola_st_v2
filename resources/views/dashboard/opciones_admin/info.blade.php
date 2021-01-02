@@ -96,7 +96,7 @@ Tu perfil
                             <td>Sab. 15 de noviembre del 2020</td>
                             <td>Compra</td>
                             <td class="text-center w-75px">
-                                <a href="{{route('negociantesInfo')}}" class="text-secondary">
+                                <a href="" class="text-secondary">
                                     <i class="fas fa-eye"></i>
                                     <span class="d-none d-sm-inline">Ver</span>
                                 </a>
