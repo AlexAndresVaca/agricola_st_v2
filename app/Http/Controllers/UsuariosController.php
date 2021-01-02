@@ -70,9 +70,6 @@ class UsuariosController extends Controller
             ]);
 
         $update_user = User::findOrFail($id);
-        if($request->clave_ant_usu != Crypt::decrypt($update_user->clave_usu)){
-            return back()->withErrors(['clave_ant_usu'=>'Contraseña incorrecta'])->withInput();
-        };
         $update_user->clave_usu = Crypt::encrypt($request->clave_act_usu); 
         $update_user->save(); 
         return back()->with(['update_pass'=>true]);
