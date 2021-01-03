@@ -54,7 +54,7 @@ Gestión de Usuarios
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover tr-hover-red border table-bordered" id="tablaUsuarios" width="100%"
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaUsuarios" width="100%"
                 cellspacing="0">
                 <thead class="text-gray-900">
                     <tr>
@@ -66,7 +66,7 @@ Gestión de Usuarios
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach($list_usuarios as $item)
-                    <tr class="@if($item->estado_usu == false) alert-danger @endif">
+                    <tr class="@if($item->estado_usu == false) tr-danger @endif">
                         <td scope="row"
                             class="@if($item->estado_usu == false)border-left-danger @else border-left-success @endif">
                             {{$item->ci_usu}}</td>
@@ -91,12 +91,12 @@ Gestión de Usuarios
         </div>
     </div>
     <div class="d-block d-sm-none card-footer">
-        <div class="container">
+        <!-- <div class="container">
             <div class="col d-flex justify-content-center">
                 <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i>
                     Descargar PDF</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection
@@ -117,7 +117,8 @@ Gestión de Usuarios
                             <label for="">CI/ID</label>
                             <div class="input-group">
                                 <input type="text" class="form-control @if($errors->get('ci_usu')) is-invalid @endif"
-                                    placeholder="Ej: 1705XXXXXX" name="ci_usu" value="{{old('ci_usu')}}" maxlength="10" required>
+                                    placeholder="Ej: 1705XXXXXX" name="ci_usu" value="{{old('ci_usu')}}" maxlength="10"
+                                    required>
                                 @if($errors->has('ci_usu'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('ci_usu')}}
@@ -126,14 +127,17 @@ Gestión de Usuarios
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="">Telefono</label>
+                            <label for="">Celular</label>
                             <div class="input-group">
-                                <input type="text" maxlength="13" minlength="9"
-                                    class="form-control @if($errors->get('telefono_usu')) is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="telefono_usu" value="{{old('telefono_usu')}}">
-                                @if($errors->has('telefono_usu'))
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+593</div>
+                                </div>
+                                <input type="text"
+                                    class="form-control @if($errors->get('celular_usu')) is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="celular_usu" value="{{old('celular_usu')}}" maxlength="9">
+                                @if($errors->has('celular_usu'))
                                 <div class="invalid-feedback">
-                                    {{$errors->first('telefono_usu')}}
+                                    {{$errors->first('celular_usu')}}
                                 </div>
                                 @endif
                             </div>

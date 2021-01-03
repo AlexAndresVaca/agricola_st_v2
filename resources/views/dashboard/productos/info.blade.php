@@ -20,66 +20,102 @@ active
     </div>
     <div class="card-body">
         <!-- Si existe algún error -->
-        <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Oops!</strong> No se realizaron cambios, ya existe otro producto con las mismas características.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div> -->
-        <form action="" method="post">
+        @if($errors->has('producto_existente'))
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Oops!</strong> No se realizaron cambios, ya existe otro producto con las mismas
+                    características.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(session('update_producto'))
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Producto actualizado!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @endif
+        <form action="{{route('productos_update',$read_producto)}}" method="POST">
             @CSRF
             <div class="modal-body">
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Tipo</label>
-                        <select name="" id="" class="custom-select mr-sm-2">
-                            <option selected></option>
-                            <option value="">Rosa</option>
-                            <option value="">Clavel</option>
-                        </select>
+                        <div class="input-group">
+                            <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif"
+                                placeholder="Ej: Clavel" name="tipo_prod"
+                                value="@if($errors->get('tipo_prod')){{old('tipo_prod')}}@else{{$read_producto->tipo_prod}}@endif"
+                                required>
+                            @if($errors->has('tipo_prod'))
+                            <div class="invalid-feedback">
+                                {{$errors->first('tipo_prod')}}
+                            </div>
+                            @endif
+                        </div>
+                        <small id="passwordHelpBlock" class="form-text text-muted ml-2">
+                            El nombre debe ser en singular.
+                        </small>
                     </div>
                     <div class="form-group col">
                         <label for="">Color</label>
-                        <select name="" id="" class="custom-select mr-sm-2">
-                            <option selected></option>
-                            <option value="">Rojo</option>
-                            <option value="">Blanco</option>
-                            <option value="">Varios</option>
+                        <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif"
+                            name="color_prod">
+                            <option selected value="{{$read_producto->color_prod}}">{{$read_producto->color_prod}} (Sin
+                                modificar)</option>
+                            <option value="Rojo">Rojo</option>
+                            <option value="Color">Color (Otros)</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Destino</label>
-                        <select name="" id="" class="custom-select mr-sm-2">
-                            <option selected></option>
-                            <option value="">Nacional</option>
-                            <option value="">Extranjero</option>
+                        <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif"
+                            name="destino_prod">
+                            <option selected value="{{$read_producto->destino_prod}}">{{$read_producto->destino_prod}}
+                                (Sin modificar)</option>
+                            <option value="Nacional">Nacional</option>
+                            <option value="Extranjero">Extranjero</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Tamaño</label>
-                        <select name="" id="" class="custom-select mr-sm-2">
-                            <option selected></option>
-                            <option value="">Largo</option>
-                            <option value="">Corto</option>
+                        <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif"
+                            name="tamano_prod">
+                            <option selected value="{{$read_producto->tamano_prod}}">{{$read_producto->tamano_prod}}
+                                (Sin modificar)</option>
+                            <option value="Fancy">Fancy (Largo)</option>
+                            <option value="Selecta">Selecta (Corto)</option>
                         </select>
                     </div>
                     <div class="form-group col">
                         <label for="">Stock</label>
                         <div class="input-group">
-                            <input type="number" min="0" class="form-control is-valid" placeholder="Ej: 500">
+                            <input type="number" min="0"
+                                class="form-control @if($errors->has('stock_prod')) is-invalid @endif"
+                                placeholder="Ej: 500" name="stock_prod"
+                                value="@if($errors->get('stock_prod')){{old('stock_prod')}}@else{{$read_producto->stock_prod}}@endif"
+                                required>
                             <div class="input-group-append" title="Unidades">
-                                <div class="input-group-text">U.</div>
+                                <div class="input-group-text text-xs">Unidades</div>
                             </div>
+                            @if($errors->has('stock_prod'))
                             <div class="invalid-feedback">
-                                Mensaje error
+                                {{$errors->first('stock_prod')}}
                             </div>
-                            <div class="valid-feedback">
-                                Mensaje confirmación
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -87,7 +123,7 @@ active
             <div class="modal-footer d-flex justify-content-between">
                 <a href="{{route('productos')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i>
                     Regresar</a>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
             </div>
         </form>
     </div>
@@ -119,7 +155,9 @@ active
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <form action="{{route('productos_delete',$read_producto)}}" method="POST">@CSRF
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </div>
         </div>
     </div>

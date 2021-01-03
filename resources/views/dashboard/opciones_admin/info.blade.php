@@ -59,10 +59,10 @@ Tu perfil
                         @endif
                         <hr>
                     </div>
-                    @if($read_user->telefono_usu)
+                    @if($read_user->celular_usu)
                     <div class="col-lg-12">
-                        <a href="" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
-                                class="fab fa-whatsapp"></i> {{$read_user->telefono_usu}}</a>
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text=" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
+                                class="fab fa-whatsapp"></i> 0{{$read_user->celular_usu}}</a>
                     </div>
                     @endif
                 </div>

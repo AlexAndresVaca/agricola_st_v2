@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Negociante;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Crypt;
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $usuario->apellido_usu = 'Vaca';
         $usuario->nombre_usu = 'Alex';
         $usuario->cargo_usu = 'Administrador';
-        $usuario->telefono_usu = '';
+        $usuario->celular_usu = '';
         $usuario->direccion_usu = '';
         $usuario->correo_usu = 'alex@gmail.com';
         $usuario->clave_usu = Crypt::encrypt('12341234');
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $usuario1->apellido_usu = 'Vanessa';
         $usuario1->nombre_usu = 'Allison';
         $usuario1->cargo_usu = 'Administrador';
-        $usuario1->telefono_usu = '';
+        $usuario1->celular_usu = '993223514';
         $usuario1->direccion_usu = '';
         $usuario1->correo_usu = 'allison@gmail.com';
         $usuario1->clave_usu = Crypt::encrypt('123456789');
@@ -49,9 +50,27 @@ class DatabaseSeeder extends Seeder
         $negociante->ci_neg = '0502402811';
         $negociante->apellido_neg = 'Banda';
         $negociante->nombre_neg = 'Monica';
-        $negociante->telefono_neg = '983413686';
+        $negociante->celular_neg = '983413686';
         $negociante->direccion_neg = 'Tanicuchi';
         $negociante->correo_neg = 'mony@gmail.com';
         $negociante->save();
+        
+        // 
+
+        $producto = new Producto;
+        $producto->tipo_prod = 'Clavel';
+        $producto->color_prod = 'Rojo';
+        $producto->destino_prod = 'Extranjero';
+        $producto->tamano_prod = 'Fancy';
+        $producto->stock_prod = 140;
+        $producto->save();
+
+        $producto1 = new Producto;
+        $producto1->tipo_prod = 'Clavel';
+        $producto1->color_prod = 'Color';
+        $producto1->destino_prod = 'Nacional';
+        $producto1->tamano_prod = 'Fancy';
+        $producto1->stock_prod = 880;
+        $producto1->save();
     }
 }

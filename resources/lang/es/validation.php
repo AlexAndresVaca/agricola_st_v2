@@ -172,5 +172,12 @@ return [
         'telefono_neg'            => 'teléfono',
         'direccion_neg'           => 'dirección',
         'correo_neg'              => 'correo',
+        // 
+        'tipo_prod'               => 'tipo',
+        'color_prod'              => 'color',
+        'destino_prod'            => 'destino',
+        'tamano_prod'             => 'tamaño',
+        'stock_prod'              => 'stock',
+        
     ],
 ];

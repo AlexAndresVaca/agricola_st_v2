@@ -68,9 +68,9 @@ active
                 </div>
                 <div class="row">
                     <div class="col-lg-12 my-3">
-                        @if($read_neg->telefono_neg)
-                        <a href="" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
-                                class="fab fa-whatsapp"></i> {{$read_neg->telefono_neg}}</a>
+                        @if($read_neg->celular_neg)
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_neg->celular_neg}}&text=" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
+                                class="fab fa-whatsapp"></i> 0{{$read_neg->celular_neg}}</a>
                         @endif
                     </div>
                 </div>
@@ -89,7 +89,8 @@ active
                 @endif
                 @if(session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>No puedes eliminar este usuario!</strong> Actualmente las producciones se les atribuyen a esta persona.
+                    <strong>No puedes eliminar este usuario!</strong> Actualmente las producciones se les atribuyen a
+                    esta persona.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -175,16 +176,19 @@ active
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="">Telefono</label>
+                            <label for="">Celular</label>
                             <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+593</div>
+                                </div>
                                 <input type="text"
-                                    class="form-control @if($errors->has('telefono_neg'))is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="telefono_neg"
-                                    value="@if($errors->has('telefono_neg')){{old('telefono_neg')}}@else{{$read_neg->telefono_neg}}@endif"
+                                    class="form-control @if($errors->has('celular_neg'))is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="celular_neg"
+                                    value="@if($errors->has('celular_neg')){{old('celular_neg')}}@else{{$read_neg->celular_neg}}@endif"
                                     minlength="9" maxlength="13">
-                                @if($errors->has('telefono_neg'))
+                                @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">
-                                    {{$errors->first('telefono_neg')}}
+                                    {{$errors->first('celular_neg')}}
                                 </div>
                                 @endif
                             </div>

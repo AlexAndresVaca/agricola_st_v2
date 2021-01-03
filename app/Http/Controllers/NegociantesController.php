@@ -17,7 +17,7 @@ class NegociantesController extends Controller
             'ci_neg' => 'required|regex:/[0-9]/|string|min:10|max:13|unique:negociantes,ci_neg',
             'apellido_neg' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_neg' => 'required|regex:/[A-Za-z\s]/|max:50',
-            'telefono_neg' => 'nullable|regex:/[0-9]/|min:9|max:13',
+            'celular_neg' => 'nullable|regex:/[0-9]/|size:9',
             'direccion_neg' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_neg' => 'required|email|unique:negociantes,correo_neg',
         ], [
@@ -30,7 +30,7 @@ class NegociantesController extends Controller
         $new_negociante->ci_neg = $request->ci_neg;
         $new_negociante->apellido_neg = $request->apellido_neg;
         $new_negociante->nombre_neg = $request->nombre_neg;
-        $new_negociante->telefono_neg = $request->telefono_neg;
+        $new_negociante->celular_neg = $request->celular_neg;
         $new_negociante->direccion_neg = $request->direccion_neg;
         $new_negociante->correo_neg = $request->correo_neg;
         $new_negociante->save();
@@ -48,7 +48,7 @@ class NegociantesController extends Controller
             'ci_neg' => 'required|regex:/[0-9]/|string|min:10|max:13|unique:negociantes,ci_neg,'.$id.',cod_neg',
             'apellido_neg' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_neg' => 'required|regex:/[A-Za-z\s]/|max:50',
-            'telefono_neg' => 'nullable|regex:/[0-9]/|min:9|max:13',
+            'celular_neg' => 'nullable|regex:/[0-9]/|size:9',
             'direccion_neg' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_neg' => 'required|email|unique:negociantes,correo_neg,'.$id.',cod_neg',
         ], [
@@ -61,7 +61,7 @@ class NegociantesController extends Controller
         $update_negociante->ci_neg = $request->ci_neg;
         $update_negociante->apellido_neg = $request->apellido_neg;
         $update_negociante->nombre_neg = $request->nombre_neg;
-        $update_negociante->telefono_neg = $request->telefono_neg;
+        $update_negociante->celular_neg = $request->celular_neg;
         $update_negociante->direccion_neg = $request->direccion_neg;
         $update_negociante->correo_neg = $request->correo_neg;
         $update_negociante->save();

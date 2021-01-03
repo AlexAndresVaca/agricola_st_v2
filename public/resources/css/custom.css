@@ -16,3 +16,11 @@
 .page-link {
     color: gray !important;
 }
+
+.tr-danger {
+    background: rgba(255, 0, 0, 0.2)!important;
+}
+
+.tr-danger:hover {
+    background: rgba(255, 0, 0, 0.4)!important;
+}

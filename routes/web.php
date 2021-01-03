@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerNavegacion;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NegociantesController;
+use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\UsuariosController;
 
 /*
@@ -41,11 +42,15 @@ Route::POST('dashboard/negociantes/add',[NegociantesController::class, 'negocian
 Route::get('dashboard/negociantes/informacion={id}',[NegociantesController::class, 'negociantes_info'] )->middleware('logeado')->name('negociantesInfo');
 Route::POST('dashboard/negociantes/informacion={id}/update',[NegociantesController::class, 'negociantes_update'] )->middleware('logeado')->name('negociantes_update');
 Route::POST('dashboard/negociantes/informacion={id}/delete',[NegociantesController::class, 'negociantes_delete'] )->middleware('logeado')->name('negociantes_delete');
+// Producto
+Route::get('dashboard/productos/',[ProductosController::class, 'productos'] )->middleware('logeado')->name('productos');
+Route::POST('dashboard/productos/add',[ProductosController::class, 'productos_add'] )->middleware('logeado')->name('productos_add');
+Route::get('dashboard/productos/informacion_pdt={id}/',[ProductosController::class, 'productos_info'] )->middleware('logeado')->name('productosInfo');
+Route::POST('dashboard/productos/informacion_pdt={id}/update',[ProductosController::class, 'productos_update'] )->middleware('logeado')->name('productos_update');
+Route::POST('dashboard/productos/informacion_pdt={id}/delete',[ProductosController::class, 'productos_delete'] )->middleware('logeado')->name('productos_delete');
 // 
 Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware('logeado')->name('dashboard');
-Route::get('dashboard/productos/',[ControllerNavegacion::class, 'productos'] )->middleware('logeado')->name('productos');
-Route::get('dashboard/productos/informacion/',[ControllerNavegacion::class, 'productos_info'] )->name('productosInfo');
 Route::get('dashboard/produccion',[ControllerNavegacion::class, 'produccion'] )->name('produccion');
 Route::get('dashboard/produccion/informacion',[ControllerNavegacion::class, 'produccion_info'] )->name('produccionInfo');
 Route::get('dashboard/compra',[ControllerNavegacion::class, 'compra'] )->name('compra');

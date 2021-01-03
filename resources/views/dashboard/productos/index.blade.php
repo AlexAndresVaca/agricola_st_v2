@@ -24,40 +24,40 @@ active
     <div class="container">
         <div class="row">
             <div class="col">
+                @if(session('add_producto'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Producto agregado!</strong> puedes editar su información <a
-                        href="{{route('productosInfo')}}">aquí</a>.
+                        href="{{route('productosInfo',session('id_producto'))}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Producto actualizado!</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                @endif
+                
+                @if(session('delete_producto'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Producto eliminado!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
             </div>
         </div>
     </div>
     <div class="card-header bg-light">
         <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <div class="h4 mb-0 text-gray-800 text-center text-uppercase">Lista de productos</div>
-            <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
                 <i class="fas fa-file-pdf"></i>
                 Descargar PDF
-            </a>
+            </a> -->
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover tr-hover-red border table-bordered " id="tablaProductos" width="100%" cellspacing="0">
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaProductos" width="100%"
+                cellspacing="0">
                 <thead class="text-gray-900 ">
                     <tr>
                         <th scope="col">#</th>
@@ -70,171 +70,34 @@ active
                     </tr>
                 </thead>
                 <tbody class="text-gray-900">
-                    <tr class="alert-danger">
+                    @foreach($list_productos as $item)
+                    <tr class="@if($item->stock_prod < 150 )tr-danger @endif">
                         <td scope="row">1</td>
-                        <td class="border-left-danger ">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
+                        <td class=" @if($item->stock_prod < 150 )border-left-danger @else border-left-primary @endif">
+                            {{$item->tipo_prod}}</td>
+                        <td>{{$item->color_prod}}</td>
+                        <td>{{$item->destino_prod}}</td>
+                        <td>{{$item->tamano_prod}}</td>
+                        <td>{{$item->stock_prod}}</td>
                         <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
+                            <a href="{{route('productosInfo',$item)}}" class="text-secondary">
                                 <i class="fas fa-edit"></i>
                                 <span class="d-none d-sm-inline">Editar</span>
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-primary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td class="border-left-secondary">Rosa</td>
-                        <td>Rojo</td>
-                        <td>Extranjero</td>
-                        <td>Largo</td>
-                        <td>16000</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('productosInfo')}}" class="text-secondary">
-                                <i class="fas fa-edit"></i>
-                                <span class="d-none d-sm-inline">Editar</span>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
     <div class="d-block d-sm-none card-footer">
-        <div class="container">
+        <!-- <div class="container">
             <div class="col d-flex justify-content-center">
                 <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i>
                     Descargar PDF</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection
@@ -249,60 +112,70 @@ active
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post">
+            <form action="{{route('productos_add')}}" method="POST" autocomplete="off">
                 @CSRF
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="">Tipo</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rosa</option>
-                                <option value="">Clavel</option>
-                            </select>
+                            <div class="input-group">
+                                <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif"
+                                    placeholder="Ej: Clavel" name="tipo_prod" value="{{old('tipo_prod')}}" required>
+                                @if($errors->has('tipo_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('tipo_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                            <small id="passwordHelpBlock" class="form-text text-muted ml-2">
+                                El nombre debe ser en singular.
+                            </small>
                         </div>
                         <div class="form-group col">
-                            <label for="">Color</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rojo</option>
-                                <option value="">Blanco</option>
-                                <option value="">Varios</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="">Destino</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Nacional</option>
-                                <option value="">Extranjero</option>
+                            <label>Color</label>
+                            <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif"
+                                name="color_prod">
+                                <option selected>Seleccionar</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Color">Color (Otros)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="">Tamaño</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Largo</option>
-                                <option value="">Corto</option>
+                            <label>Destino</label>
+                            <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif"
+                                name="destino_prod">
+                                <option selected>Seleccionar</option>
+                                <option value="Nacional">Nacional</option>
+                                <option value="Extranjero">Extranjero</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label>Tamaño</label>
+                            <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif"
+                                name="tamano_prod">
+                                <option selected>Seleccionar</option>
+                                <option value="Fancy">Fancy (Largo)</option>
+                                <option value="Selecta">Selecta (Corto)</option>
                             </select>
                         </div>
                         <div class="form-group col">
                             <label for="">Stock</label>
                             <div class="input-group">
-                                <input type="number" min="0" class="form-control is-valid" placeholder="Ej: 500">
+                                <input type="number" min="0"
+                                    class="form-control @if($errors->has('stock_prod')) is-invalid @endif"
+                                    placeholder="Ej: 500" name="stock_prod" value="{{old('stock_prod')}}" required>
                                 <div class="input-group-append" title="Unidades">
-                                    <div class="input-group-text">U.</div>
+                                    <div class="input-group-text text-xs">Unidades</div>
                                 </div>
+                                @if($errors->has('stock_prod'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('stock_prod')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -317,4 +190,11 @@ active
 </div>
 @endsection
 @section('js')
+@if($errors->any())
+<script>
+$(document).ready(function() {
+    $('#nuevoProducto').modal('show');
+});
+</script>
+@endif
 @endsection

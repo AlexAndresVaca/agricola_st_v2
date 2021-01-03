@@ -21,16 +21,6 @@ class ControllerNavegacion extends Controller
         return view('dashboard.inicio')->with('nombre_usu_comp','Alex Vaca');
         
     }
-    public function productos(Request $request){
-       
-        return view('dashboard.productos.index');
-        
-    }
-    public function productos_info(){
-        // return "dash";
-        return view('dashboard.productos.info');
-        
-    }
     
     public function produccion(){
         // return "dash";

@@ -67,10 +67,10 @@ Tu perfil
                                 class="far fa-edit"></i> Editar</a>
                         <hr>
                     </div>
-                    @if($read_user->telefono_usu)
+                    @if($read_user->celular_usu)
                     <div class="col-lg-12">
-                        <a href="" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
-                                class="fab fa-whatsapp"></i> {{$read_user->telefono_usu}}</a>
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text=" target="_blank" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
+                                class="fab fa-whatsapp"></i> 0{{$read_user->celular_usu}}</a>
                     </div>
                     @endif
                 </div>
@@ -195,17 +195,19 @@ Tu perfil
                         <div class="form-group col">
                             <label for="">Telefono</label>
                             <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+593</div>
+                                </div>
                                 <input type="text"
-                                    class="form-control @if($errors->get('telefono_usu'))is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="telefono_usu"
-                                    value="@if($errors->has('telefono_usu')){{old('telefono_usu')}}@else{{$read_user->telefono_usu}}@endif">
-                                @if($errors->get('telefono_usu'))
+                                    class="form-control @if($errors->get('celular_usu'))is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="celular_usu"
+                                    value="@if($errors->has('celular_usu')){{old('celular_usu')}}@else{{$read_user->celular_usu}}@endif" maxlength="9">
+                                @if($errors->get('celular_usu'))
                                 <div class="invalid-feedback">
-                                    {{$errors->first('telefono_usu')}}
+                                    {{$errors->first('celular_usu')}}
                                 </div>
                                 @endif
                             </div>
-
                         </div>
                     </div>
                     <div class="form-row">
@@ -241,8 +243,10 @@ Tu perfil
                         <div class="form-group col">
                             <label for="">Tipo</label>
                             <select name="cargo_usu" id="" class="form-control">
-                                <option value="Administrador" @if($read_user->cargo_usu == 'Administrador')selected @endif>Administrador</option>
-                                <option value="Empleado" @if($read_user->cargo_usu == 'Empleado')selected @endif  >Empleado</option>
+                                <option value="Administrador" @if($read_user->cargo_usu == 'Administrador')selected
+                                    @endif>Administrador</option>
+                                <option value="Empleado" @if($read_user->cargo_usu == 'Empleado')selected @endif
+                                    >Empleado</option>
                             </select>
                         </div>
                     </div>
@@ -374,7 +378,7 @@ $(document).ready(function() {
 });
 </script>
 @endif
-@if($errors->has('ci_usu') OR $errors->has('apellido_usu') OR $errors->has('nombre_usu') OR $errors->has('telefono_usu')
+@if($errors->has('ci_usu') OR $errors->has('apellido_usu') OR $errors->has('nombre_usu') OR $errors->has('celular_usu')
 OR
 $errors->has('direccion_usu') OR $errors->has('correo_usu'))
 <script>

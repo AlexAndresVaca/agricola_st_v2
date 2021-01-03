@@ -56,9 +56,9 @@ active
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-light table-bordered table-striped table-hover" id="tablaNegociantes" width="100%"
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaNegociantes" width="100%"
                 cellspacing="0">
-                <thead class="thead-dark">
+                <thead class="text-gray-900">
                     <tr>
                         <th scope="col">CI / ID</th>
                         <th scope="col">Apellido y Nombre</th>
@@ -66,7 +66,7 @@ active
                         <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
                     </tr>
                 </thead>
-                <tbody class="">
+                <tbody class="text-gray-900">
                     @foreach($list_negociantes as $item)
                     <tr>
                         <td scope="row">{{$item->ci_neg}}</td>
@@ -121,15 +121,18 @@ active
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="">Telefono</label>
+                            <label for="">Celular</label>
                             <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+593</div>
+                                </div>
                                 <input type="text"
-                                    class="form-control @if($errors->has('telefono_neg'))is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="telefono_neg" value="{{old('telefono_neg')}}"
-                                    minlength="9" maxlength="13">
-                                @if($errors->has('telefono_neg'))
+                                    class="form-control @if($errors->has('celular_neg'))is-invalid @endif"
+                                    placeholder="Ej: 0987XXXXXX" name="celular_neg" value="{{old('celular_neg')}}"
+                                    minlength="9" maxlength="9">
+                                @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">
-                                    {{$errors->first('telefono_neg')}}
+                                    {{$errors->first('celular_neg')}}
                                 </div>
                                 @endif
                             </div>

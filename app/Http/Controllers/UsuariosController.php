@@ -20,7 +20,7 @@ class UsuariosController extends Controller
             'apellido_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'cargo_usu' => '',
-            'telefono_usu' => 'nullable|regex:/[0-9]/|min:9|max:13',
+            'celular_usu' => 'nullable|regex:/[0-9]/|size:9',
             'direccion_usu' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_usu' => 'required|email|unique:users,correo_usu',
             'clave_usu' => 'required|min:8',
@@ -33,7 +33,7 @@ class UsuariosController extends Controller
         $new_user->apellido_usu = $request->apellido_usu;
         $new_user->nombre_usu = $request->nombre_usu;
         $new_user->cargo_usu = $request->cargo_usu;
-        $new_user->telefono_usu = $request->telefono_usu;
+        $new_user->celular_usu = $request->celular_usu;
         $new_user->direccion_usu = $request->direccion_usu;
         $new_user->correo_usu = $request->correo_usu;
         $new_user->clave_usu = Crypt::encrypt($request->clave_usu);
@@ -80,7 +80,7 @@ class UsuariosController extends Controller
             'apellido_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'cargo_usu' => '',
-            'telefono_usu' => 'nullable|regex:/[0-9]/|min:9|max:13',
+            'celular_usu' => 'nullable|regex:/[0-9]/|size:9',
             'direccion_usu' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_usu' => 'required|email|unique:users,correo_usu,'.$id.',cod_usu',
         ], [
@@ -93,7 +93,7 @@ class UsuariosController extends Controller
         $update_user->apellido_usu = $request->apellido_usu;
         $update_user->nombre_usu = $request->nombre_usu;
         $update_user->cargo_usu = $request->cargo_usu;
-        $update_user->telefono_usu = $request->telefono_usu;
+        $update_user->celular_usu = $request->celular_usu;
         $update_user->direccion_usu = $request->direccion_usu;
         $update_user->correo_usu = $request->correo_usu;
         $update_user->save();
