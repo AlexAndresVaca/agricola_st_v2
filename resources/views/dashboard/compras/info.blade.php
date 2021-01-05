@@ -17,12 +17,14 @@ active
 <div class="card shadow">
     <div class="card-header">
         <h1 class="h3">Detalles de compra</h1>
+        @if(session('add_compra'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Compra lista!</strong> Ahora puedes ingresar los productos a la compra.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
@@ -32,18 +34,25 @@ active
                         <h6 class="m-0 font-weight-bold text-secondary">Información de la compra</h6>
                     </a>
                     <!-- Card Content - Collapse -->
-                    <div class="collapse" id="collapseCardExample" style="">
+                    <div class="collapse show" id="collapseCardExample">
                         <div class="card-body">
                             <div class="text-gray-900 font-weight-bolder ">
                                 <div>
                                     <i class="fas fa-calendar-day"></i>
                                     Fecha:
-                                    <span class="font-weight-normal">Sab, 25 de noviembre del 2020</span>
+                                    <span class="font-weight-normal">
+                                        {{\Carbon\Carbon::parse($read_compra->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</span>
                                 </div>
                                 <div>
                                     <i class="fas fa-id-card"></i>
                                     Nombre del cliente:
-                                    <span class="font-weight-normal">Apellido Nombre</span>
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_negociante))
+                                        {{$read_negociante->apellido_neg}} {{$read_negociante->nombre_neg}}
+                                        @else
+                                        <span class="text-muted ">[Negociante eliminado]</span>
+                                        @endif
+                                    </span>
                                 </div>
                                 <div>
                                     <i class="fas fa-info-circle"></i>
@@ -52,7 +61,13 @@ active
                                 <div>
                                     <i class="fas fa-user-tag"></i>
                                     Registrado por:
-                                    <span class="font-weight-normal">Vaca Alex</span>
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_usuario))
+                                        {{$read_usuario->apellido_usu}} {{$read_usuario->nombre_usu}}
+                                        @else
+                                        <span class="text-muted ">[Usuario eliminado]</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -66,6 +81,7 @@ active
     </div>
     <div class="card-body">
         <div class="container">
+            @if($read_compra->estado_trans == 'en curso')
             <div class="row">
                 <form action="" method="post">
                     @CSRF
@@ -127,35 +143,44 @@ active
                     </div>
                 </form>
             </div>
+            @endif
             <div class="row">
                 <div class="col">
+                    @if(session('add_prod_compra'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Producto agregado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if(session('add_prod_no_encontrado'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Producto no encontrado!</strong> revisa tus datos y vuelve a intentar.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if(session('add_prod_eliminado'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Producto eliminado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="table-responsive">
+                        @if($read_compra->estado_trans == 'en curso')
                         <div class="col-12 text-right my-4">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#cerrarCompra">Cerrar compra</button>
                         </div>
+                        @endif
                         <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
                             width="100%" cellspacing="0">
                             <thead class="thead-dark">
@@ -178,10 +203,18 @@ active
                                     <td>Largo</td>
                                     <td>160</td>
                                     <td class="text-center w-75px">
-                                        <button type="button" class="btn btn-circle btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                            <!-- <span class="d-none d-sm-inline">Eliminar</span> -->
+                                        @if($read_compra->estado_trans == 'en curso')
+                                        <form action="" method="POST">
+                                            @CSRF
+                                            <button type="submit" class="btn btn-circle btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        @else
+                                        <button type="button" class="btn btn-circle btn-sm btn-success">
+                                            <i class="fas fa-check"></i>
                                         </button>
+                                        @endif
                                     </td>
                             </tbody>
                         </table>
@@ -197,7 +230,7 @@ active
                 <a href="{{route('compra')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
                 <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Cancelar compra</button>
+                    data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Eliminar compra</button>
             </div>
         </div>
     </div>
@@ -210,18 +243,21 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cancelar compra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar compra</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de cancelar la compra? <strong class="text-gray-900">No podrás deshacer esta
+                <p>Estas seguro de eliminar la compra? <strong class="text-gray-900">No podrás deshacer esta
                         acción.</strong></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Cancelar compra</button>
+                <form action="{{route('compra_delete',$read_compra)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-danger">Eliminar compra</button>
+                </form>
             </div>
         </div>
     </div>
@@ -242,7 +278,10 @@ active
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Cerrar compra</button>
+                <form action="{{route('compra_cerrar',$read_compra)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-primary">Cerrar compra</button>
+                </form>
             </div>
         </div>
     </div>

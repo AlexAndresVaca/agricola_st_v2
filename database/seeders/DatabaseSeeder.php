@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Negociante;
 use App\Models\Producto;
+use App\Models\Transaccion;
 use Illuminate\Support\Facades\Crypt;
 class DatabaseSeeder extends Seeder
 {
@@ -42,6 +43,18 @@ class DatabaseSeeder extends Seeder
         $usuario1->clave_usu = Crypt::encrypt('123456789');
         $usuario1->estado_usu = true;
         $usuario1->save();
+        // 
+        $usuario1 = new User;
+        $usuario1->ci_usu = '1805259809';
+        $usuario1->apellido_usu = 'Rovayo';
+        $usuario1->nombre_usu = 'Katherine';
+        $usuario1->cargo_usu = 'Administrador';
+        $usuario1->celular_usu = '';
+        $usuario1->direccion_usu = '';
+        $usuario1->correo_usu = 'kathy.rovayo@gmail.com';
+        $usuario1->clave_usu = Crypt::encrypt('1805259809');
+        $usuario1->estado_usu = true;
+        $usuario1->save();
 
         // 
 
@@ -72,5 +85,32 @@ class DatabaseSeeder extends Seeder
         $producto1->tamano_prod = 'Fancy';
         $producto1->stock_prod = 880;
         $producto1->save();
+
+        // Encabezado Produccion
+        $produccion = new Transaccion;
+        $produccion->tipo_trans = 'producción';
+        $produccion->estado_trans = 'en curso';
+        $produccion->fk_cod_usu_trans = 1;
+        $produccion->fk_cod_neg_trans = 1;
+        $produccion->save();
+        // 
+        $produccion1 = new Transaccion;
+        $produccion1->tipo_trans = 'compra';
+        $produccion1->estado_trans = 'en curso';
+        $produccion1->fk_cod_usu_trans = 1;
+        $produccion1->fk_cod_neg_trans = 1;
+        $produccion1->save();
+        
+        $produccion_1 = new Transaccion;
+        $produccion_1->tipo_trans = 'compra';
+        $produccion_1->estado_trans = 'en curso';
+        $produccion_1->fk_cod_usu_trans = null;
+        $produccion_1->fk_cod_neg_trans = null;
+        $produccion_1->save();
+        // 
+        // $produccion2 = new Transaccion;
+        // $produccion2->tipo_trans = 'producción';
+        // $produccion2->estado_trans = 'realizado';
+        // $produccion2->save();
     }
 }

@@ -15,118 +15,113 @@ active
 @section('body')
 <div class="card shadow">
     <div class="row justify-content-center my-5">
-        <form action="" method="post">
-            <button type="button" class="btn btn-primary">
+        @if($produccion_exists_hoy == true)
+        <a class="btn btn-outline-danger disabled">
+            Ya tienes una producción el dia de hoy!
+        </a>
+        @elseif($produccion_exists_hoy == false)
+        <form action="{{route('produccion_add')}}" method="POST">
+            @CSRF
+            <button type="submit" class="btn btn-primary">
                 <i class="fa fa-plus-circle"></i>
                 Nueva producción
             </button>
         </form>
-        <a class="btn btn-outline-danger disabled d-none">
-            Ya tienes una producción el dia de hoy!
-        </a>
+        @endif
     </div>
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Producción agregada!</strong> puedes gestionar sus productos <a
-                        href="{{route('produccionInfo')}}">aquí</a>.
+                @if($produccion_exists_hoy == true)
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Produccion del dia de hoy</strong> puedes gestionar sus productos <a
+                        href="{{route('produccionInfo',$id_exists_hoy)}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
+                @if(session('delete_produccion'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Producción eliminada!</strong>
+                    <strong>Producción cancelada!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="card-header">
-        <div class="container mb-0">
-            <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                <h1 class="h3 mb-0 text-gray-800 text-center">Lista de producción</h1>
-                <button type="button" class="d-none d-sm-inline-block btn btn-secondary btn-sm shadow-sm"
-                    data-toggle="modal" data-target="#info">
-                    <i class="fas fa-info-circle"></i>
-                    Filtrado de datos
+            @endif
+            @if(session('update_produccion'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Producción cerrada!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
+        @endif
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-light table-bordered table-striped table-hover mx-auto" id="tablaProduccion"
-                width="100%" cellspacing="0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
-                    </tr>
-                </thead>
-                <tbody class="">
-                    <tr>
-                        <td scope="row">1</td>
-                        <td scope="row">2020-11-22</td>
-                        <!-- <td scope="row">{{\Carbon\Carbon::parse('2020-11-20')->diffforhumans()}}</td> -->
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-22')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Producción</td>
-                        <td class="text-center"><i class="fas fa-spinner fa-spin text-primary"></i><span
-                                class="ml-1 d-none d-md-inline">En curso</span></td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('produccionInfo')}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td scope="row">2020-11-21</td>
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-21')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Producción</td>
-                        <td class="text-center"><i class="fas fa-clipboard-check text-success"></i><span
-                                class="ml-1 d-none d-md-inline">Realizado</span></td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('produccionInfo')}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td scope="row">2020-11-20</td>
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-20')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Producción</td>
-                        <td class="text-center"><i class="far fa-times-circle text-danger"></i><span
-                                class="ml-1 d-none d-md-inline">Cancelado</span></td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('produccionInfo')}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver</span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+</div>
+<div class="card-header">
+    <div class="container mb-0">
+        <div class="d-sm-flex align-items-center justify-content-between mb-2">
+            <h1 class="h3 mb-0 text-gray-800 text-center">Lista de producción</h1>
+            <button type="button" class="d-none d-sm-inline-block btn btn-secondary btn-sm shadow-sm"
+                data-toggle="modal" data-target="#info">
+                <i class="fas fa-info-circle"></i>
+                Filtrado de datos
+            </button>
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-center d-block d-sm-none">
-        <button type="button" class="btn btn-secondary shadow-sm" data-toggle="modal" data-target="#info">
-            <i class="fas fa-info-circle"></i>
-            Filtrado de datos
-        </button>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-light table-bordered table-striped table-hover mx-auto" id="tablaProduccion"
+            width="100%" cellspacing="0">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach($list_producciones as $item)
+                <tr class="text-capitalize">
+                    <td scope="row">{{$item->cod_trans}}</td>
+                    <td>{{$item->created_at}}</td>
+                    <td>
+                        {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}
+                    </td>
+                    <td>{{$item->tipo_trans}}</td>
+                    <td class="text-center">
+                        @if($item->estado_trans == 'en curso')
+                        <i class="fas fa-spinner fa-spin text-primary"></i>
+                        @elseif($item->estado_trans == 'realizado')
+                        <i class="fas fa-clipboard-check text-success"></i>
+                        @endif
+                        <span class="ml-1 d-none d-md-inline text-capitalize">{{$item->estado_trans}}</span>
+                    </td>
+                    <td class="text-center w-75px">
+                        <a href="{{route('produccionInfo',$item)}}" class="text-secondary">
+                            <i class="fas fa-eye"></i>
+                            <span class="d-none d-sm-inline">Ver</span>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+</div>
+<div class="card-footer d-flex justify-content-center d-block d-sm-none">
+    <button type="button" class="btn btn-secondary shadow-sm" data-toggle="modal" data-target="#info">
+        <i class="fas fa-info-circle"></i>
+        Filtrado de datos
+    </button>
+</div>
 </div>
 @endsection
 @section('modal')

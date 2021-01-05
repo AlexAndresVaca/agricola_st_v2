@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CompraController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerNavegacion;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NegociantesController;
+use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\UsuariosController;
 
@@ -48,12 +50,23 @@ Route::POST('dashboard/productos/add',[ProductosController::class, 'productos_ad
 Route::get('dashboard/productos/informacion_pdt={id}/',[ProductosController::class, 'productos_info'] )->middleware('logeado')->name('productosInfo');
 Route::POST('dashboard/productos/informacion_pdt={id}/update',[ProductosController::class, 'productos_update'] )->middleware('logeado')->name('productos_update');
 Route::POST('dashboard/productos/informacion_pdt={id}/delete',[ProductosController::class, 'productos_delete'] )->middleware('logeado')->name('productos_delete');
+// Tanto la producción, la compra y la venta, comparte una misma tabla que es la de transacción
+// Pero cada tipo de transacción tendrá su propio controlador
+// Producción
+Route::get('dashboard/produccion',[ProduccionController::class, 'produccion'] )->name('produccion');
+Route::POST('dashboard/produccion/add',[ProduccionController::class, 'produccion_add'] )->name('produccion_add');
+Route::get('dashboard/produccion/informacion={id}',[ProduccionController::class, 'produccion_info'] )->name('produccionInfo');
+Route::POST('dashboard/produccion/informacion={id}/delete',[ProduccionController::class, 'produccion_delete'] )->name('produccion_delete');
+Route::POST('dashboard/produccion/informacion={id}/close',[ProduccionController::class, 'produccion_cerrar'] )->name('produccion_cerrar');
+// Compra
+Route::get('dashboard/compra',[CompraController::class, 'compra'] )->name('compra');
+Route::POST('dashboard/compra/negociante={id}/add',[CompraController::class, 'compra_add'] )->name('compra_add');
+Route::get('dashboard/compra/informacion={id}',[CompraController::class, 'compra_info'] )->name('compraInfo');
+Route::POST('dashboard/compra/informacion={id}/close',[CompraController::class, 'compra_cerrar'] )->name('compra_cerrar');
+Route::POST('dashboard/compra/informacion={id}/delete',[CompraController::class, 'compra_delete'] )->name('compra_delete');
+// Venta
+Route::get('dashboard/venta',[ControllerNavegacion::class, 'venta'] )->name('venta');
+Route::get('dashboard/venta/informacion',[ControllerNavegacion::class, 'venta_info'] )->name('ventaInfo');
 // 
 Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware('logeado')->name('dashboard');
-Route::get('dashboard/produccion',[ControllerNavegacion::class, 'produccion'] )->name('produccion');
-Route::get('dashboard/produccion/informacion',[ControllerNavegacion::class, 'produccion_info'] )->name('produccionInfo');
-Route::get('dashboard/compra',[ControllerNavegacion::class, 'compra'] )->name('compra');
-Route::get('dashboard/compra/informacion',[ControllerNavegacion::class, 'compra_info'] )->name('compraInfo');
-Route::get('dashboard/venta',[ControllerNavegacion::class, 'venta'] )->name('venta');
-Route::get('dashboard/venta/informacion',[ControllerNavegacion::class, 'venta_info'] )->name('ventaInfo');

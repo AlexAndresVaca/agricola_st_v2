@@ -22,22 +22,6 @@ class ControllerNavegacion extends Controller
         
     }
     
-    public function produccion(){
-        // return "dash";
-        return view('dashboard.produccion.index');
-    }
-    public function produccion_info(){
-        // return "dash";
-        return view('dashboard.produccion.info');
-    }
-    public function compra(){
-        // return "Compra";
-        return view('dashboard.compras.index');
-    }
-    public function compra_info(){
-        // return "CompraInfo";
-        return view('dashboard.compras.info');
-    }
     public function venta(){
         // return "Compra";
         return view('dashboard.ventas.index');

@@ -17,9 +17,60 @@ active
 <div class="card shadow">
     <div class="card-header">
         <h1 class="h3">Detalles de producción</h1>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card my-4">
+                    <!-- Card Header - Accordion -->
+                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-secondary">Información de la producción</h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse show" id="collapseCardExample">
+                        <div class="card-body">
+                            <div class="text-gray-900 font-weight-bolder text-capitalize ">
+                                <div>
+                                    <i class="fas fa-calendar-day"></i>
+                                    Fecha:
+                                    <span class="font-weight-normal">
+                                        {{\Carbon\Carbon::parse($read_produccion->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-id-card"></i>
+                                    Nombre del cliente:
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_negociante))
+                                        {{$read_negociante->apellido_neg}} {{$read_negociante->nombre_neg}}
+                                        @else
+                                        <span class="text-muted ">[Negociante eliminado]</span>
+                                        @endif
+                                    </span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-info-circle"></i>
+                                    Estado: <span class="font-weight-normal">{{$read_produccion->estado_trans}}</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-user-tag"></i>
+                                    Registrado por:
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_usuario))
+                                        {{$read_usuario->apellido_usu}} {{$read_usuario->nombre_usu}}
+                                        @else
+                                        <span class="text-muted ">[Usuario eliminado]</span>
+                                        @endif
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="container">
+            @if($read_produccion->estado_trans == 'en curso')
             <div class="row">
                 <form action="" method="post">
                     @CSRF
@@ -81,31 +132,44 @@ active
                     </div>
                 </form>
             </div>
+            @endif
             <div class="row">
                 <div class="col">
+                    @if(session('add_prod_produccion'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Producto agregado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if(session('prod_no_encontrado'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Producto no encontrado!</strong> revisa tus datos y vuelve a intentar.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if(session('delete_prod_produccion'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Producto eliminado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="table-responsive">
+                        @if($read_produccion->estado_trans == 'en curso')
+                        <div class="col-12 text-right my-4">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#cerrarProduccion">Cerrar producción</button>
+                        </div>
+                        @endif
                         <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
                             width="100%" cellspacing="0">
                             <thead class="thead-dark">
@@ -128,10 +192,18 @@ active
                                     <td>Largo</td>
                                     <td>160</td>
                                     <td class="text-center w-75px">
-                                        <button type="button" class="btn btn-circle btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                            <!-- <span class="d-none d-sm-inline">Eliminar</span> -->
+                                        @if($read_produccion->estado_trans == 'en curso')
+                                        <form action="" method="POST">
+                                            @CSRF
+                                            <button type="submit" class="btn btn-circle btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        @else
+                                        <button type="button" class="btn btn-circle btn-sm btn-success">
+                                            <i class="fas fa-check"></i>
                                         </button>
+                                        @endif
                                     </td>
                             </tbody>
                         </table>
@@ -147,7 +219,7 @@ active
                 <a href="{{route('produccion')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i>
                     Regresar</a>
                 <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#eliminarProducto"><i class="far fa-trash-alt"></i> Vaciar</button>
+                    data-target="#eliminarProduccion"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>
     </div>
@@ -156,11 +228,11 @@ active
 @endsection
 @section('modal')
 <!-- Modal -->
-<div class="modal fade" id="eliminarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="eliminarProduccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Vaciar producción</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar producción</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -170,7 +242,34 @@ active
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Vaciar</button>
+                <form action="{{route('produccion_delete',$read_produccion)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cerrarProduccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar producción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Estas seguro de cerrar la producción? <strong class="text-gray-900">No podrás deshacer esta
+                        acción.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <form action="{{route('produccion_cerrar',$read_produccion)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-primary">Cerrar producción</button>
+                </form>
             </div>
         </div>
     </div>
