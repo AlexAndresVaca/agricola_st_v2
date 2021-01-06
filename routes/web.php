@@ -80,5 +80,5 @@ Route::POST('dashboard/{tipo}/informacion={id}/add_product',[DetalleController::
 Route::POST('dashboard/{tipo}/informacion={id}/{id_det}/delete_product',[DetalleController::class, 'delete_prod_det'] )->middleware('logeado')->name('delete_prod_det');
 
 // 
-Route::get('/register',[ControllerNavegacion::class, 'register'] )->middleware('logeado')->name('register');
+Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware('logeado')->name('dashboard');
