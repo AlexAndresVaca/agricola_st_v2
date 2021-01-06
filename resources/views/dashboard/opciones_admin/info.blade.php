@@ -61,8 +61,9 @@ Tu perfil
                     </div>
                     @if($read_user->celular_usu)
                     <div class="col-lg-12">
-                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text=" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
-                                class="fab fa-whatsapp"></i> 0{{$read_user->celular_usu}}</a>
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text="
+                            class="btn bg-success text-white" style="font-size: 1.5rem;"><i class="fab fa-whatsapp"></i>
+                            0{{$read_user->celular_usu}}</a>
                     </div>
                     @endif
                 </div>
@@ -85,22 +86,41 @@ Tu perfil
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">COD</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Tipo</th>
                             <th scope="col" class="text-center w-75px"><i class="fa fa-cog"></i></th>
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr>
-                            <td scope="row">1712957396</td>
-                            <td>Sab. 15 de noviembre del 2020</td>
-                            <td>Compra</td>
+                        @foreach($historial as $item)
+                        <tr class="text-capitalize">
+                            <td scope="row">{{$item->cod_trans}}</td>
+                            <td scope="row">{{$item->created_at}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY HH:mm a')}}
+                            </td>
+                            <td>{{$item->tipo_trans}}</td>
                             <td class="text-center w-75px">
-                                <a href="" class="text-secondary">
+                                @if($item->tipo_trans == 'produccion')
+                                <a target="_blank" href="{{route('produccionInfo',$item)}}" class="text-secondary">
                                     <i class="fas fa-eye"></i>
                                     <span class="d-none d-sm-inline">Ver</span>
                                 </a>
+                                @elseif($item->tipo_trans == 'compra')
+                                <a target="_blank" href="{{route('compraInfo',$item)}}" class="text-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="d-none d-sm-inline">Ver</span>
+                                </a>
+                                @elseif($item->tipo_trans == 'venta')
+                                <a target="_blank" href="{{route('ventaInfo',$item)}}" class="text-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="d-none d-sm-inline">Ver</span>
+                                </a>
+                                @endif
+
                             </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

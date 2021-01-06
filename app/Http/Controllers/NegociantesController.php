@@ -44,7 +44,15 @@ class NegociantesController extends Controller
         $read_neg = Negociante::findOrFail($id);
         $historial = Transaccion::where('fk_cod_neg_trans',$id)
                                 ->get();
-        return view('dashboard.negociantes.info',compact('read_neg','historial'));
+        $num_compras = Transaccion::where('tipo_trans','compra')
+                                    ->where('fk_cod_neg_trans',$id)
+                                    ->get();
+        $num_ventas = Transaccion::where('tipo_trans','venta')
+                                    ->where('fk_cod_neg_trans',$id)
+                                    ->get();
+        // return $num_ventas->count();
+        // return $num_compras->count();
+        return view('dashboard.negociantes.info',compact('read_neg','historial','num_compras','num_ventas'));
     }
     public function negociantes_update(Request $request,$id){
         $request->validate([

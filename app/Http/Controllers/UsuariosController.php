@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaccion;
 use App\Models\User;
 use Illuminate\Http\Request;
 // Encriptar
@@ -46,7 +47,9 @@ class UsuariosController extends Controller
     }
     public function usuarios_info(Request $request, $id){
         $read_user = User::findOrFail($id);
-        return view('dashboard.opciones_admin.usuariosInfo',compact('read_user'));
+        $historial = Transaccion::where('fk_cod_usu_trans',$id)
+                                ->get();
+        return view('dashboard.opciones_admin.usuariosInfo',compact('read_user','historial'));
     }
     public function usuarios_quitar_acceso($id){
         $update_user = User::findOrFail($id);
@@ -109,6 +112,8 @@ class UsuariosController extends Controller
     // Perfil Usuario
     public function perfil_usuario(Request $request){
         $read_user = User::findOrFail($request->session()->get('usuario_activo'));
-        return view('dashboard.opciones_admin.info',compact('read_user'));
+        $historial = Transaccion::where('fk_cod_usu_trans',$read_user->cod_usu)
+                                ->get();
+        return view('dashboard.opciones_admin.info',compact('read_user','historial'));
     }
 }

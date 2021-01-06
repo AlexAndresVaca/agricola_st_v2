@@ -59,11 +59,11 @@ active
                 <div class="row">
                     <div class="col-6 border-right text-success">
                         <div class="h5">Compras</div>
-                        <div class="h2">150</div>
+                        <div class="h2">{{$num_compras->count()}}</div>
                     </div>
                     <div class="col-6 text-primary">
                         <div class="h5">Ventas</div>
-                        <div class="h2">150</div>
+                        <div class="h2">{{$num_ventas->count()}}</div>
                     </div>
                 </div>
                 <div class="row">
@@ -122,20 +122,34 @@ active
                         </tr>
                     </thead>
                     <tbody class="">
-                    @foreach($historial as $item)
+                        @foreach($historial as $item)
                         <tr class="text-capitalize">
                             <td scope="row">{{$item->cod_trans}}</td>
                             <td scope="row">{{$item->created_at}}</td>
-                            <td>{{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY HH:mm a')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY HH:mm a')}}
+                            </td>
                             <td>{{$item->tipo_trans}}</td>
                             <td class="text-center w-75px">
-                                <a href="" class="text-secondary">
+                                @if($item->tipo_trans == 'produccion')
+                                <a target="_blank" href="{{route('produccionInfo',$item)}}" class="text-secondary">
                                     <i class="fas fa-eye"></i>
                                     <span class="d-none d-sm-inline">Ver</span>
                                 </a>
+                                @elseif($item->tipo_trans == 'compra')
+                                <a target="_blank" href="{{route('compraInfo',$item)}}" class="text-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="d-none d-sm-inline">Ver</span>
+                                </a>
+                                @elseif($item->tipo_trans == 'venta')
+                                <a target="_blank" href="{{route('ventaInfo',$item)}}" class="text-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="d-none d-sm-inline">Ver</span>
+                                </a>
+                                @endif
+
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
