@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Negociante;
+use App\Models\Transaccion;
 use Illuminate\Http\Request;
 
 class NegociantesController extends Controller
@@ -41,7 +42,9 @@ class NegociantesController extends Controller
     }
     public function negociantes_info($id){
         $read_neg = Negociante::findOrFail($id);
-        return view('dashboard.negociantes.info',compact('read_neg'));
+        $historial = Transaccion::where('fk_cod_neg_trans',$id)
+                                ->get();
+        return view('dashboard.negociantes.info',compact('read_neg','historial'));
     }
     public function negociantes_update(Request $request,$id){
         $request->validate([

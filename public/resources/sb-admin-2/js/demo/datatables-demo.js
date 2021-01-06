@@ -129,8 +129,8 @@ $(document).ready(function() {
         // orderable permite hablitar o desaviliar el ordenamiento
         "columnDefs": [{
                 // Habilitar que se muestre
-                // "targets": [],
-                // "visible": false,
+                "targets": [1],
+                "visible": false,
             },
             {
                 // Ser un parámetro de búsqueda
@@ -139,7 +139,7 @@ $(document).ready(function() {
             },
             {
                 // Habilitar el orden
-                "targets": [0, 3],
+                "targets": [0, 1, 3],
                 "orderable": false
             }
         ],

@@ -72,55 +72,88 @@ active
         <div class="container">
             @if($read_produccion->estado_trans == 'en curso')
             <div class="row">
-                <form action="" method="post">
+                <form action="{{route('add_prod_det',['id' => $read_produccion, 'tipo' => 'produccion'])}}"
+                    method="POST">
                     @CSRF
                     <div class="form-row">
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-md-2">
                             <label for="">Tipo</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rosa</option>
-                                <option value="">Clavel</option>
+                            <select name="tipo_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tipo_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tipo_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tipo as $item)
+                                <option value="{{$item->tipo_prod}}">{{$item->tipo_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Color</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rojo</option>
-                                <option value="">Blanco</option>
-                                <option value="">Varios</option>
+                            <select name="color_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('color_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('color_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($color as $item)
+                                <option value="{{$item->color_prod}}">{{$item->color_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Destino</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Nacional</option>
-                                <option value="">Extranjero</option>
+                            <select name="destino_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('destino_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('destino_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($destino as $item)
+                                <option value="{{$item->destino_prod}}">{{$item->destino_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Tamaño</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Largo</option>
-                                <option value="">Corto</option>
+                            <select name="tamano_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tamano_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tamano_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tamano as $item)
+                                <option value="{{$item->tamano_prod}}">{{$item->tamano_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Cantidad</label>
                             <div class="input-group">
-                                <input type="number" min="0" class="form-control is-valid" placeholder="Ej: 500">
+                                <input type="number" min="0" name="cant_prod"
+                                    class="form-control @if($errors->get('cant_prod')) is-invalid @endif"
+                                    placeholder="Ej: 500" value="{{old('cant_prod')}}">
                                 <div class="input-group-append" title="Unidades">
-                                    <div class="input-group-text">U.</div>
+                                    <div class="input-group-text text-xs">Unidades</div>
                                 </div>
+                                @if($errors->get('cant_prod'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('cant_prod')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col-md-2  text-center">
@@ -135,7 +168,7 @@ active
             @endif
             <div class="row">
                 <div class="col">
-                    @if(session('add_prod_produccion'))
+                    @if(session('add_prod_det'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Producto agregado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -143,7 +176,7 @@ active
                         </button>
                     </div>
                     @endif
-                    @if(session('prod_no_encontrado'))
+                    @if($errors->has('prod_no_encontrado'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Producto no encontrado!</strong> revisa tus datos y vuelve a intentar.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -151,7 +184,7 @@ active
                         </button>
                     </div>
                     @endif
-                    @if(session('delete_prod_produccion'))
+                    @if(session('delete_prod_det'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Producto eliminado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -184,16 +217,19 @@ active
                                 </tr>
                             </thead>
                             <tbody class="">
+                                @foreach($detalle as $item)
                                 <tr>
-                                    <td scope="row">1</td>
-                                    <td>Rosa</td>
-                                    <td>Rojo</td>
-                                    <td>Extranjero</td>
-                                    <td>Largo</td>
-                                    <td>160</td>
+                                    <td scope="row">{{$item->cod_det}}</td>
+                                    <td>{{$item->tipo_prod}}</td>
+                                    <td>{{$item->color_prod}}</td>
+                                    <td>{{$item->destino_prod}}</td>
+                                    <td>{{$item->tamano_prod}}</td>
+                                    <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
                                         @if($read_produccion->estado_trans == 'en curso')
-                                        <form action="" method="POST">
+                                        <form
+                                            action="{{route('delete_prod_det',['id' => $read_produccion, 'id_det' => $item->cod_det ,'tipo' => 'produccion'])}}"
+                                            method="POST">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
@@ -205,6 +241,8 @@ active
                                         </button>
                                         @endif
                                     </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

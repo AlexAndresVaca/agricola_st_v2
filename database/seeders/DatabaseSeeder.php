@@ -107,10 +107,20 @@ class DatabaseSeeder extends Seeder
         $produccion_1->fk_cod_usu_trans = null;
         $produccion_1->fk_cod_neg_trans = null;
         $produccion_1->save();
-        // 
-        // $produccion2 = new Transaccion;
-        // $produccion2->tipo_trans = 'producción';
-        // $produccion2->estado_trans = 'realizado';
-        // $produccion2->save();
+        // venta1
+        $venta1 = new Transaccion;
+        $venta1->tipo_trans = 'venta';
+        $venta1->estado_trans = 'en curso';
+        $venta1->fk_cod_usu_trans = 1;
+        $venta1->fk_cod_neg_trans = 1;
+        $venta1->save();
+        
+        // venta2
+        $venta2 = new Transaccion;
+        $venta2->tipo_trans = 'venta';
+        $venta2->estado_trans = 'en curso';
+        $venta2->fk_cod_usu_trans = 1;
+        $venta2->fk_cod_neg_trans = 1;
+        $venta2->save();
     }
 }

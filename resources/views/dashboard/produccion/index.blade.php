@@ -89,7 +89,7 @@ active
             </thead>
             <tbody class="">
                 @foreach($list_producciones as $item)
-                <tr class="text-capitalize">
+                <tr class="text-capitalize" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
                     <td scope="row">{{$item->cod_trans}}</td>
                     <td>{{$item->created_at}}</td>
                     <td>

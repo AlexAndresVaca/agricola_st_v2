@@ -7,9 +7,13 @@ Bienvenido
 <nav class="navbar navbar-dark bg-dark">
     <a href="{{url('')}}" class="navbar-brand">Santa Teresita</a>
     <form class="form-inline">
+        @if(session('usuario_activo'))
+        <a href="{{route('dashboard')}}" class="text-white">Dashboard</a>
+        @else
         <a class="btn btn-danger my-2 my-sm-0" href="{{route('login')}}">Iniciar Sesión</a>
         <div class="px-1"></div>
         <a href="{{route('register')}}" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Registrarte</a>
+        @endif
     </form>
 </nav>
 @endsection

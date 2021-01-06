@@ -71,7 +71,7 @@ active
                 </thead>
                 <tbody class="">
                     @foreach($list_compras as $item)
-                    <tr class="text-capitalize">
+                    <tr class="text-capitalize" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
                         <td scope="row">{{$item->cod_trans}}</td>
                         <td>{{$item->created_at}}</td>
                         <td>
@@ -96,8 +96,8 @@ active
                     </tr>
                     @endforeach
                     @foreach($list_compras_sn_personas as $item)
-                    <tr class="text-capitalize tr-danger">
-                        <td scope="row" class="border-left-danger">{{$item->cod_trans}}</td>
+                    <tr class="text-capitalize tr-danger" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
+                        <td scope=" row" class="border-left-danger">{{$item->cod_trans}}</td>
                         <td>{{$item->created_at}}</td>
                         <td>
                             {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}

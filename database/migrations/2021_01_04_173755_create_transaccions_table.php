@@ -18,9 +18,9 @@ class CreateTransaccionsTable extends Migration
             $table->string('tipo_trans',10);
             $table->string('estado_trans',10);
             $table->unsignedBigInteger('fk_cod_usu_trans')->nullable();
-            $table->foreign('fk_cod_usu_trans')->references('cod_usu')->on('users')->onDelete('set null');;
+            $table->foreign('fk_cod_usu_trans')->references('cod_usu')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('fk_cod_neg_trans')->nullable();
-            $table->foreign('fk_cod_neg_trans')->references('cod_neg')->on('negociantes')->onDelete('set null');;
+            $table->foreign('fk_cod_neg_trans')->references('cod_neg')->on('negociantes')->onDelete('set null');
             $table->timestamps();
         });
     }

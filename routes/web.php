@@ -4,11 +4,13 @@ use App\Http\Controllers\CompraController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerNavegacion;
+use App\Http\Controllers\DetalleController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NegociantesController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\VentaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,15 +60,25 @@ Route::POST('dashboard/produccion/add',[ProduccionController::class, 'produccion
 Route::get('dashboard/produccion/informacion={id}',[ProduccionController::class, 'produccion_info'] )->name('produccionInfo');
 Route::POST('dashboard/produccion/informacion={id}/delete',[ProduccionController::class, 'produccion_delete'] )->name('produccion_delete');
 Route::POST('dashboard/produccion/informacion={id}/close',[ProduccionController::class, 'produccion_cerrar'] )->name('produccion_cerrar');
+
 // Compra
 Route::get('dashboard/compra',[CompraController::class, 'compra'] )->name('compra');
 Route::POST('dashboard/compra/negociante={id}/add',[CompraController::class, 'compra_add'] )->name('compra_add');
 Route::get('dashboard/compra/informacion={id}',[CompraController::class, 'compra_info'] )->name('compraInfo');
 Route::POST('dashboard/compra/informacion={id}/close',[CompraController::class, 'compra_cerrar'] )->name('compra_cerrar');
 Route::POST('dashboard/compra/informacion={id}/delete',[CompraController::class, 'compra_delete'] )->name('compra_delete');
+
 // Venta
-Route::get('dashboard/venta',[ControllerNavegacion::class, 'venta'] )->name('venta');
-Route::get('dashboard/venta/informacion',[ControllerNavegacion::class, 'venta_info'] )->name('ventaInfo');
+Route::get('dashboard/venta',[VentaController::class, 'venta'] )->name('venta');
+Route::get('dashboard/venta/informacion={id}',[VentaController::class, 'venta_info'] )->name('ventaInfo');
+Route::POST('dashboard/venta/informacion={id}/add',[VentaController::class, 'venta_add'] )->name('venta_add');
+Route::POST('dashboard/venta/informacion={id}/close',[VentaController::class, 'venta_cerrar'] )->name('venta_cerrar');
+Route::POST('dashboard/venta/informacion={id}/delete',[VentaController::class, 'venta_delete'] )->name('venta_delete');
+
+// Detalle
+Route::POST('dashboard/{tipo}/informacion={id}/add_product',[DetalleController::class, 'add_prod_det'] )->name('add_prod_det');
+Route::POST('dashboard/{tipo}/informacion={id}/{id_det}/delete_product',[DetalleController::class, 'delete_prod_det'] )->name('delete_prod_det');
+
 // 
 Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware('logeado')->name('dashboard');

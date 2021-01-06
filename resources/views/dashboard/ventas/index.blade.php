@@ -23,12 +23,22 @@ active
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Venta cancelada!</strong>
+                @if(session('update_venta'))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Venta finalizada!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
+                @if(session('delete_venta'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Venta eliminada!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -60,57 +70,56 @@ active
                     </tr>
                 </thead>
                 <tbody class="">
-                    <tr>
-                        <td scope="row">1</td>
-                        <td scope="row">2020-11-22</td>
-                        <!-- <td scope="row">{{\Carbon\Carbon::parse('2020-11-20')->diffforhumans()}}</td> -->
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-22')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Venta</td>
-                        <td class="text-center"><i class="fas fa-spinner fa-spin text-primary"></i><span
-                                class="ml-1 d-none d-md-inline">En curso</span>
+                    @foreach($list_ventas as $item)
+                    <tr class="text-capitalize" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
+                        <td scope="row">{{$item->cod_trans}}</td>
+                        <td>{{$item->created_at}}</td>
+                        <td>
+                            {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}
                         </td>
-                        <td class=""><span class="">Apellido Nombre</span>
+                        <td>{{$item->tipo_trans}}</td>
+                        <td class="text-center">
+                            @if($item->estado_trans == 'en curso')
+                            <i class="fas fa-spinner fa-spin text-primary"></i>
+                            @elseif($item->estado_trans == 'realizado')
+                            <i class="fas fa-clipboard-check text-success"></i>
+                            @endif
+                            <span class="ml-1 d-none d-md-inline text-capitalize">{{$item->estado_trans}}</span>
                         </td>
+                        <td>{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
                         <td class="text-center w-75px">
-                            <a href="{{route('ventaInfo')}}" class="text-secondary">
+                            <a href="{{route('ventaInfo',$item)}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
                                 <span class="d-none d-sm-inline">Ver</span>
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td scope="row">2020-11-21</td>
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-21')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Venta</td>
-                        <td class="text-center"><i class="fas fa-clipboard-check text-success"></i><span
-                                class="ml-1 d-none d-md-inline">Realizado</span></td>
-                        <td class=""><span class="">Apellido Nombre</span>
+                    @endforeach
+                    @foreach($list_ventas_sn_personas as $item)
+                    <tr class="text-capitalize tr-danger" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
+                        <td scope=" row" class="border-left-danger">{{$item->cod_trans}}</td>
+                        <td>{{$item->created_at}}</td>
+                        <td>
+                            {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}
+                        </td>
+                        <td>{{$item->tipo_trans}}</td>
+                        <td class="text-center">
+                            @if($item->estado_trans == 'en curso')
+                            <i class="fas fa-spinner fa-spin text-primary"></i>
+                            @elseif($item->estado_trans == 'realizado')
+                            <i class="fas fa-clipboard-check text-success"></i>
+                            @endif
+                            <span class="ml-1 d-none d-md-inline text-capitalize">{{$item->estado_trans}}</span>
+                        </td>
+                        <td class=""> <span class="text-muted ">[Negociante eliminado]</span></td>
                         <td class="text-center w-75px">
-                            <a href="{{route('ventaInfo')}}" class="text-secondary">
+                            <a href="{{route('ventaInfo',$item)}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
                                 <span class="d-none d-sm-inline">Ver</span>
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td scope="row">2020-11-20</td>
-                        <td scope="row" class="text-capitalize">
-                            {{\Carbon\Carbon::parse('2020-11-20')->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</td>
-                        <td>Venta</td>
-                        <td class="text-center"><i class="far fa-times-circle text-danger"></i><span
-                                class="ml-1 d-none d-md-inline">Cancelado</span></td>
-                        <td class=""><span class="">Apellido Nombre</span>
-                        <td class="text-center w-75px">
-                            <a href="{{route('ventaInfo')}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver</span>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -144,24 +153,26 @@ active
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">CI / ID</th>
-                                            <th scope="col">Apellido</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Contacto</th>
-                                            <th scope="col" class="text-center w-75px">Seleccionar</th>
+                                            <th>Apellido y Nombre</th>
+                                            <th>Correo</th>
+                                            <th class="text-center w-75px">Seleccionar</th>
                                         </tr>
                                     </thead>
                                     <tbody class="">
+                                        @foreach($list_negociantes as $item)
                                         <tr>
-                                            <td scope="row">1712957396</td>
-                                            <td>Vaca</td>
-                                            <td>Alex</td>
-                                            <td>0999999999</td>
+                                            <td scope="row">{{$item->ci_neg}}</td>
+                                            <td>{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
+                                            <td>{{$item->correo_neg}}</td>
                                             <td class="text-center w-75px">
-                                                <form action="">
+                                                <form action="{{route('venta_add',$item->cod_neg)}}" method="POST">
+                                                    @CSRF
                                                     <button type="submit" class="btn btn-success"><i
                                                             class="far fa-hand-pointer"></i></button>
                                                 </form>
                                             </td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

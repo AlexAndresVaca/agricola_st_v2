@@ -22,15 +22,4 @@ class ControllerNavegacion extends Controller
         
     }
     
-    public function venta(){
-        // return "Compra";
-        return view('dashboard.ventas.index');
-    }
-    public function venta_info(){
-        // return "CompraInfo";
-        return view('dashboard.ventas.info');
-    }
-    
-    
-
 }

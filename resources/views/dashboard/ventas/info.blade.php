@@ -17,12 +17,14 @@ active
 <div class="card shadow">
     <div class="card-header">
         <h1 class="h3">Detalles de venta</h1>
+        @if(session('add_venta'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Venta lista!</strong> Ahora puedes ingresar los productos a la venta.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
@@ -32,90 +34,139 @@ active
                         <h6 class="m-0 font-weight-bold text-secondary">Información de la venta</h6>
                     </a>
                     <!-- Card Content - Collapse -->
-                    <div class="collapse" id="collapseCardExample" style="">
+                    <div class="collapse show" id="collapseCardExample" style="">
                         <div class="card-body">
-                            <div class="text-gray-900 font-weight-bolder ">
+                            <div class="text-gray-900 font-weight-bolder text-capitalize">
                                 <div>
                                     <i class="fas fa-calendar-day"></i>
                                     Fecha:
-                                    <span class="font-weight-normal">Sab, 25 de noviembre del 2020</span>
+                                    <span class="font-weight-normal">
+                                        {{\Carbon\Carbon::parse($read_venta->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-clock"></i>
+                                    Hora:
+                                    <span class="font-weight-normal">
+                                        {{\Carbon\Carbon::parse($read_venta->created_at)->isoFormat('h:mm a')}}</span>
                                 </div>
                                 <div>
                                     <i class="fas fa-id-card"></i>
                                     Nombre del cliente:
-                                    <span class="font-weight-normal">Apellido Nombre</span>
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_negociante))
+                                        {{$read_negociante->apellido_neg}} {{$read_negociante->nombre_neg}}
+                                        @else
+                                        <span class="text-muted ">[Negociante eliminado]</span>
+                                        @endif
+                                    </span>
                                 </div>
                                 <div>
                                     <i class="fas fa-info-circle"></i>
-                                    Estado: <span class="font-weight-normal">En curso</span>
+                                    Estado: <span class="font-weight-normal">{{$read_venta->estado_trans}}</span>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-tag"></i>
                                     Registrado por:
-                                    <span class="font-weight-normal">Vaca Alex</span>
+                                    <span class="font-weight-normal">
+                                        @if(isset($read_usuario))
+                                        {{$read_usuario->apellido_usu}} {{$read_usuario->nombre_usu}}
+                                        @else
+                                        <span class="text-muted ">[Usuario eliminado]</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-
-            </div>
         </div>
     </div>
     <div class="card-body">
         <div class="container">
+            @if($read_venta->estado_trans == 'en curso')
             <div class="row">
-                <form action="" method="post">
+                <form action="{{route('add_prod_det',['id' => $read_venta, 'tipo' => 'venta'])}}" method="POST">
                     @CSRF
                     <div class="form-row">
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-md-2">
                             <label for="">Tipo</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rosa</option>
-                                <option value="">Clavel</option>
+                            <select name="tipo_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tipo_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tipo_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tipo as $item)
+                                <option value="{{$item->tipo_prod}}">{{$item->tipo_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Color</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Rojo</option>
-                                <option value="">Blanco</option>
-                                <option value="">Varios</option>
+                            <select name="color_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('color_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('color_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($color as $item)
+                                <option value="{{$item->color_prod}}">{{$item->color_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Destino</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Nacional</option>
-                                <option value="">Extranjero</option>
+                            <select name="destino_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('destino_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('destino_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($destino as $item)
+                                <option value="{{$item->destino_prod}}">{{$item->destino_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Tamaño</label>
-                            <select name="" id="" class="custom-select mr-sm-2">
-                                <option selected></option>
-                                <option value="">Largo</option>
-                                <option value="">Corto</option>
+                            <select name="tamano_prod"
+                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tamano_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tamano_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tamano as $item)
+                                <option value="{{$item->tamano_prod}}">{{$item->tamano_prod}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-2 ">
                             <label for="">Cantidad</label>
                             <div class="input-group">
-                                <input type="number" min="0" class="form-control is-valid" placeholder="Ej: 500">
+                                <input type="number" min="0" name="cant_prod"
+                                    class="form-control @if($errors->get('cant_prod')) is-invalid @endif"
+                                    placeholder="Ej: 500" value="{{old('cant_prod')}}">
                                 <div class="input-group-append" title="Unidades">
-                                    <div class="input-group-text">U.</div>
+                                    <div class="input-group-text text-xs">Unidades</div>
                                 </div>
+                                @if($errors->get('cant_prod'))
                                 <div class="invalid-feedback">
-                                    Mensaje error
+                                    {{$errors->first('cant_prod')}}
                                 </div>
-                                <div class="valid-feedback">
-                                    Mensaje confirmación
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col-md-2  text-center">
@@ -127,34 +178,51 @@ active
                     </div>
                 </form>
             </div>
+            @endif
             <div class="row">
                 <div class="col">
+                    @if(session('add_prod_det'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Producto agregado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if($errors->has('prod_no_encontrado'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Producto no encontrado!</strong> revisa tus datos y vuelve a intentar.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+                    @if($errors->has('stock_insuficiente'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Producto insuficiente!</strong> no cuentas con la cantidad necesaria para realizar la venta.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+                    @if(session('delete_prod_det'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Producto eliminado!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="table-responsive">
                         <div class="col-12 text-right my-4">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            @if($read_venta->estado_trans == 'en curso')
+                            <button type="submit" class="btn btn-primary" data-toggle="modal"
                                 data-target="#cerrarventa">Cerrar venta</button>
+                            @endif
                         </div>
                         <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
                             width="100%" cellspacing="0">
@@ -170,19 +238,32 @@ active
                                 </tr>
                             </thead>
                             <tbody class="">
+                            @foreach($detalle as $item)
                                 <tr>
-                                    <td scope="row">1</td>
-                                    <td>Rosa</td>
-                                    <td>Rojo</td>
-                                    <td>Extranjero</td>
-                                    <td>Largo</td>
-                                    <td>160</td>
+                                    <td scope="row">{{$item->cod_det}}</td>
+                                    <td>{{$item->tipo_prod}}</td>
+                                    <td>{{$item->color_prod}}</td>
+                                    <td>{{$item->destino_prod}}</td>
+                                    <td>{{$item->tamano_prod}}</td>
+                                    <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
-                                        <button type="button" class="btn btn-circle btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                            <!-- <span class="d-none d-sm-inline">Eliminar</span> -->
+                                        @if($read_venta->estado_trans == 'en curso')
+                                        <form
+                                            action="{{route('delete_prod_det',['id' => $read_venta, 'id_det' => $item->cod_det ,'tipo' => 'venta'])}}"
+                                            method="POST">
+                                            @CSRF
+                                            <button type="submit" class="btn btn-circle btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        @else
+                                        <button type="button" class="btn btn-circle btn-sm btn-success">
+                                            <i class="fas fa-check"></i>
                                         </button>
+                                        @endif
                                     </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -197,7 +278,7 @@ active
                 <a href="{{route('venta')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
                 <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#cancelarventa"><i class="far fa-trash-alt"></i> Cancelar venta</button>
+                    data-target="#cancelarventa"><i class="far fa-trash-alt"></i> Eliminar venta</button>
             </div>
         </div>
     </div>
@@ -210,18 +291,21 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cancelar venta</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar venta</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de cancelar la venta? <strong class="text-gray-900">No podrás deshacer esta
+                <p>Estas seguro de eliminar la venta? <strong class="text-gray-900">No podrás deshacer esta
                         acción.</strong></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger">Cancelar venta</button>
+                <form action="{{route('venta_delete',$read_venta)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-danger">Eliminar venta</button>
+                </form>
             </div>
         </div>
     </div>
@@ -242,7 +326,10 @@ active
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Cerrar venta</button>
+                <form action="{{route('venta_cerrar',$read_venta)}}" method="POST">
+                    @CSRF
+                    <button type="submit" class="btn btn-primary">Cerrar venta</button>
+                </form>
             </div>
         </div>
     </div>
