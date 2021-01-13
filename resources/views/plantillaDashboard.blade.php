@@ -10,8 +10,7 @@
     <!-- Bootstrap -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.css')}}" rel="stylesheet"> -->
     <!-- <link href="{{asset('/resources/bootstrapV4.5/css/bootstrap.min.css')}}" rel="stylesheet"> -->
-    <link href="{{asset('/resources/fontawesome/css/all.css')}}" rel="stylesheet"
-    type="text/css">
+    <link href="{{asset('/resources/fontawesome/css/all.css')}}" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <!-- SB ADMIN 2  -->
     <link href="{{asset('/resources/sb-admin-2/css/sb-admin-2.min.css')}}" rel="stylesheet">
@@ -61,55 +60,51 @@
                     <i class="fas fa-box-open rotate-n-15"></i>
                     <span>Productos</span></a>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Estadístico
-            </div>
-            <!-- Nav Item - Charts -->
             <li class="nav-item @yield('reports-item')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-chart-line"></i>
-                    <span>Reportes</span>
+                    <span>Documentos</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Tipo de reportes:</h6>
-                        <a class="collapse-item" href="buttons.html">Diario</a>
-                        <a class="collapse-item" href="cards.html">Mensual</a>
+                        <!-- <h6 class="collapse-header">Seleccione:</h6> -->
+                        <a class="collapse-item" href="{{route('reporte_kardex')}}">Método Kardex</a>
+                        <!-- <a class="collapse-item" href="cards.html">Mensual</a> -->
                     </div>
                 </div>
             </li>
             <hr class="sidebar-divider">
-            <!-- Titulo - Transaccion -->
             <div class="sidebar-heading">
-                Transacción
-            </div>
-            <li class="nav-item @yield('production-item')">
-                <a class="nav-link" href="{{route('produccion')}}">
-                    <i class="fas fa-people-carry"></i>
-                    <span>Producción</span></a>
-            </li>
-            <li class="nav-item @yield('purchase-item')">
-                <a class="nav-link" href="{{route('compra')}}">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Compra</span></a>
-            </li>
-            <li class="nav-item @yield('sail-item')">
-                <a class="nav-link" href="{{route('venta')}}">
-                    <i class="fas fa-cash-register"></i>
-                    <span>Venta</span></a>
-            </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Personas
+                Negociantes
             </div>
             <li class="nav-item @yield('dealer-item')">
                 <a class="nav-link" href="{{route('negociantes')}}">
                     <i class="fas fa-people-arrows"></i>
-                    <span>Negociantes</span></a>
+                    <span>Proveedores / Clientes</span></a>
             </li>
             <hr class="sidebar-divider">
+            <!-- Titulo - Transaccion -->
+            <div class="sidebar-heading">
+                Transacciones
+            </div>
+            <li class="nav-item @yield('production-item')">
+                <a class="nav-link" href="{{route('produccion')}}">
+                    <i class="fas fa-people-carry"></i>
+                    <span>Producciones</span></a>
+            </li>
+            <li class="nav-item @yield('purchase-item')">
+                <a class="nav-link" href="{{route('compra')}}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Compras</span></a>
+            </li>
+            <li class="nav-item @yield('sail-item')">
+                <a class="nav-link" href="{{route('venta')}}">
+                    <i class="fas fa-cash-register"></i>
+                    <span>Ventas</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider d-none d-md-block"> -->
@@ -147,7 +142,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-100 small font-weight-bold text-capitalize">{{session('nombre_usuario_activo')}} {{session('apellido_usuario_activo')}}</span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-100 small font-weight-bold text-capitalize">{{session('nombre_usuario_activo')}}
+                                    {{session('apellido_usuario_activo')}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('resources/img/undraw_profile.svg')}}">
                             </a>
@@ -156,13 +153,13 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{route('perfil_usuario')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
+                                    Mi perfil
                                 </a>
                                 <!-- En caso de ser administrador -->
                                 @if(session('cargo_usuario_activo')=='Administrador')
                                 <a class="dropdown-item" href="{{route('usuarios')}}">
                                     <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Usuarios
+                                    Gestión de usuarios
                                 </a>
                                 @endif
                                 <div class="dropdown-divider"></div>
@@ -232,14 +229,14 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('resources/sb-admin-2/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    
+
     <!-- Core plugin JavaScript-->
     <script src="{{asset('resources/sb-admin-2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-    
+
     <!-- Custom scripts for all pages-->
     <script src="{{asset('resources/sb-admin-2/js/sb-admin-2.min.js')}}"></script>
     <!-- DATATABLES -->
@@ -247,9 +244,9 @@
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('resources/sb-admin-2/js/demo/datatables-demo.js')}}"></script>
-    
+
     <!-- Page level custom scripts -->
-    
+
     <!-- Comprueba si es movil o pc para mostrar u ocultar el menu -->
     <script>
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {

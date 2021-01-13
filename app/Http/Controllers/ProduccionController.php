@@ -18,16 +18,18 @@ class ProduccionController extends Controller
         $hoy = Carbon::now();
         $produccion_exists_hoy = false;
         $id_exists_hoy = false;
+        $estado = false;
         foreach($list_producciones as $item){
             // Si encuentra una produccion con la fecha de hoy, 
             // se debe ocultar el boton crear nueva produccion
             if ($hoy->isoFormat('D-M-Y') == $item->created_at->isoFormat('D-M-Y')){
                 $produccion_exists_hoy = true;
                 $id_exists_hoy = $item->cod_trans;
+                $estado = $item->estado_trans;
             }
         }
 
-        return view('dashboard.produccion.index',compact('list_producciones','produccion_exists_hoy','id_exists_hoy'));
+        return view('dashboard.produccion.index',compact('list_producciones','produccion_exists_hoy','id_exists_hoy','estado'));
     }
 
     public function produccion_add(Request $request){

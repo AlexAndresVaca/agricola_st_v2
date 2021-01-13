@@ -27,7 +27,7 @@ active
         @endif
         <div class="row">
             <div class="col-12">
-                <div class="card shadow mb-4">
+                <div class="card mb-4">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="collapseCardExample">

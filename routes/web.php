@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NegociantesController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\VentaController;
 
@@ -82,3 +83,8 @@ Route::POST('dashboard/{tipo}/informacion={id}/{id_det}/delete_product',[Detalle
 // 
 Route::get('/register',[ControllerNavegacion::class, 'register'] )->name('register');
 Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware('logeado')->name('dashboard');
+
+// Reportes
+Route::get('dashboard/reportes',[ReportesController::class, 'reporte_kardex'] )->middleware('logeado')->name('reporte_kardex');
+Route::POST('dashboard/reportes/',[ReportesController::class, 'generar_reporte'] )->middleware('logeado')->name('generar_reporte');
+Route::get('dashboard/reportes/download',[ReportesController::class, 'download_reporte'] )->middleware('logeado')->name('download_reporte');

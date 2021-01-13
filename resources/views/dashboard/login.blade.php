@@ -57,8 +57,8 @@ Login
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="op_recuerdame" value="yes" checked>
                             <label class="form-check-label text-white" for="exampleCheck1">Recordarme</label>
                         </div>
-                        <a href="{{route('index')}}" class="btn btn-block btn-outline-secondary">Volver</a>
                         <button type="submit" class="btn btn-block btn-danger">Ingresar</button>
+                        <a href="{{route('index')}}" class="btn btn-block btn-outline-secondary">Volver</a>
                     </form>
 
                 </div>

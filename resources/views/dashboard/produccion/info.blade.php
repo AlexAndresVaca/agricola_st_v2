@@ -36,17 +36,6 @@ active
                                         {{\Carbon\Carbon::parse($read_produccion->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}</span>
                                 </div>
                                 <div>
-                                    <i class="fas fa-id-card"></i>
-                                    Nombre del cliente:
-                                    <span class="font-weight-normal">
-                                        @if(isset($read_negociante))
-                                        {{$read_negociante->apellido_neg}} {{$read_negociante->nombre_neg}}
-                                        @else
-                                        <span class="text-muted ">[Negociante eliminado]</span>
-                                        @endif
-                                    </span>
-                                </div>
-                                <div>
                                     <i class="fas fa-info-circle"></i>
                                     Estado: <span class="font-weight-normal">{{$read_produccion->estado_trans}}</span>
                                 </div>

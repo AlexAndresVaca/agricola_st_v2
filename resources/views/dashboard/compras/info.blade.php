@@ -51,7 +51,7 @@ active
                                 </div>
                                 <div>
                                     <i class="fas fa-id-card"></i>
-                                    Nombre del cliente:
+                                    Nombre del proveedor:
                                     <span class="font-weight-normal">
                                         @if(isset($read_negociante))
                                         {{$read_negociante->apellido_neg}} {{$read_negociante->nombre_neg}}

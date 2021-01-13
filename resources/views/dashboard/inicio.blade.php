@@ -13,9 +13,9 @@ active
 </nav>
 @endsection
 @section('body')
-<h1 class="h3 mb-4 text-gray-800">Home</h1>
+<!-- <h1 class="h3 mb-4 text-gray-800">Home</h1> -->
 <div class="container-fluid">
-  @if(session('error_sin_acceso'))
+    @if(session('error_sin_acceso'))
     <div class="row">
         <div class="col">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -26,6 +26,13 @@ active
             </div>
         </div>
     </div>
-  @endif
+    @endif
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img class="shadow" src="{{asset('resources/img/undraw_pie_graph_x9dy.svg')}}" alt="">
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

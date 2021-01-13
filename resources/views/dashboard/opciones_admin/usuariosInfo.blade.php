@@ -65,11 +65,11 @@ Tu perfil
                         @endif
                         <a type="button" class="" data-toggle="modal" data-target="#editarUsuario"><i
                                 class="far fa-edit"></i> Editar</a>
-                        <hr>
                     </div>
                     @if($read_user->celular_usu)
                     <div class="col-lg-12">
-                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text=" target="_blank" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text="
+                            target="_blank" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
                                 class="fab fa-whatsapp"></i> 0{{$read_user->celular_usu}}</a>
                     </div>
                     @endif
@@ -124,7 +124,7 @@ Tu perfil
                         </tr>
                     </thead>
                     <tbody class="">
-                    @foreach($historial as $item)
+                        @foreach($historial as $item)
                         <tr class="text-capitalize">
                             <td scope="row">{{$item->cod_trans}}</td>
                             <td scope="row">{{$item->created_at}}</td>
@@ -160,6 +160,19 @@ Tu perfil
     <div class="card-footer">
         <div class="alert-danger px-4 py-2 rounded ">
             <div class="h4"><i class="fas fa-exclamation-triangle"></i> Precaución</div>
+            @if($historial->count() == 0)
+            <div class="container m-0 p-0">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Condiciones para eliminar</strong></p>
+                        <ul>
+                            <li>No debe tener registro alguno en las transacciones como producciones, compras o ventas.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row justify-content-end">
                 <div class="">
                     @if($read_user->estado_usu == true)
@@ -176,8 +189,16 @@ Tu perfil
                     </form>
                     @endif
                 </div>
+                @if($historial->count() == 0)
                 <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
                     data-target="#eliminarUsuario"><i class="far fa-trash-alt"></i> Eliminar</button>
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col my-4">
+                <a href="{{route('usuarios')}}" class="text-gray-600 text-lg"><i class="fa fa-angle-left"></i>
+                    Regresar</a>
             </div>
         </div>
     </div>
@@ -212,7 +233,7 @@ Tu perfil
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="">Telefono</label>
+                            <label for="">Celular</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">+593</div>
@@ -220,7 +241,8 @@ Tu perfil
                                 <input type="text"
                                     class="form-control @if($errors->get('celular_usu'))is-invalid @endif"
                                     placeholder="Ej: 0987XXXXXX" name="celular_usu"
-                                    value="@if($errors->has('celular_usu')){{old('celular_usu')}}@else{{$read_user->celular_usu}}@endif" maxlength="9">
+                                    value="@if($errors->has('celular_usu')){{old('celular_usu')}}@else{{$read_user->celular_usu}}@endif"
+                                    maxlength="9">
                                 @if($errors->get('celular_usu'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('celular_usu')}}

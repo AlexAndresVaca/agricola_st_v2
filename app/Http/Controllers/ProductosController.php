@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detalle;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -86,7 +87,8 @@ class ProductosController extends Controller
     }
     public function productos_info($id){
         $read_producto = Producto::findOrFail($id);
-        return view('dashboard.productos.info',compact('read_producto'));
+        $num_transaccciones = Detalle::where('fk_cod_prod_det',$id)->get();
+        return view('dashboard.productos.info',compact('read_producto','num_transaccciones'));
         
     }
     public function productos_delete($id){

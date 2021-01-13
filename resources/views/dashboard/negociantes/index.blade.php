@@ -8,7 +8,7 @@ active
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Negociantes</li>
+        <li class="breadcrumb-item active" aria-current="page">Proveedores / Clientes</li>
     </ol>
 </nav>
 @endsection
@@ -17,7 +17,7 @@ active
     <div class="row justify-content-center my-5">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevoNegociante">
             <i class="fa fa-plus-circle"></i>
-            Nuevo negociante
+            Nuevo Proveedores / Clientes
         </button>
     </div>
     <div class="container">
@@ -25,7 +25,7 @@ active
             <div class="col">
                 @if(session('add_negociante'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Negociante agregado!</strong> puedes editar su información <a
+                    <strong>Registro agregado!</strong> puedes editar su información <a
                         href="{{route('negociantesInfo',session('id_neg'))}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -34,7 +34,7 @@ active
                 @endif
                 @if(session('delete_negociante'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Negociante eliminado!</strong>
+                    <strong>Registro eliminado!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -46,7 +46,7 @@ active
     <div class="card-header">
         <div class="container mb-0">
             <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                <div class="h4 mb-0 text-gray-800">Lista de negociantes</div>
+                <div class="h4 mb-0 text-gray-800">Lista de Proveedores / Clientes</div>
                 <!-- <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
                     <i class="fas fa-file-pdf"></i>
                     Descargar PDF
@@ -99,7 +99,7 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo negociante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor/cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,7 +128,7 @@ active
                                 </div>
                                 <input type="text"
                                     class="form-control @if($errors->has('celular_neg'))is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="celular_neg" value="{{old('celular_neg')}}"
+                                    placeholder="Ej: 987XXXXXX" name="celular_neg" value="{{old('celular_neg')}}"
                                     minlength="9" maxlength="9">
                                 @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">

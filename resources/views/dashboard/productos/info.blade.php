@@ -128,13 +128,24 @@ active
         </form>
     </div>
     <div class="card-footer">
+        @if($num_transaccciones->count() == 0)
         <div class="alert-danger px-4 py-2 rounded ">
             <div class="h4"><i class="fas fa-exclamation-triangle"></i> Precaución</div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Condiciones para eliminar</strong></p>
+                    <ul>
+                        <li>No debe tener registro alguno en las transacciones como producciones, compras o ventas.
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="row justify-content-end">
                 <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
                     data-target="#eliminarProducto"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>
+        @endif
     </div>
 </div>
 

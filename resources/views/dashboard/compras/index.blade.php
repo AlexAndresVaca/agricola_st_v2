@@ -73,7 +73,7 @@ active
                     @foreach($list_compras as $item)
                     <tr class="text-capitalize" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
                         <td scope="row">{{$item->cod_trans}}</td>
-                        <td>{{$item->created_at}}</td>
+                        <td>{{\Carbon\Carbon::parse($item->created_at)->isoFormat('YYYY-MM-DD')}}</td>
                         <td>
                             {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}
                         </td>
@@ -87,31 +87,6 @@ active
                             <span class="ml-1 d-none d-md-inline text-capitalize">{{$item->estado_trans}}</span>
                         </td>
                         <td>{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
-                        <td class="text-center w-75px">
-                            <a href="{{route('compraInfo',$item)}}" class="text-secondary">
-                                <i class="fas fa-eye"></i>
-                                <span class="d-none d-sm-inline">Ver</span>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @foreach($list_compras_sn_personas as $item)
-                    <tr class="text-capitalize tr-danger" title="{{ucfirst( $item->created_at->diffForHumans()) }}">
-                        <td scope=" row" class="border-left-danger">{{$item->cod_trans}}</td>
-                        <td>{{$item->created_at}}</td>
-                        <td>
-                            {{\Carbon\Carbon::parse($item->created_at)->isoFormat('ddd D \d\e MMMM \d\e\l YYYY')}}
-                        </td>
-                        <td>{{$item->tipo_trans}}</td>
-                        <td class="text-center">
-                            @if($item->estado_trans == 'en curso')
-                            <i class="fas fa-spinner fa-spin text-primary"></i>
-                            @elseif($item->estado_trans == 'realizado')
-                            <i class="fas fa-clipboard-check text-success"></i>
-                            @endif
-                            <span class="ml-1 d-none d-md-inline text-capitalize">{{$item->estado_trans}}</span>
-                        </td>
-                        <td class=""> <span class="text-muted ">[Negociante eliminado]</span></td>
                         <td class="text-center w-75px">
                             <a href="{{route('compraInfo',$item)}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
@@ -138,7 +113,7 @@ active
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Elegir un comerciante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Elegir un proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

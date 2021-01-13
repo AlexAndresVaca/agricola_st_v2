@@ -6,14 +6,14 @@ Tu perfil
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page"><a href="{{route('dashboard')}}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tu perfil</li>
+        <li class="breadcrumb-item active" aria-current="page">Mi perfil</li>
     </ol>
 </nav>
 @endsection
 @section('body')
 <div class="card shadow">
     <div class="card-header">
-        <h1 class="h3">Perfil del usuario</h1>
+        <h1 class="h3">Mi perfil</h1>
     </div>
     <div class="card-body">
         <div class="row">
@@ -57,7 +57,6 @@ Tu perfil
                         @else
                         <span class="badge badge badge-warning text-lg mr-4 px-4">Empleado</span>
                         @endif
-                        <hr>
                     </div>
                     @if($read_user->celular_usu)
                     <div class="col-lg-12">
@@ -127,6 +126,8 @@ Tu perfil
         </div>
     </div>
     <div class="card-footer">
+        <a href="{{route('dashboard')}}" class="text-gray-600 text-lg"><i class="fa fa-angle-left"></i>
+            Regresar</a>
     </div>
 </div>
 @endsection

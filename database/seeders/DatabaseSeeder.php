@@ -86,41 +86,42 @@ class DatabaseSeeder extends Seeder
         $producto1->stock_prod = 880;
         $producto1->save();
 
-        // Encabezado Produccion
-        $produccion = new Transaccion;
-        $produccion->tipo_trans = 'producción';
-        $produccion->estado_trans = 'en curso';
-        $produccion->fk_cod_usu_trans = 1;
-        $produccion->fk_cod_neg_trans = 1;
-        $produccion->save();
-        // 
-        $produccion1 = new Transaccion;
-        $produccion1->tipo_trans = 'compra';
-        $produccion1->estado_trans = 'en curso';
-        $produccion1->fk_cod_usu_trans = 1;
-        $produccion1->fk_cod_neg_trans = 1;
-        $produccion1->save();
+    //     // Encabezado Produccion
+    //     $produccion = new Transaccion;
+    //     $produccion->tipo_trans = 'producción';
+    //     $produccion->estado_trans = 'en curso';
+    //     $produccion->fk_cod_usu_trans = 1;
+    //     $produccion->fk_cod_neg_trans = 1;
+    //     $produccion->save();
+    //     // 
+    //     $produccion1 = new Transaccion;
+    //     $produccion1->tipo_trans = 'compra';
+    //     $produccion1->estado_trans = 'en curso';
+    //     $produccion1->fk_cod_usu_trans = 1;
+    //     $produccion1->fk_cod_neg_trans = 1;
+    //     $produccion1->save();
         
-        $produccion_1 = new Transaccion;
-        $produccion_1->tipo_trans = 'compra';
-        $produccion_1->estado_trans = 'en curso';
-        $produccion_1->fk_cod_usu_trans = null;
-        $produccion_1->fk_cod_neg_trans = null;
-        $produccion_1->save();
-        // venta1
-        $venta1 = new Transaccion;
-        $venta1->tipo_trans = 'venta';
-        $venta1->estado_trans = 'en curso';
-        $venta1->fk_cod_usu_trans = 1;
-        $venta1->fk_cod_neg_trans = 1;
-        $venta1->save();
+    //     $produccion_1 = new Transaccion;
+    //     $produccion_1->tipo_trans = 'compra';
+    //     $produccion_1->estado_trans = 'en curso';
+    //     $produccion_1->fk_cod_usu_trans = null;
+    //     $produccion_1->fk_cod_neg_trans = null;
+    //     $produccion_1->save();
+    //     // venta1
+    //     $venta1 = new Transaccion;
+    //     $venta1->tipo_trans = 'venta';
+    //     $venta1->estado_trans = 'en curso';
+    //     $venta1->fk_cod_usu_trans = 1;
+    //     $venta1->fk_cod_neg_trans = 1;
+    //     $venta1->save();
         
-        // venta2
-        $venta2 = new Transaccion;
-        $venta2->tipo_trans = 'venta';
-        $venta2->estado_trans = 'en curso';
-        $venta2->fk_cod_usu_trans = 1;
-        $venta2->fk_cod_neg_trans = 1;
-        $venta2->save();
+    //     // venta2
+    //     $venta2 = new Transaccion;
+    //     $venta2->tipo_trans = 'venta';
+    //     $venta2->estado_trans = 'en curso';
+    //     $venta2->fk_cod_usu_trans = 1;
+    //     $venta2->fk_cod_neg_trans = 1;
+    //     $venta2->save();
+    //  
     }
 }

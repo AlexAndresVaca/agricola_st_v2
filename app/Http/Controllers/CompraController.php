@@ -18,14 +18,9 @@ class CompraController extends Controller
                                         ->join('negociantes', 'negociantes.cod_neg', '=', 'transaccions.fk_cod_neg_trans')
                                         ->where('tipo_trans','compra')
                                         ->get();
-        $list_compras_sn_personas = Transaccion::where('tipo_trans', '=', 'compra')
-                                                ->where(function ($query) {
-                                                    $query->whereNull('fk_cod_neg_trans');
-                                                    })
-                                                ->get();
         // return $list_compras_sn_personas;
         $list_negociantes = Negociante::all();
-        return view('dashboard.compras.index',compact('list_compras','list_compras_sn_personas','list_negociantes'));
+        return view('dashboard.compras.index',compact('list_compras','list_negociantes'));
     }
     public function compra_add(Request $request, $id){
         $add_compra = new Transaccion;

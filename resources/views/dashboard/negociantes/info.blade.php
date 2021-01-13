@@ -8,7 +8,8 @@ active
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{{route('negociantes')}}">Negociantes</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{{route('negociantes')}}">Proveedores / Clientes</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">Información</li>
     </ol>
 </nav>
@@ -82,7 +83,7 @@ active
             <div class="col">
                 @if(session('update_negociante'))
                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Negociante actualizado!</strong>
+                    <strong>Registro actualizado!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -156,11 +157,28 @@ active
         </div>
     </div>
     <div class="card-footer">
+        @if($historial->count() == 0 )
         <div class="alert-danger px-4 py-2 rounded ">
             <div class="h4"><i class="fas fa-exclamation-triangle"></i> Precaución</div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Condiciones para eliminar</strong></p>
+                    <ul>
+                        <li>No debe tener registro alguno en las transacciones como producciones, compras o ventas.
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="row justify-content-end">
                 <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
                     data-target="#eliminarNegociante"><i class="far fa-trash-alt"></i> Eliminar</button>
+            </div>
+        </div>
+        @endif
+        <div class="row">
+            <div class="col my-4">
+                <a href="{{route('negociantes')}}" class="text-gray-600 text-lg"><i class="fa fa-angle-left"></i>
+                    Regresar</a>
             </div>
         </div>
     </div>
@@ -173,7 +191,7 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo negociante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -295,13 +313,13 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar negociante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar registro</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de eliminar este negociante?</p>
+                <p>Estas seguro de eliminar este registro?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

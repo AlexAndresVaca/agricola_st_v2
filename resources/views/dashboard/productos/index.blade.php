@@ -33,7 +33,7 @@ active
                     </button>
                 </div>
                 @endif
-                
+
                 @if(session('delete_producto'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Producto eliminado!</strong>
@@ -56,8 +56,8 @@ active
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaProductos" width="100%"
-                cellspacing="0">
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaProductos"
+                width="100%" cellspacing="0">
                 <thead class="text-gray-900 ">
                     <tr>
                         <th scope="col">#</th>
@@ -72,8 +72,10 @@ active
                 <tbody class="text-gray-900">
                     @foreach($list_productos as $item)
                     <tr class="@if($item->stock_prod < 150 )tr-danger @endif">
-                        <td scope="row">1</td>
-                        <td class=" @if($item->stock_prod < 150 )border-left-danger @else border-left-primary @endif">
+                        <td scope="row"
+                            class="@if($item->stock_prod < 150 )border-left-danger @else border-left-secondary @endif">
+                            {{$item->cod_prod}}</td>
+                        <td>
                             {{$item->tipo_prod}}</td>
                         <td>{{$item->color_prod}}</td>
                         <td>{{$item->destino_prod}}</td>
