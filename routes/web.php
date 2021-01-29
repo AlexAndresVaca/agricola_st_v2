@@ -42,9 +42,9 @@ Route::POST('dashboard/usuarios/perfil={id}/eliminar',[UsuariosController::class
 // Perfil
 Route::get('dashboard/perfil',[UsuariosController::class, 'perfil_usuario'] )->middleware('logeado')->name('perfil_usuario');
 // Negociantes
-Route::get('dashboard/negociantes',[NegociantesController::class, 'negociantes'] )->middleware('logeado')->name('negociantes');
+Route::get('dashboard/negociantes={negociantes}',[NegociantesController::class, 'negociantes'] )->middleware('logeado')->name('negociantes');
 Route::POST('dashboard/negociantes/add',[NegociantesController::class, 'negociantes_add'] )->middleware('logeado')->name('negociantes_add');
-Route::get('dashboard/negociantes/informacion={id}',[NegociantesController::class, 'negociantes_info'] )->middleware('logeado')->name('negociantesInfo');
+Route::get('dashboard/negociantes={negociantes}/informacion={id}',[NegociantesController::class, 'negociantes_info'] )->middleware('logeado')->name('negociantesInfo');
 Route::POST('dashboard/negociantes/informacion={id}/update',[NegociantesController::class, 'negociantes_update'] )->middleware('logeado')->name('negociantes_update');
 Route::POST('dashboard/negociantes/informacion={id}/delete',[NegociantesController::class, 'negociantes_delete'] )->middleware('logeado')->name('negociantes_delete');
 // Producto
@@ -77,6 +77,7 @@ Route::POST('dashboard/venta/informacion={id}/close',[VentaController::class, 'v
 Route::POST('dashboard/venta/informacion={id}/delete',[VentaController::class, 'venta_delete'] )->middleware('logeado')->name('venta_delete');
 
 // Detalle
+Route::GET('autocompletar/{tipo}',[DetalleController::class, 'autocompletar_productos'] )->middleware('logeado')->name('autocompletar');
 Route::POST('dashboard/{tipo}/informacion={id}/add_product',[DetalleController::class, 'add_prod_det'] )->middleware('logeado')->name('add_prod_det');
 Route::POST('dashboard/{tipo}/informacion={id}/{id_det}/delete_product',[DetalleController::class, 'delete_prod_det'] )->middleware('logeado')->name('delete_prod_det');
 

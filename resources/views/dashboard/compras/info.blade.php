@@ -29,8 +29,7 @@ active
             <div class="col-12">
                 <div class="card my-4">
                     <!-- Card Header - Accordion -->
-                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-secondary">Información de la compra</h6>
                     </a>
                     <!-- Card Content - Collapse -->
@@ -89,7 +88,7 @@ active
         <div class="container">
             @if($read_compra->estado_trans == 'en curso')
             <div class="row">
-                <form action="{{route('add_prod_det',['id' => $read_compra, 'tipo' => 'compra'])}}" method="POST">
+                <!-- <form action="{{route('add_prod_det',['id' => $read_compra, 'tipo' => 'compra'])}}" method="POST">
                     @CSRF
                     <div class="form-row">
                         <div class="form-group col-md-2">
@@ -179,6 +178,110 @@ active
                             </div>
                         </div>
                     </div>
+                </form> -->
+                <form action="{{route('add_prod_det',['id' => $read_compra, 'tipo' => 'compra'])}}" method="POST" autocomplete="off">
+                    @CSRF
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <h3>Busca un producto por su clave:</h3>
+                            <label for="">Codigo</label>
+                            <div class="input-group">
+                                <input type="text" maxlength="4" id="autocomplete" name="clave_prod" class="form-control @if($errors->get('clave_prod')) is-invalid @endif" placeholder="----" value="{{old('clave_prod')}}">
+                                @if($errors->get('clave_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('clave_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                            <!-- <hr> -->
+                        </div>
+                        <div class="form-group col-12">
+                            <h3>O por sus características:</h3>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Tipo</label>
+                            <select name="tipo_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tipo_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tipo_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tipo as $item)
+                                <option value="{{$item->tipo_prod}}">{{$item->tipo_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Color</label>
+                            <select name="color_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('color_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('color_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($color as $item)
+                                <option value="{{$item->color_prod}}">{{$item->color_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Destino</label>
+                            <select name="destino_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('destino_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('destino_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($destino as $item)
+                                <option value="{{$item->destino_prod}}">{{$item->destino_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Tamaño</label>
+                            <select name="tamano_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tamano_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tamano_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tamano as $item)
+                                <option value="{{$item->tamano_prod}}">{{$item->tamano_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-12 ">
+                            <hr>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="">Cantidad</label>
+                            <div class="input-group">
+                                <input type="number" min="0" name="cant_prod" class="form-control @if($errors->get('cant_prod')) is-invalid @endif" placeholder="Ej: 500" value="{{old('cant_prod')}}">
+                                <div class="input-group-append" title="Unidades">
+                                    <div class="input-group-text text-xs">Unidades</div>
+                                </div>
+                                @if($errors->get('cant_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('cant_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6  text-center">
+                            <label class="" style="opacity: 0;" for="">Opción:</label>
+                            <div class="input-group">
+                                <button type="submit" class="btn btn-success mx-auto">Ingresar</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             @endif
@@ -215,12 +318,10 @@ active
                     <div class="table-responsive">
                         @if($read_compra->estado_trans == 'en curso')
                         <div class="col-12 text-right my-4">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#cerrarCompra">Cerrar compra</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cerrarCompra">Cerrar compra</button>
                         </div>
                         @endif
-                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
-                            width="100%" cellspacing="0">
+                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos" width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -243,9 +344,7 @@ active
                                     <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
                                         @if($read_compra->estado_trans == 'en curso')
-                                        <form
-                                            action="{{route('delete_prod_det',['id' => $read_compra, 'id_det' => $item->cod_det ,'tipo' => 'compra'])}}"
-                                            method="POST">
+                                        <form action="{{route('delete_prod_det',['id' => $read_compra, 'id_det' => $item->cod_det ,'tipo' => 'compra'])}}" method="POST">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
@@ -272,8 +371,7 @@ active
             <div class="row justify-content-between">
                 <a href="{{route('compra')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
-                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Eliminar compra</button>
+                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Eliminar compra</button>
             </div>
         </div>
     </div>
@@ -329,4 +427,43 @@ active
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    $('#autocomplete').autocomplete({
+        // Sugiere el primer elemento en azul
+        autoFocus: true,
+        // Recupera la informacion mediante una solicitud ajax
+        source: function(request, response) {
+            $.ajax({
+                url: "{{route('autocompletar',['tipo' => 'compra'])}}",
+                dataType: 'json',
+                data: {
+                    term: request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        // Evita que el valor cambie con la tecla arriba y abajo
+        focus: function(e, ui) {
+            return false;
+        },
+        // A menos que elija una opción tendrá valor caso contrario sera null
+        change: function(event, ui) {
+            if (!ui.item) {
+                $("#autocomplete").val(null);
+                // $("#autocompleteID").val(null);
+            }
+
+        },
+        // Coloca los valores obtenidos en la consulta (Hay que ocultar el campo ID)
+        select: function(event, ui) {
+            $('#autocomplete').val(ui.item.clave);
+            // $('#autocompleteID').val(ui.item.value);
+            return false;
+        }
+    });
+</script>
 @endsection

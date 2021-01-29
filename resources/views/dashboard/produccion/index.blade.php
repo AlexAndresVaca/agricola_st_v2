@@ -35,8 +35,7 @@ active
             <div class="col">
                 @if($produccion_exists_hoy == true AND $estado == 'en curso')
                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Produccion del dia de hoy</strong> puedes gestionar sus productos <a
-                        href="{{route('produccionInfo',$id_exists_hoy)}}">aquí</a>.
+                    <strong>Produccion del dia de hoy</strong> puedes gestionar sus productos <a href="{{route('produccionInfo',$id_exists_hoy)}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -57,16 +56,15 @@ active
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @endif
             </div>
-            @endif
         </div>
     </div>
     <div class="card-header">
         <div class="container mb-0">
             <div class="d-sm-flex align-items-center justify-content-between mb-2">
                 <h1 class="h3 mb-0 text-gray-800 text-center">Lista de producción</h1>
-                <button type="button" class="d-none d-sm-inline-block btn btn-secondary btn-sm shadow-sm"
-                    data-toggle="modal" data-target="#info">
+                <button type="button" class="d-none d-sm-inline-block btn btn-secondary btn-sm shadow-sm" data-toggle="modal" data-target="#info">
                     <i class="fas fa-info-circle"></i>
                     Filtrado de datos
                 </button>
@@ -75,8 +73,7 @@ active
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-light table-bordered table-striped table-hover mx-auto" id="tablaProduccion"
-                width="100%" cellspacing="0">
+            <table class="table table-light table-bordered table-striped table-hover" id="tablaProduccion" width="100%" cellspacing="0">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>

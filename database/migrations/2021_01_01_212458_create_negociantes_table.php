@@ -18,6 +18,7 @@ class CreateNegociantesTable extends Migration
             $table->string('ci_neg',13)->unique();
             $table->string('apellido_neg',50);
             $table->string('nombre_neg',50);
+            $table->string('tipo_neg',15);
             $table->string('celular_neg',9)->nullable();
             $table->string('direccion_neg',150)->nullable();
             $table->string('correo_neg',60)->unique();

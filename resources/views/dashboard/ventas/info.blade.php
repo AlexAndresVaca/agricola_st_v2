@@ -86,7 +86,7 @@ active
         <div class="container">
             @if($read_venta->estado_trans == 'en curso')
             <div class="row">
-                <form action="{{route('add_prod_det',['id' => $read_venta, 'tipo' => 'venta'])}}" method="POST">
+                <!-- <form action="{{route('add_prod_det',['id' => $read_venta, 'tipo' => 'venta'])}}" method="POST">
                     @CSRF
                     <div class="form-row">
                         <div class="form-group col-md-2">
@@ -176,6 +176,110 @@ active
                             </div>
                         </div>
                     </div>
+                </form> -->
+                <form action="{{route('add_prod_det',['id' => $read_venta, 'tipo' => 'venta'])}}" method="POST" autocomplete="off">
+                    @CSRF
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <h3>Busca un producto por su clave:</h3>
+                            <label for="">Codigo</label>
+                            <div class="input-group">
+                                <input type="text" maxlength="4" id="autocomplete" name="clave_prod" class="form-control @if($errors->get('clave_prod')) is-invalid @endif" placeholder="----" value="{{old('clave_prod')}}">
+                                @if($errors->get('clave_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('clave_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                            <!-- <hr> -->
+                        </div>
+                        <div class="form-group col-12">
+                            <h3>O por sus características:</h3>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Tipo</label>
+                            <select name="tipo_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tipo_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tipo_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tipo as $item)
+                                <option value="{{$item->tipo_prod}}">{{$item->tipo_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Color</label>
+                            <select name="color_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('color_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('color_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($color as $item)
+                                <option value="{{$item->color_prod}}">{{$item->color_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Destino</label>
+                            <select name="destino_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('destino_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('destino_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($destino as $item)
+                                <option value="{{$item->destino_prod}}">{{$item->destino_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="">Tamaño</label>
+                            <select name="tamano_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                                @if($errors->any() AND old('tamano_prod') != '')
+                                <optgroup label="Actual">
+                                    <option selected>{{old('tamano_prod')}}</option>
+                                </optgroup>
+                                @else
+                                <option value="">Seleccione</option>
+                                @endif
+                                @foreach($tamano as $item)
+                                <option value="{{$item->tamano_prod}}">{{$item->tamano_prod}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-12 ">
+                            <hr>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="">Cantidad</label>
+                            <div class="input-group">
+                                <input type="number" min="0" name="cant_prod" class="form-control @if($errors->get('cant_prod')) is-invalid @endif" placeholder="Ej: 500" value="{{old('cant_prod')}}">
+                                <div class="input-group-append" title="Unidades">
+                                    <div class="input-group-text text-xs">Unidades</div>
+                                </div>
+                                @if($errors->get('cant_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('cant_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6  text-center">
+                            <label class="" style="opacity: 0;" for="">Opción:</label>
+                            <div class="input-group">
+                                <button type="submit" class="btn btn-success mx-auto">Ingresar</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             @endif
@@ -199,7 +303,8 @@ active
                     @endif
                     @if($errors->has('stock_insuficiente'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Producto insuficiente!</strong> no cuentas con la cantidad necesaria para realizar la venta.
+                        <strong>Producto insuficiente!</strong> no cuentas con la cantidad necesaria para realizar la venta. <br>
+                        <strong>Stock actual: {{session('cantidad_actual')}}</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -334,4 +439,43 @@ active
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    $('#autocomplete').autocomplete({
+        // Sugiere el primer elemento en azul
+        autoFocus: true,
+        // Recupera la informacion mediante una solicitud ajax
+        source: function(request, response) {
+            $.ajax({
+                url: "{{route('autocompletar',['tipo' => 'venta'])}}",
+                dataType: 'json',
+                data: {
+                    term: request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        // Evita que el valor cambie con la tecla arriba y abajo
+        focus: function(e, ui) {
+            return false;
+        },
+        // A menos que elija una opción tendrá valor caso contrario sera null
+        change: function(event, ui) {
+            if (!ui.item) {
+                $("#autocomplete").val(null);
+                // $("#autocompleteID").val(null);
+            }
+
+        },
+        // Coloca los valores obtenidos en la consulta (Hay que ocultar el campo ID)
+        select: function(event, ui) {
+            $('#autocomplete').val(ui.item.clave);
+            // $('#autocompleteID').val(ui.item.value);
+            return false;
+        }
+    });
+</script>
 @endsection

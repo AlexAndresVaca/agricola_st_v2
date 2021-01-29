@@ -26,10 +26,25 @@ active
                         <form action="{{route('generar_reporte')}}" method="POST">
                             @CSRF
                             <div class="form-row">
+                                <div class="form-group col-12">
+                                    <h3>Busca un producto por su clave:</h3>
+                                    <label for="">Codigo</label>
+                                    <div class="input-group">
+                                        <input type="text" maxlength="4" id="autocomplete" name="clave_prod" class="form-control @if($errors->get('clave_prod')) is-invalid @endif" placeholder="----" value="{{old('clave_prod')}}">
+                                        @if($errors->get('clave_prod'))
+                                        <div class="invalid-feedback">
+                                            {{$errors->first('clave_prod')}}
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <!-- <hr> -->
+                                </div>
+                                <div class="form-group col-12">
+                                    <h3>O por sus características:</h3>
+                                </div>
                                 <div class="form-group col-md">
                                     <label for="">Tipo</label>
-                                    <select name="tipo_prod"
-                                        class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                                    <select name="tipo_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
                                         @if($errors->any() AND old('tipo_prod') != '')
                                         <optgroup label="Actual">
                                             <option selected>{{old('tipo_prod')}}</option>
@@ -44,8 +59,7 @@ active
                                 </div>
                                 <div class="form-group col-md ">
                                     <label for="">Color</label>
-                                    <select name="color_prod"
-                                        class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                                    <select name="color_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
                                         @if($errors->any() AND old('color_prod') != '')
                                         <optgroup label="Actual">
                                             <option selected>{{old('color_prod')}}</option>
@@ -60,8 +74,7 @@ active
                                 </div>
                                 <div class="form-group col-md ">
                                     <label for="">Destino</label>
-                                    <select name="destino_prod"
-                                        class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                                    <select name="destino_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
                                         @if($errors->any() AND old('destino_prod') != '')
                                         <optgroup label="Actual">
                                             <option selected>{{old('destino_prod')}}</option>
@@ -76,8 +89,7 @@ active
                                 </div>
                                 <div class="form-group col-md ">
                                     <label for="">Tamaño</label>
-                                    <select name="tamano_prod"
-                                        class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                                    <select name="tamano_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
                                         @if($errors->any() AND old('tamano_prod') != '')
                                         <optgroup label="Actual">
                                             <option selected>{{old('tamano_prod')}}</option>
@@ -91,13 +103,14 @@ active
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group col-12 p-0">
+                                <h3>Establece un rango de fechas:</h3>
+                            </div>
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-md">
                                     <label for="">Desde</label>
                                     <div class="input-group">
-                                        <input type="date" name="desde"
-                                            class="form-control @if($errors->get('desde')) is-invalid @endif"
-                                            value="{{old('desde')}}">
+                                        <input type="date" name="desde" class="form-control @if($errors->get('desde')) is-invalid @endif" value="{{old('desde')}}">
                                         @if($errors->get('desde'))
                                         <div class="invalid-feedback">
                                             {{$errors->first('desde')}}
@@ -108,9 +121,7 @@ active
                                 <div class="form-group col-md">
                                     <label for="">Hasta</label>
                                     <div class="input-group">
-                                        <input type="date" name="hasta"
-                                            class="form-control @if($errors->get('hasta')) is-invalid @endif"
-                                            value="{{old('hasta')}}">
+                                        <input type="date" name="hasta" class="form-control @if($errors->get('hasta')) is-invalid @endif" value="{{old('hasta')}}">
                                         @if($errors->get('hasta'))
                                         <div class="invalid-feedback">
                                             {{$errors->first('hasta')}}
@@ -123,8 +134,7 @@ active
                                 <div class="form-group col-md-12  text-center">
                                     <label class="" style="opacity: 0;" for="">Opción:</label>
                                     <div class="input-group">
-                                        <button type="submit" class="btn btn-primary mx-auto btn-block"
-                                            style="width: 60%;">Generar reporte</button>
+                                        <button type="submit" class="btn btn-primary mx-auto btn-block" style="width: 60%;">Generar reporte</button>
                                     </div>
                                 </div>
                             </div>
@@ -182,8 +192,8 @@ active
                                             </ul>
                                         </div>
                                         <div class="col d-sm-none d-md-block">
-                                        <label for="">Opciones</label>
-                                        <br>
+                                            <label for="">Opciones</label>
+                                            <br>
                                             <a href="{{route('download_reporte')}}" class="btn btn-danger" target="_blank">
                                                 <i class="fa fa-file-pdf"></i>
                                                 Generar PDF
@@ -198,8 +208,7 @@ active
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
-                                <table class="text-center table table-light table-bordered table-striped table-hover"
-                                    id="tablaReporte" width="100%" cellspacing="0">
+                                <table class="text-center table table-light table-bordered table-striped table-hover" id="tablaReporte" width="100%" cellspacing="0">
                                     <thead class="thead-dark text-gray-100 ">
                                         <tr>
                                             <th scope="col">Scope</th>
@@ -248,4 +257,43 @@ active
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    $('#autocomplete').autocomplete({
+        // Sugiere el primer elemento en azul
+        autoFocus: true,
+        // Recupera la informacion mediante una solicitud ajax
+        source: function(request, response) {
+            $.ajax({
+                url: "{{route('autocompletar',['tipo' => 'compra'])}}",
+                dataType: 'json',
+                data: {
+                    term: request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        // Evita que el valor cambie con la tecla arriba y abajo
+        focus: function(e, ui) {
+            return false;
+        },
+        // A menos que elija una opción tendrá valor caso contrario sera null
+        change: function(event, ui) {
+            if (!ui.item) {
+                $("#autocomplete").val(null);
+                // $("#autocompleteID").val(null);
+            }
+
+        },
+        // Coloca los valores obtenidos en la consulta (Hay que ocultar el campo ID)
+        select: function(event, ui) {
+            $('#autocomplete').val(ui.item.clave);
+            // $('#autocompleteID').val(ui.item.value);
+            return false;
+        }
+    });
+</script>
 @endsection

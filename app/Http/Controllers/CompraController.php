@@ -19,7 +19,7 @@ class CompraController extends Controller
                                         ->where('tipo_trans','compra')
                                         ->get();
         // return $list_compras_sn_personas;
-        $list_negociantes = Negociante::all();
+        $list_negociantes = Negociante::where('tipo_neg','=','Proveedor')->get();
         return view('dashboard.compras.index',compact('list_compras','list_negociantes'));
     }
     public function compra_add(Request $request, $id){

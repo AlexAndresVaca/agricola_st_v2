@@ -17,6 +17,7 @@ active
 <div class="card shadow">
     <div class="card-header">
         <h1 class="h3">Editar producto</h1>
+        <small class="text-xs ml-3"><b>COD</b>: ( {{$read_producto->clave_prod}} )</small>
     </div>
     <div class="card-body">
         <!-- Si existe algún error -->
@@ -52,10 +53,7 @@ active
                     <div class="form-group col">
                         <label for="">Tipo</label>
                         <div class="input-group">
-                            <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif"
-                                placeholder="Ej: Clavel" name="tipo_prod"
-                                value="@if($errors->get('tipo_prod')){{old('tipo_prod')}}@else{{$read_producto->tipo_prod}}@endif"
-                                required>
+                            <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif" placeholder="Ej: Clavel" name="tipo_prod" value="@if($errors->get('tipo_prod')){{old('tipo_prod')}}@else{{$read_producto->tipo_prod}}@endif" required>
                             @if($errors->has('tipo_prod'))
                             <div class="invalid-feedback">
                                 {{$errors->first('tipo_prod')}}
@@ -68,8 +66,7 @@ active
                     </div>
                     <div class="form-group col">
                         <label for="">Color</label>
-                        <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif"
-                            name="color_prod">
+                        <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif" name="color_prod">
                             <option selected value="{{$read_producto->color_prod}}">{{$read_producto->color_prod}} (Sin
                                 modificar)</option>
                             <option value="Rojo">Rojo</option>
@@ -80,8 +77,7 @@ active
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Destino</label>
-                        <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif"
-                            name="destino_prod">
+                        <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif" name="destino_prod">
                             <option selected value="{{$read_producto->destino_prod}}">{{$read_producto->destino_prod}}
                                 (Sin modificar)</option>
                             <option value="Nacional">Nacional</option>
@@ -92,31 +88,12 @@ active
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Tamaño</label>
-                        <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif"
-                            name="tamano_prod">
+                        <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif" name="tamano_prod">
                             <option selected value="{{$read_producto->tamano_prod}}">{{$read_producto->tamano_prod}}
                                 (Sin modificar)</option>
                             <option value="Fancy">Fancy (Largo)</option>
                             <option value="Selecta">Selecta (Corto)</option>
                         </select>
-                    </div>
-                    <div class="form-group col">
-                        <label for="">Stock</label>
-                        <div class="input-group">
-                            <input type="number" min="0"
-                                class="form-control @if($errors->has('stock_prod')) is-invalid @endif"
-                                placeholder="Ej: 500" name="stock_prod"
-                                value="@if($errors->get('stock_prod')){{old('stock_prod')}}@else{{$read_producto->stock_prod}}@endif"
-                                required>
-                            <div class="input-group-append" title="Unidades">
-                                <div class="input-group-text text-xs">Unidades</div>
-                            </div>
-                            @if($errors->has('stock_prod'))
-                            <div class="invalid-feedback">
-                                {{$errors->first('stock_prod')}}
-                            </div>
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>
@@ -141,8 +118,7 @@ active
                 </div>
             </div>
             <div class="row justify-content-end">
-                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
-                    data-target="#eliminarProducto"><i class="far fa-trash-alt"></i> Eliminar</button>
+                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal" data-target="#eliminarProducto"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>
         @endif

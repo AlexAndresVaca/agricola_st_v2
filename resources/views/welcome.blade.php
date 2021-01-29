@@ -27,8 +27,8 @@ Bienvenido
 @section('slot-body')
 <div class="jumbotron">
     <h1 class="display-3">Santa Teresita te da la bienvenida!</h1>
-    <p>Este es nuestro nuevo <span class="font-weight-bold">Sistema de control de productos</span>, puedes conocer mas
-        en el siguiente enlace.</p>
+    <!-- <p>Este es nuestro nuevo <span class="font-weight-bold">Sistema de control de productos</span>, puedes conocer mas
+        en el siguiente enlace.</p> -->
     <!-- <a class="btn btn-danger btn-lg" href="" role="button">Acceder la menu &raquo;</a> -->
 </div>
 <div class="container mb-4">

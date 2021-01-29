@@ -63,6 +63,7 @@ class DatabaseSeeder extends Seeder
         $negociante->ci_neg = '0502402811';
         $negociante->apellido_neg = 'Banda';
         $negociante->nombre_neg = 'Monica';
+        $negociante->tipo_neg = 'Productor';
         $negociante->celular_neg = '983413686';
         $negociante->direccion_neg = 'Tanicuchi';
         $negociante->correo_neg = 'mony@gmail.com';
@@ -71,14 +72,16 @@ class DatabaseSeeder extends Seeder
         // 
 
         $producto = new Producto;
+        $producto->clave_prod = 'CREF';
         $producto->tipo_prod = 'Clavel';
         $producto->color_prod = 'Rojo';
         $producto->destino_prod = 'Extranjero';
         $producto->tamano_prod = 'Fancy';
         $producto->stock_prod = 140;
         $producto->save();
-
+        
         $producto1 = new Producto;
+        $producto1->clave_prod = 'CCNF';
         $producto1->tipo_prod = 'Clavel';
         $producto1->color_prod = 'Color';
         $producto1->destino_prod = 'Nacional';

@@ -19,6 +19,7 @@
     <link href="{{asset('/resources/css/custom.css')}}" rel="stylesheet">
     <!-- CSS TABLAS -->
     <link href="{{asset('resources/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{asset('resources/css/jquery-ui.css')}}" rel="stylesheet">
     <!-- SLOT CSS -->
     @yield('css')
 </head>
@@ -61,8 +62,7 @@
                     <span>Productos</span></a>
             </li>
             <li class="nav-item @yield('reports-item')">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-chart-line"></i>
                     <span>Documentos</span>
                 </a>
@@ -78,10 +78,15 @@
             <div class="sidebar-heading">
                 Negociantes
             </div>
-            <li class="nav-item @yield('dealer-item')">
-                <a class="nav-link" href="{{route('negociantes')}}">
+            <li class="nav-item @yield('proveedor-item')">
+                <a class="nav-link" href="{{route('negociantes',['negociantes' => 'proveedor'])}}">
+                    <i class="fas fa-truck-loading"></i>
+                    <span>Proveedores</span></a>
+            </li>
+            <li class="nav-item @yield('cliente-item')">
+                <a class="nav-link" href="{{route('negociantes',['negociantes' => 'cliente'])}}">
                     <i class="fas fa-people-arrows"></i>
-                    <span>Proveedores / Clientes</span></a>
+                    <span>Clientes</span></a>
             </li>
             <hr class="sidebar-divider">
             <!-- Titulo - Transaccion -->
@@ -140,17 +145,13 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span
-                                    class="mr-2 d-none d-lg-inline text-gray-100 small font-weight-bold text-capitalize">{{session('nombre_usuario_activo')}}
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small font-weight-bold text-capitalize">{{session('nombre_usuario_activo')}}
                                     {{session('apellido_usuario_activo')}}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset('resources/img/undraw_profile.svg')}}">
+                                <img class="img-profile rounded-circle" src="{{asset('resources/img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{route('perfil_usuario')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Mi perfil
@@ -209,8 +210,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -239,6 +239,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('resources/sb-admin-2/js/sb-admin-2.min.js')}}"></script>
+    <!-- AUTO-COMPLETAR SCRIP -->
+    <script src="{{asset('resources/js/jquery-ui.min.js')}}"></script>
     <!-- DATATABLES -->
     <!-- Page level plugins -->
     <script src="{{asset('resources/sb-admin-2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -249,10 +251,10 @@
 
     <!-- Comprueba si es movil o pc para mostrar u ocultar el menu -->
     <script>
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        // estamos desde un movil o tablet
-        $("#accordionSidebar").addClass("toggled");
-    }
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // estamos desde un movil o tablet
+            $("#accordionSidebar").addClass("toggled");
+        }
     </script>
     <!-- SLOT MODALES -->
     @yield('modal')

@@ -1,23 +1,29 @@
 @extends('plantillaDashboard')
 @section('name-page')
-Negociantes
+{{$negociantes_upper}}
 @endsection
-@section('dealer-item')
+@if($negociantes_upper == 'Proveedores')
+@section('proveedor-item')
 active
 @endsection
+@else
+@section('cliente-item')
+active
+@endsection
+@endif
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Proveedores / Clientes</li>
+        <li class="breadcrumb-item active" aria-current="page">{{$negociantes_upper}}</li>
     </ol>
 </nav>
 @endsection
 @section('body')
 <div class="card shadow">
     <div class="row justify-content-center my-5">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevoNegociante">
+        <button type="button" class="btn btn-primary text-capitalize" data-toggle="modal" data-target="#nuevoNegociante">
             <i class="fa fa-plus-circle"></i>
-            Nuevo Proveedores / Clientes
+            nuevo {{$negociantes}}
         </button>
     </div>
     <div class="container">
@@ -25,8 +31,7 @@ active
             <div class="col">
                 @if(session('add_negociante'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Registro agregado!</strong> puedes editar su información <a
-                        href="{{route('negociantesInfo',session('id_neg'))}}">aquí</a>.
+                    <strong>Registro agregado!</strong> puedes editar su información <a href="{{route('negociantesInfo',[session('id_neg'),'negociantes' => strtolower(session('tipo_neg'))])}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -46,7 +51,7 @@ active
     <div class="card-header">
         <div class="container mb-0">
             <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                <div class="h4 mb-0 text-gray-800">Lista de Proveedores / Clientes</div>
+                <div class="h4 mb-0 text-gray-800">Lista de {{$negociantes_upper}}</div>
                 <!-- <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm ">
                     <i class="fas fa-file-pdf"></i>
                     Descargar PDF
@@ -56,8 +61,7 @@ active
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaNegociantes" width="100%"
-                cellspacing="0">
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaNegociantes" width="100%" cellspacing="0">
                 <thead class="text-gray-900">
                     <tr>
                         <th scope="col">CI / ID</th>
@@ -73,7 +77,7 @@ active
                         <td class="text-capitalize">{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
                         <td>{{$item->correo_neg}}</td>
                         <td class="text-center w-75px">
-                            <a href="{{route('negociantesInfo',$item)}}" class="text-secondary">
+                            <a href="{{route('negociantesInfo',[$item ,'negociantes' => $negociantes])}}" class="text-secondary">
                                 <i class="fas fa-eye"></i>
                                 <span class="d-none d-sm-inline">Ver perfil</span>
                             </a>
@@ -87,8 +91,8 @@ active
     <div class="d-block d-sm-none card-footer">
         <div class="container">
             <div class="col d-flex justify-content-center">
-                <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i>
-                    Descargar PDF</a>
+                <!-- <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i>
+                    Descargar PDF</a> -->
             </div>
         </div>
     </div>
@@ -99,7 +103,7 @@ active
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor/cliente</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo {{$negociantes}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -110,9 +114,7 @@ active
                         <div class="form-group col">
                             <label for="">CI/ID</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @if($errors->has('ci_neg'))is-invalid @endif"
-                                    placeholder="Ej: 1705XXXXXX" name="ci_neg" value="{{old('ci_neg')}}" minlength="10"
-                                    maxlength="13" required>
+                                <input type="text" class="form-control @if($errors->has('ci_neg'))is-invalid @endif" placeholder="Ej: 1705XXXXXX" name="ci_neg" value="{{old('ci_neg')}}" minlength="10" maxlength="13" required>
                                 @if($errors->has('ci_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('ci_neg')}}
@@ -126,10 +128,7 @@ active
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">+593</div>
                                 </div>
-                                <input type="text"
-                                    class="form-control @if($errors->has('celular_neg'))is-invalid @endif"
-                                    placeholder="Ej: 987XXXXXX" name="celular_neg" value="{{old('celular_neg')}}"
-                                    minlength="9" maxlength="9">
+                                <input type="text" class="form-control @if($errors->has('celular_neg'))is-invalid @endif" placeholder="Ej: 987XXXXXX" name="celular_neg" value="{{old('celular_neg')}}" minlength="9" maxlength="9">
                                 @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('celular_neg')}}
@@ -143,10 +142,7 @@ active
                         <div class="form-group col">
                             <label for="">Apellido</label>
                             <div class="input-group">
-                                <input type="text"
-                                    class="form-control @if($errors->has('apellido_neg'))is-invalid @endif"
-                                    placeholder="Ej: Lee" name="apellido_neg" value="{{old('apellido_neg')}}"
-                                    maxlength="50" required>
+                                <input type="text" class="form-control @if($errors->has('apellido_neg'))is-invalid @endif" placeholder="Ej: Lee" name="apellido_neg" value="{{old('apellido_neg')}}" maxlength="50" required>
                                 @if($errors->has('apellido_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('apellido_neg')}}
@@ -157,9 +153,7 @@ active
                         <div class="form-group col">
                             <label for="">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @if($errors->has('nombre_neg'))is-invalid @endif"
-                                    placeholder="Ej: Steve" name="nombre_neg" value="{{old('nombre_neg')}}"
-                                    maxlength="50" required>
+                                <input type="text" class="form-control @if($errors->has('nombre_neg'))is-invalid @endif" placeholder="Ej: Steve" name="nombre_neg" value="{{old('nombre_neg')}}" maxlength="50" required>
                                 @if($errors->has('nombre_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('nombre_neg')}}
@@ -172,10 +166,7 @@ active
                         <div class="form-group col">
                             <label for="">Dirección</label>
                             <div class="input-group">
-                                <input type="text"
-                                    class="form-control @if($errors->has('direccion_neg'))is-invalid @endif"
-                                    placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_neg"
-                                    value="{{old('direccion_neg')}}" maxlength="150">
+                                <input type="text" class="form-control @if($errors->has('direccion_neg'))is-invalid @endif" placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_neg" value="{{old('direccion_neg')}}" maxlength="150">
                                 @if($errors->has(''))
                                 <div class="invalid-feedback">
                                     {{$errors->first('direccion_neg')}}
@@ -188,15 +179,21 @@ active
                         <div class="form-group col">
                             <label for="">Correo electronico</label>
                             <div class="input-group">
-                                <input type="email"
-                                    class="form-control @if($errors->has('correo_neg'))is-invalid @endif"
-                                    placeholder="Ej: correo@gmail.com" name="correo_neg" value="{{old('correo_neg')}}"
-                                    maxlength="60" required>
+                                <input type="email" class="form-control @if($errors->has('correo_neg'))is-invalid @endif" placeholder="Ej: correo@gmail.com" name="correo_neg" value="{{old('correo_neg')}}" maxlength="60" required>
                                 @if($errors->has('correo_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('correo_neg')}}
                                 </div>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group col d-none">
+                            <label for="">Tipo</label>
+                            <div class="input-group">
+                                <select class="form-control @if($errors->has('tipo_neg'))is-invalid @endif" name="tipo_neg" required>
+                                    <option value="Proveedor" @if($negociantes=='proveedor' ) selected @endif)>Proveedor</option>
+                                    <option value="Cliente" @if($negociantes=='cliente' ) selected @endif)>Cliente</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -214,9 +211,9 @@ active
 @section('js')
 @if($errors->any())
 <script>
-$(document).ready(function() {
-    $('#nuevoNegociante').modal('show');
-});
+    $(document).ready(function() {
+        $('#nuevoNegociante').modal('show');
+    });
 </script>
 @endif
 @endsection

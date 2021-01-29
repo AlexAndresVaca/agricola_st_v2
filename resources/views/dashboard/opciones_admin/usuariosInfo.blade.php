@@ -57,7 +57,7 @@ Tu perfil
             <div class="col-lg-4 text-center">
                 <div class="h3 text-center text-gray-800 mb-4"><i class="fa fa-cog"></i> Opciones</div>
                 <div class="row">
-                    <div class="col-lg-12 text-success">
+                    <div class="col-lg-12 my-2 text-success">
                         @if($read_user->cargo_usu == 'Administrador')
                         <span class="badge badge-primary text-lg mr-4">Administrador</span>
                         @else
@@ -67,7 +67,7 @@ Tu perfil
                                 class="far fa-edit"></i> Editar</a>
                     </div>
                     @if($read_user->celular_usu)
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 my-2">
                         <a href="https://api.whatsapp.com/send?phone=+593{{$read_user->celular_usu}}&text="
                             target="_blank" class="btn bg-success text-white" style="font-size: 1.5rem;"><i
                                 class="fab fa-whatsapp"></i> 0{{$read_user->celular_usu}}</a>

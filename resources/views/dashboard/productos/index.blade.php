@@ -17,8 +17,7 @@ active
     <div class="row justify-content-center my-5">
         <form action="">
             @CSRF
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto"><i
-                    class="fa fa-plus-circle"></i> Nuevo producto</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus-circle"></i> Nuevo producto</button>
         </form>
     </div>
     <div class="container">
@@ -26,8 +25,7 @@ active
             <div class="col">
                 @if(session('add_producto'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Producto agregado!</strong> puedes editar su información <a
-                        href="{{route('productosInfo',session('id_producto'))}}">aquí</a>.
+                    <strong>Producto agregado!</strong> puedes editar su información <a href="{{route('productosInfo',session('id_producto'))}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -56,11 +54,10 @@ active
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaProductos"
-                width="100%" cellspacing="0">
+            <table class="table table-hover tr-hover-red border table-bordered table-striped" id="tablaProductos" width="100%" cellspacing="0">
                 <thead class="text-gray-900 ">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">COD</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Color</th>
                         <th scope="col">Destino</th>
@@ -72,11 +69,10 @@ active
                 <tbody class="text-gray-900">
                     @foreach($list_productos as $item)
                     <tr class="@if($item->stock_prod < 150 )tr-danger @endif">
-                        <td scope="row"
-                            class="@if($item->stock_prod < 150 )border-left-danger @else border-left-secondary @endif">
-                            {{$item->cod_prod}}</td>
-                        <td>
-                            {{$item->tipo_prod}}</td>
+                        <td scope="row" class="@if($item->stock_prod < 150 )border-left-danger @else border-left-secondary @endif">
+                            {{$item->clave_prod}}
+                        </td>
+                        <td>{{$item->tipo_prod}}</td>
                         <td>{{$item->color_prod}}</td>
                         <td>{{$item->destino_prod}}</td>
                         <td>{{$item->tamano_prod}}</td>
@@ -121,8 +117,7 @@ active
                         <div class="form-group col">
                             <label for="">Tipo</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif"
-                                    placeholder="Ej: Clavel" name="tipo_prod" value="{{old('tipo_prod')}}" required>
+                                <input type="text" class="form-control @if($errors->has('tipo_prod')) is-invalid @endif" placeholder="Ej: Clavel" name="tipo_prod" value="{{old('tipo_prod')}}" required>
                                 @if($errors->has('tipo_prod'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('tipo_prod')}}
@@ -135,8 +130,7 @@ active
                         </div>
                         <div class="form-group col">
                             <label>Color</label>
-                            <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif"
-                                name="color_prod">
+                            <select class="custom-select mr-sm-2 @if($errors->has('color_prod')) is-invalid @endif" name="color_prod">
                                 <option selected>Seleccionar</option>
                                 <option value="Rojo">Rojo</option>
                                 <option value="Color">Color (Otros)</option>
@@ -146,8 +140,7 @@ active
                     <div class="form-row">
                         <div class="form-group col">
                             <label>Destino</label>
-                            <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif"
-                                name="destino_prod">
+                            <select class="custom-select mr-sm-2 @if($errors->has('destino_prod')) is-invalid @endif" name="destino_prod">
                                 <option selected>Seleccionar</option>
                                 <option value="Nacional">Nacional</option>
                                 <option value="Extranjero">Extranjero</option>
@@ -157,28 +150,11 @@ active
                     <div class="form-row">
                         <div class="form-group col">
                             <label>Tamaño</label>
-                            <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif"
-                                name="tamano_prod">
+                            <select class="custom-select mr-sm-2 @if($errors->has('tamano_prod')) is-invalid @endif" name="tamano_prod">
                                 <option selected>Seleccionar</option>
                                 <option value="Fancy">Fancy (Largo)</option>
                                 <option value="Selecta">Selecta (Corto)</option>
                             </select>
-                        </div>
-                        <div class="form-group col">
-                            <label for="">Stock</label>
-                            <div class="input-group">
-                                <input type="number" min="0"
-                                    class="form-control @if($errors->has('stock_prod')) is-invalid @endif"
-                                    placeholder="Ej: 500" name="stock_prod" value="{{old('stock_prod')}}" required>
-                                <div class="input-group-append" title="Unidades">
-                                    <div class="input-group-text text-xs">Unidades</div>
-                                </div>
-                                @if($errors->has('stock_prod'))
-                                <div class="invalid-feedback">
-                                    {{$errors->first('stock_prod')}}
-                                </div>
-                                @endif
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,9 +170,9 @@ active
 @section('js')
 @if($errors->any())
 <script>
-$(document).ready(function() {
-    $('#nuevoProducto').modal('show');
-});
+    $(document).ready(function() {
+        $('#nuevoProducto').modal('show');
+    });
 </script>
 @endif
 @endsection

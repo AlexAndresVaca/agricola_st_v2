@@ -21,8 +21,7 @@ active
             <div class="col-12">
                 <div class="card my-4">
                     <!-- Card Header - Accordion -->
-                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-secondary">Información de la producción</h6>
                     </a>
                     <!-- Card Content - Collapse -->
@@ -61,14 +60,28 @@ active
         <div class="container">
             @if($read_produccion->estado_trans == 'en curso')
             <div class="row">
-                <form action="{{route('add_prod_det',['id' => $read_produccion, 'tipo' => 'produccion'])}}"
-                    method="POST">
+                <form action="{{route('add_prod_det',['id' => $read_produccion, 'tipo' => 'produccion'])}}" method="POST" autocomplete="off">
                     @CSRF
                     <div class="form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-12">
+                            <h3>Busca un producto por su clave:</h3>
+                            <label for="">Codigo</label>
+                            <div class="input-group">
+                                <input type="text" maxlength="4" id="autocomplete" name="clave_prod" class="form-control @if($errors->get('clave_prod')) is-invalid @endif" placeholder="----" value="{{old('clave_prod')}}">
+                                @if($errors->get('clave_prod'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('clave_prod')}}
+                                </div>
+                                @endif
+                            </div>
+                            <!-- <hr> -->
+                        </div>
+                        <div class="form-group col-12">
+                            <h3>O por sus características:</h3>
+                        </div>
+                        <div class="form-group col-md-3">
                             <label for="">Tipo</label>
-                            <select name="tipo_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
+                            <select name="tipo_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
                                 @if($errors->any() AND old('tipo_prod') != '')
                                 <optgroup label="Actual">
                                     <option selected>{{old('tipo_prod')}}</option>
@@ -81,10 +94,9 @@ active
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-md-3 ">
                             <label for="">Color</label>
-                            <select name="color_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
+                            <select name="color_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
                                 @if($errors->any() AND old('color_prod') != '')
                                 <optgroup label="Actual">
                                     <option selected>{{old('color_prod')}}</option>
@@ -97,10 +109,9 @@ active
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-md-3 ">
                             <label for="">Destino</label>
-                            <select name="destino_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
+                            <select name="destino_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
                                 @if($errors->any() AND old('destino_prod') != '')
                                 <optgroup label="Actual">
                                     <option selected>{{old('destino_prod')}}</option>
@@ -113,10 +124,9 @@ active
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-md-3 ">
                             <label for="">Tamaño</label>
-                            <select name="tamano_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
+                            <select name="tamano_prod" class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
                                 @if($errors->any() AND old('tamano_prod') != '')
                                 <optgroup label="Actual">
                                     <option selected>{{old('tamano_prod')}}</option>
@@ -129,12 +139,13 @@ active
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-2 ">
+                        <div class="form-group col-12 ">
+                            <hr>
+                        </div>
+                        <div class="form-group col-md-6 ">
                             <label for="">Cantidad</label>
                             <div class="input-group">
-                                <input type="number" min="0" name="cant_prod"
-                                    class="form-control @if($errors->get('cant_prod')) is-invalid @endif"
-                                    placeholder="Ej: 500" value="{{old('cant_prod')}}">
+                                <input type="number" min="0" name="cant_prod" class="form-control @if($errors->get('cant_prod')) is-invalid @endif" placeholder="Ej: 500" value="{{old('cant_prod')}}">
                                 <div class="input-group-append" title="Unidades">
                                     <div class="input-group-text text-xs">Unidades</div>
                                 </div>
@@ -145,7 +156,7 @@ active
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group col-md-2  text-center">
+                        <div class="form-group col-md-6  text-center">
                             <label class="" style="opacity: 0;" for="">Opción:</label>
                             <div class="input-group">
                                 <button type="submit" class="btn btn-success mx-auto">Ingresar</button>
@@ -188,12 +199,10 @@ active
                     <div class="table-responsive">
                         @if($read_produccion->estado_trans == 'en curso')
                         <div class="col-12 text-right my-4">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#cerrarProduccion">Cerrar producción</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cerrarProduccion">Cerrar producción</button>
                         </div>
                         @endif
-                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
-                            width="100%" cellspacing="0">
+                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos" width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -216,9 +225,7 @@ active
                                     <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
                                         @if($read_produccion->estado_trans == 'en curso')
-                                        <form
-                                            action="{{route('delete_prod_det',['id' => $read_produccion, 'id_det' => $item->cod_det ,'tipo' => 'produccion'])}}"
-                                            method="POST">
+                                        <form action="{{route('delete_prod_det',['id' => $read_produccion, 'id_det' => $item->cod_det ,'tipo' => 'produccion'])}}" method="POST">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
@@ -245,8 +252,7 @@ active
             <div class="row justify-content-between">
                 <a href="{{route('produccion')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i>
                     Regresar</a>
-                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#eliminarProduccion"><i class="far fa-trash-alt"></i> Eliminar</button>
+                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#eliminarProduccion"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>
     </div>
@@ -301,4 +307,43 @@ active
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    $('#autocomplete').autocomplete({
+        // Sugiere el primer elemento en azul
+        autoFocus: true,
+        // Recupera la informacion mediante una solicitud ajax
+        source: function(request, response) {
+            $.ajax({
+                url: "{{route('autocompletar',['tipo' => 'produccion'])}}",
+                dataType: 'json',
+                data: {
+                    term: request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        // Evita que el valor cambie con la tecla arriba y abajo
+        focus: function(e, ui) {
+            return false;
+        },
+        // A menos que elija una opción tendrá valor caso contrario sera null
+        change: function(event, ui) {
+            if (!ui.item) {
+                $("#autocomplete").val(null);
+                // $("#autocompleteID").val(null);
+            }
+
+        },
+        // Coloca los valores obtenidos en la consulta (Hay que ocultar el campo ID)
+        select: function(event, ui) {
+            $('#autocomplete').val(ui.item.clave);
+            // $('#autocompleteID').val(ui.item.value);
+            return false;
+        }
+    });
+</script>
 @endsection

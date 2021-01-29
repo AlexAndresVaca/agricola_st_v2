@@ -1,14 +1,20 @@
 @extends('plantillaDashboard')
 @section('name-page')
-Perfil del negociante
+Perfil del {{$read_neg->tipo_neg}}
 @endsection
-@section('dealer-item')
+@if($read_neg->tipo_neg == 'Proveedor')
+@section('proveedor-item')
 active
 @endsection
+@else
+@section('cliente-item')
+active
+@endsection
+@endif
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{{route('negociantes')}}">Proveedores / Clientes</a>
+        <li class="breadcrumb-item" aria-current="page"><a href="{{route('negociantes',['negociantes' => strtolower($read_neg->tipo_neg)])}}">@if($read_neg->tipo_neg == 'Proveedor') Proveedores @else Clientes @endif</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Información</li>
     </ol>
@@ -17,26 +23,23 @@ active
 @section('body')
 <div class="card shadow">
     <div class="card-header">
-        <h1 class="h3">Perfil del negociante</h1>
+        <h1 class="h3">Perfil del {{$read_neg->tipo_neg}}</h1>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-2 col-sm-12">
-                <img src="{{asset('resources/img/undraw_businessman_97x4.svg')}}" alt="" class="img-thumbnail border-0"
-                    style="width: 400px;">
+                <img src="{{asset('resources/img/undraw_businessman_97x4.svg')}}" alt="" class="img-thumbnail border-0" style="width: 400px;">
             </div>
             <div class="col-lg-6 text-gray-900 mb-3">
                 <div class="my-2">
-                    <span class=""><i class="fas fa-id-card text-gray-500"></i> </span><span
-                        class="font-weight-bold ">{{$read_neg->ci_neg}}</span>
+                    <span class=""><i class="fas fa-id-card text-gray-500"></i> </span><span class="font-weight-bold ">{{$read_neg->ci_neg}}</span>
 
                 </div>
                 <hr>
                 <div class="my-2">
                     <span class="h2 text-capitalize">{{$read_neg->nombre_neg}} {{$read_neg->apellido_neg}}</span>
                     <span class="mx-2">
-                        <a type="button" class="" data-toggle="modal" data-target="#editarNegociante"><i
-                                class="far fa-edit"></i> Editar</a>
+                        <a type="button" class="" data-toggle="modal" data-target="#editarNegociante"><i class="far fa-edit"></i> Editar</a>
                     </span>
                 </div>
                 <hr>
@@ -48,30 +51,36 @@ active
                     </div>
                     @endif
                     @if($read_neg->correo_neg)
-                    <div class="">
+                    <div class="mb-3">
                         <span class=""><i class="fas fa-envelope text-gray-500"></i>
                         </span><span>{{$read_neg->correo_neg}}</span>
                     </div>
                     @endif
+                    <!-- <div class="mb-3">
+                        <span class=""><i class="fas fa-user-alt text-gray-500"></i> </span>
+                        <span class="text-capitalize">{{$read_neg->tipo_neg}}</span>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-4 text-center">
                 <div class="h3 text-center text-gray-800">Actividad</div>
                 <div class="row">
-                    <div class="col-6 border-right text-success">
-                        <div class="h5">Compras</div>
+                    @if($read_neg->tipo_neg == 'Proveedor')
+                    <div class="col text-success">
+                        <div class="h5">Ventas realizadas:</div>
                         <div class="h2">{{$num_compras->count()}}</div>
                     </div>
-                    <div class="col-6 text-primary">
-                        <div class="h5">Ventas</div>
+                    @else
+                    <div class="col text-primary">
+                        <div class="h5">Compras realizadas:</div>
                         <div class="h2">{{$num_ventas->count()}}</div>
                     </div>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-lg-12 my-3">
                         @if($read_neg->celular_neg)
-                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_neg->celular_neg}}&text="
-                            class="btn bg-success text-white" style="font-size: 1.5rem;"><i class="fab fa-whatsapp"></i>
+                        <a href="https://api.whatsapp.com/send?phone=+593{{$read_neg->celular_neg}}&text=" class="btn bg-success text-white" style="font-size: 1.5rem;"><i class="fab fa-whatsapp"></i>
                             0{{$read_neg->celular_neg}}</a>
                         @endif
                     </div>
@@ -111,8 +120,7 @@ active
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-light table-bordered table-striped table-hover" id="tablaHistorial"
-                    width="100%" cellspacing="0">
+                <table class="table table-light table-bordered table-striped table-hover" id="tablaHistorial" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">COD</th>
@@ -170,14 +178,13 @@ active
                 </div>
             </div>
             <div class="row justify-content-end">
-                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal"
-                    data-target="#eliminarNegociante"><i class="far fa-trash-alt"></i> Eliminar</button>
+                <button type="button" class="btn btn-outline-danger shadow-sm" data-toggle="modal" data-target="#eliminarNegociante"><i class="far fa-trash-alt"></i> Eliminar</button>
             </div>
         </div>
         @endif
         <div class="row">
             <div class="col my-4">
-                <a href="{{route('negociantes')}}" class="text-gray-600 text-lg"><i class="fa fa-angle-left"></i>
+                <a href="{{route('negociantes',['negociantes' => strtolower($read_neg->tipo_neg)])}}" class="text-gray-600 text-lg"><i class="fa fa-angle-left"></i>
                     Regresar</a>
             </div>
         </div>
@@ -202,10 +209,7 @@ active
                         <div class="form-group col">
                             <label for="">CI/ID</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @if($errors->has('ci_neg'))is-invalid @endif"
-                                    placeholder="Ej: 1705XXXXXX" name="ci_neg"
-                                    value="@if($errors->has('ci_neg')){{old('ci_neg')}}@else{{$read_neg->ci_neg}}@endif"
-                                    minlength="10" maxlength="13" required>
+                                <input type="text" class="form-control @if($errors->has('ci_neg'))is-invalid @endif" placeholder="Ej: 1705XXXXXX" name="ci_neg" value="@if($errors->has('ci_neg')){{old('ci_neg')}}@else{{$read_neg->ci_neg}}@endif" minlength="10" maxlength="13" required>
                                 @if($errors->has('ci_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('ci_neg')}}
@@ -219,11 +223,7 @@ active
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">+593</div>
                                 </div>
-                                <input type="text"
-                                    class="form-control @if($errors->has('celular_neg'))is-invalid @endif"
-                                    placeholder="Ej: 0987XXXXXX" name="celular_neg"
-                                    value="@if($errors->has('celular_neg')){{old('celular_neg')}}@else{{$read_neg->celular_neg}}@endif"
-                                    minlength="9" maxlength="13">
+                                <input type="text" class="form-control @if($errors->has('celular_neg'))is-invalid @endif" placeholder="Ej: 0987XXXXXX" name="celular_neg" value="@if($errors->has('celular_neg')){{old('celular_neg')}}@else{{$read_neg->celular_neg}}@endif" minlength="9" maxlength="13">
                                 @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('celular_neg')}}
@@ -237,11 +237,7 @@ active
                         <div class="form-group col">
                             <label for="">Apellido</label>
                             <div class="input-group">
-                                <input type="text"
-                                    class="form-control @if($errors->has('apellido_neg'))is-invalid @endif"
-                                    placeholder="Ej: Lee" name="apellido_neg"
-                                    value="@if($errors->has('apellido_neg')){{old('apellido_neg')}}@else{{$read_neg->apellido_neg}}@endif"
-                                    maxlength="50" required>
+                                <input type="text" class="form-control @if($errors->has('apellido_neg'))is-invalid @endif" placeholder="Ej: Lee" name="apellido_neg" value="@if($errors->has('apellido_neg')){{old('apellido_neg')}}@else{{$read_neg->apellido_neg}}@endif" maxlength="50" required>
                                 @if($errors->has('apellido_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('apellido_neg')}}
@@ -252,10 +248,7 @@ active
                         <div class="form-group col">
                             <label for="">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @if($errors->has('nombre_neg'))is-invalid @endif"
-                                    placeholder="Ej: Steve" name="nombre_neg"
-                                    value="@if($errors->has('nombre_neg')){{old('nombre_neg')}}@else{{$read_neg->nombre_neg}}@endif"
-                                    maxlength="50" required>
+                                <input type="text" class="form-control @if($errors->has('nombre_neg'))is-invalid @endif" placeholder="Ej: Steve" name="nombre_neg" value="@if($errors->has('nombre_neg')){{old('nombre_neg')}}@else{{$read_neg->nombre_neg}}@endif" maxlength="50" required>
                                 @if($errors->has('nombre_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('nombre_neg')}}
@@ -268,11 +261,7 @@ active
                         <div class="form-group col">
                             <label for="">Dirección</label>
                             <div class="input-group">
-                                <input type="text"
-                                    class="form-control @if($errors->has('direccion_neg'))is-invalid @endif"
-                                    placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_neg"
-                                    value="@if($errors->has('direccion_neg')){{old('direccion_neg')}}@else{{$read_neg->direccion_neg}}@endif"
-                                    maxlength="150">
+                                <input type="text" class="form-control @if($errors->has('direccion_neg'))is-invalid @endif" placeholder="Ej: Av.Principal y 10 de Agosto" name="direccion_neg" value="@if($errors->has('direccion_neg')){{old('direccion_neg')}}@else{{$read_neg->direccion_neg}}@endif" maxlength="150">
                                 @if($errors->has('direccion_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('direccion_neg')}}
@@ -285,14 +274,24 @@ active
                         <div class="form-group col">
                             <label for="">Correo electronico</label>
                             <div class="input-group">
-                                <input type="email"
-                                    class="form-control @if($errors->has('correo_neg'))is-invalid @endif"
-                                    placeholder="Ej: correo@gmail.com" name="correo_neg"
-                                    value="@if($errors->has('correo_neg')){{old('correo_neg')}}@else{{$read_neg->correo_neg}}@endif"
-                                    maxlength="60" required>
+                                <input type="email" class="form-control @if($errors->has('correo_neg'))is-invalid @endif" placeholder="Ej: correo@gmail.com" name="correo_neg" value="@if($errors->has('correo_neg')){{old('correo_neg')}}@else{{$read_neg->correo_neg}}@endif" maxlength="60" required>
                                 @if($errors->has('correo_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('correo_neg')}}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group col d-none">
+                            <label for="">Tipo</label>
+                            <div class="input-group">
+                                <select class="form-control @if($errors->has('tipo_neg'))is-invalid @endif" name="tipo_neg" required>
+                                    <option value="Proveedor" @if($read_neg->tipo_neg == 'Proveedor') selected @elseif(old('tipo_neg')=='Proveedor' ) selected @endif)>Proveedor</option>
+                                    <option value="Cliente" @if($read_neg->tipo_neg == 'Cliente') selected @elseif(old('tipo_neg')=='Cliente' ) selected @endif)>Cliente</option>
+                                </select>
+                                @if($errors->has('tipo_neg'))
+                                <div class="invalid-feedback">
+                                    {{$errors->first('tipo_neg')}}
                                 </div>
                                 @endif
                             </div>
@@ -336,9 +335,9 @@ active
 @section('js')
 @if($errors->any())
 <script>
-$(document).ready(function() {
-    $('#editarNegociante').modal('show');
-});
+    $(document).ready(function() {
+        $('#editarNegociante').modal('show');
+    });
 </script>
 @endif
 @endsection

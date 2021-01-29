@@ -24,7 +24,7 @@ class VentaController extends Controller
                                                     $query->whereNull('fk_cod_neg_trans');
                                                     })
                                                 ->get();
-        $list_negociantes = Negociante::all();
+        $list_negociantes = Negociante::where('tipo_neg','=','Cliente')->get();
         return view('dashboard.ventas.index',compact('list_ventas','list_ventas_sn_personas','list_negociantes'));
     }
     public function venta_add(Request $request, $id){
