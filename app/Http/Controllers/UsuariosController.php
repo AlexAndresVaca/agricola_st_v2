@@ -17,11 +17,11 @@ class UsuariosController extends Controller
     }
     public function usuarios_add(Request $request){
         $request->validate([
-            'ci_usu' => 'required|regex:/[0-9]/|size:10|unique:users,ci_usu',
+            'ci_usu' => 'required|numeric|regex:/[0-9]/|size:10|unique:users,ci_usu',
             'apellido_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'cargo_usu' => '',
-            'celular_usu' => 'nullable|regex:/[0-9]/|size:9',
+            'celular_usu' => 'nullable|numeric|regex:/[0-9]/|size:9',
             'direccion_usu' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_usu' => 'required|email|unique:users,correo_usu',
             'clave_usu' => 'required|min:8',
@@ -79,11 +79,11 @@ class UsuariosController extends Controller
     }
     public function usuarios_update(Request $request, $id){
         $request->validate([
-            'ci_usu' => 'required|regex:/[0-9]/|size:10|unique:users,ci_usu,'.$id.',cod_usu',
+            'ci_usu' => 'required|numeric|regex:/[0-9]/|size:10|unique:users,ci_usu,'.$id.',cod_usu',
             'apellido_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'nombre_usu' => 'required|regex:/[A-Za-z\s]/|max:50',
             'cargo_usu' => '',
-            'celular_usu' => 'nullable|regex:/[0-9]/|size:9',
+            'celular_usu' => 'nullable|numeric|regex:/[0-9]/|size:9',
             'direccion_usu' => 'nullable|regex:/[A-Za-z0-9\s]/|max:150',
             'correo_usu' => 'required|email|unique:users,correo_usu,'.$id.',cod_usu',
         ], [
