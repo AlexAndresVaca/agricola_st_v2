@@ -15,7 +15,7 @@ class CreateTransaccionsTable extends Migration
     {
         Schema::create('transaccions', function (Blueprint $table) {
             $table->id('cod_trans');
-            $table->string('tipo_trans',10);
+            $table->string('tipo_trans',30);
             $table->string('estado_trans',10);
             $table->unsignedBigInteger('fk_cod_usu_trans')->nullable();
             $table->foreign('fk_cod_usu_trans')->references('cod_usu')->on('users')->onDelete('set null');

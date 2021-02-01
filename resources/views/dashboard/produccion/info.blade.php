@@ -224,13 +224,17 @@ active
                                     <td>{{$item->tamano_prod}}</td>
                                     <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
-                                        @if($read_produccion->estado_trans == 'en curso')
-                                        <form action="{{route('delete_prod_det',['id' => $read_produccion, 'id_det' => $item->cod_det ,'tipo' => 'produccion'])}}" method="POST">
+                                        @if($read_produccion->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Administrador')
+                                        <form action="{{route('delete_prod_det',['id' => $read_produccion, 'id_det' => $item->cod_det ,'tipo' => 'produccion'])}}" method="post">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @elseif($read_produccion->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Empleado')
+                                        <button type="button" class="btn btn-circle btn-sm btn-secondary" title="Si desea eliminar el registro, informe al administrado.">
+                                            <i class="fas fa-question"></i>
+                                        </button>
                                         @else
                                         <button type="button" class="btn btn-circle btn-sm btn-success">
                                             <i class="fas fa-check"></i>
@@ -252,7 +256,11 @@ active
             <div class="row justify-content-between">
                 <a href="{{route('produccion')}}" class="text-gray-600 text-dm"><i class="fa fa-angle-left"></i>
                     Regresar</a>
-                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#eliminarProduccion"><i class="far fa-trash-alt"></i> Eliminar</button>
+                @if(session('cargo_usuario_activo')=='Administrador')
+                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#eliminarProduccion"><i class="far fa-trash-alt"></i> Eliminar producción</button>
+                @else
+                <button type="button" class="btn btn-outline-secondary btn-sm shadow-sm" title="Si desea eliminar la produccion, informe al administrado."> <i class="far fa-trash-alt"></i> Eliminar</button>
+                @endif
             </div>
         </div>
     </div>

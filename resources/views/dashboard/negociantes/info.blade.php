@@ -223,7 +223,7 @@ active
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">+593</div>
                                 </div>
-                                <input type="text" class="form-control @if($errors->has('celular_neg'))is-invalid @endif" placeholder="Ej: 0987XXXXXX" name="celular_neg" value="@if($errors->has('celular_neg')){{old('celular_neg')}}@else{{$read_neg->celular_neg}}@endif" minlength="9" maxlength="13">
+                                <input type="text" class="form-control @if($errors->has('celular_neg'))is-invalid @endif" placeholder="Ej: 0987XXXXXX" name="celular_neg" value="@if($errors->has('celular_neg')){{old('celular_neg')}}@else{{$read_neg->celular_neg}}@endif" minlength="9" maxlength="9">
                                 @if($errors->has('celular_neg'))
                                 <div class="invalid-feedback">
                                     {{$errors->first('celular_neg')}}

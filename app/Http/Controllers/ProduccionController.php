@@ -39,7 +39,7 @@ class ProduccionController extends Controller
         $add_produccion->fk_cod_usu_trans = $request->session()->get('usuario_activo');
         $add_produccion->fk_cod_neg_trans = 1;
         $add_produccion->save();
-        return back();
+        return back()->with(['add_produccion'=> true]);
     }
 
     public function produccion_info($id){

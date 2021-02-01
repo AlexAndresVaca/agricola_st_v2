@@ -88,97 +88,6 @@ active
         <div class="container">
             @if($read_compra->estado_trans == 'en curso')
             <div class="row">
-                <!-- <form action="{{route('add_prod_det',['id' => $read_compra, 'tipo' => 'compra'])}}" method="POST">
-                    @CSRF
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="">Tipo</label>
-                            <select name="tipo_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tipo_prod')) is-invalid @endif">
-                                @if($errors->any() AND old('tipo_prod') != '')
-                                <optgroup label="Actual">
-                                    <option selected>{{old('tipo_prod')}}</option>
-                                </optgroup>
-                                @else
-                                <option value="">Seleccione</option>
-                                @endif
-                                @foreach($tipo as $item)
-                                <option value="{{$item->tipo_prod}}">{{$item->tipo_prod}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2 ">
-                            <label for="">Color</label>
-                            <select name="color_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('color_prod')) is-invalid @endif">
-                                @if($errors->any() AND old('color_prod') != '')
-                                <optgroup label="Actual">
-                                    <option selected>{{old('color_prod')}}</option>
-                                </optgroup>
-                                @else
-                                <option value="">Seleccione</option>
-                                @endif
-                                @foreach($color as $item)
-                                <option value="{{$item->color_prod}}">{{$item->color_prod}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2 ">
-                            <label for="">Destino</label>
-                            <select name="destino_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('destino_prod')) is-invalid @endif">
-                                @if($errors->any() AND old('destino_prod') != '')
-                                <optgroup label="Actual">
-                                    <option selected>{{old('destino_prod')}}</option>
-                                </optgroup>
-                                @else
-                                <option value="">Seleccione</option>
-                                @endif
-                                @foreach($destino as $item)
-                                <option value="{{$item->destino_prod}}">{{$item->destino_prod}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2 ">
-                            <label for="">Tamaño</label>
-                            <select name="tamano_prod"
-                                class="custom-select mr-sm-2 text-capitalize @if($errors->get('tamano_prod')) is-invalid @endif">
-                                @if($errors->any() AND old('tamano_prod') != '')
-                                <optgroup label="Actual">
-                                    <option selected>{{old('tamano_prod')}}</option>
-                                </optgroup>
-                                @else
-                                <option value="">Seleccione</option>
-                                @endif
-                                @foreach($tamano as $item)
-                                <option value="{{$item->tamano_prod}}">{{$item->tamano_prod}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2 ">
-                            <label for="">Cantidad</label>
-                            <div class="input-group">
-                                <input type="number" min="0" name="cant_prod"
-                                    class="form-control @if($errors->get('cant_prod')) is-invalid @endif"
-                                    placeholder="Ej: 500" value="{{old('cant_prod')}}">
-                                <div class="input-group-append" title="Unidades">
-                                    <div class="input-group-text text-xs">Unidades</div>
-                                </div>
-                                @if($errors->get('cant_prod'))
-                                <div class="invalid-feedback">
-                                    {{$errors->first('cant_prod')}}
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group col-md-2  text-center">
-                            <label class="" style="opacity: 0;" for="">Opción:</label>
-                            <div class="input-group">
-                                <button type="submit" class="btn btn-success mx-auto">Ingresar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form> -->
                 <form action="{{route('add_prod_det',['id' => $read_compra, 'tipo' => 'compra'])}}" method="POST" autocomplete="off">
                     @CSRF
                     <div class="form-row">
@@ -343,13 +252,17 @@ active
                                     <td>{{$item->tamano_prod}}</td>
                                     <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
-                                        @if($read_compra->estado_trans == 'en curso')
+                                        @if($read_compra->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Administrador')
                                         <form action="{{route('delete_prod_det',['id' => $read_compra, 'id_det' => $item->cod_det ,'tipo' => 'compra'])}}" method="POST">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @elseif($read_compra->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Empleado')
+                                        <button type="button" class="btn btn-circle btn-sm btn-secondary" title="Si desea eliminar el registro, informe al administrado.">
+                                            <i class="fas fa-question"></i>
+                                        </button>
                                         @else
                                         <button type="button" class="btn btn-circle btn-sm btn-success">
                                             <i class="fas fa-check"></i>
@@ -371,7 +284,11 @@ active
             <div class="row justify-content-between">
                 <a href="{{route('compra')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
+                @if(session('cargo_usuario_activo')=='Administrador')
                 <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#cancelarCompra"><i class="far fa-trash-alt"></i> Eliminar compra</button>
+                @else
+                <button type="button" class="btn btn-outline-secondary btn-sm shadow-sm" title="Si desea eliminar la compra, informe al administrado."> <i class="far fa-trash-alt"></i> Eliminar</button>
+                @endif
             </div>
         </div>
     </div>

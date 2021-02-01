@@ -148,12 +148,12 @@
                                 <td>{{$item->tipo}}</td>
                                 <td>{{$item->apellido_neg}} {{$item->nombre_neg}}</td>
                                 <td style="color: blue">
-                                    @if($item->tipo == 'compra' OR $item->tipo == 'produccion')
+                                    @if($item->tipo == 'compra' OR $item->tipo == 'produccion' OR $item->tipo == 'Devolución venta')
                                     {{$item->cantidad}}
                                     @endif
                                 </td>
                                 <td style="color: green;">
-                                    @if($item->tipo == 'venta')
+                                    @if($item->tipo == 'venta' OR $item->tipo == 'Deshecho' OR $item->tipo == 'Devolución compra')
                                     {{$item->cantidad}}
                                     @endif
                                 </td>

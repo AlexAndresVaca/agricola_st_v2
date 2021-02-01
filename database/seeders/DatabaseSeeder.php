@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         // 
 
         $producto = new Producto;
-        $producto->clave_prod = 'CREF';
+        $producto->clave_prod = 'CLA-REF';
         $producto->tipo_prod = 'Clavel';
         $producto->color_prod = 'Rojo';
         $producto->destino_prod = 'Extranjero';
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         $producto->save();
         
         $producto1 = new Producto;
-        $producto1->clave_prod = 'CCNF';
+        $producto1->clave_prod = 'CLA-CNF';
         $producto1->tipo_prod = 'Clavel';
         $producto1->color_prod = 'Color';
         $producto1->destino_prod = 'Nacional';

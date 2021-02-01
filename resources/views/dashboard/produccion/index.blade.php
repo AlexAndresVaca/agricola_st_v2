@@ -28,14 +28,21 @@ active
                 Nueva producción
             </button>
         </form>
+        @elseif($produccion_exists_hoy == true AND $estado == 'en curso')
+        <a href="{{route('produccionInfo',$id_exists_hoy)}}">
+            <button type="submit" class="btn btn-primary">
+                <i class="far fa-edit"></i>
+                Ir a producción de hoy
+            </button>
+        </a>
         @endif
     </div>
     <div class="container">
         <div class="row">
             <div class="col">
-                @if($produccion_exists_hoy == true AND $estado == 'en curso')
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>Produccion del dia de hoy</strong> puedes gestionar sus productos <a href="{{route('produccionInfo',$id_exists_hoy)}}">aquí</a>.
+                @if(session('add_produccion'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Se ha agregado una nueva produccion para hoy!</strong> puedes gestionar sus productos <a href="{{route('produccionInfo',$id_exists_hoy)}}">aquí</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -53,6 +53,8 @@ Route::POST('dashboard/productos/add',[ProductosController::class, 'productos_ad
 Route::get('dashboard/productos/informacion_pdt={id}/',[ProductosController::class, 'productos_info'] )->middleware('logeado')->name('productosInfo');
 Route::POST('dashboard/productos/informacion_pdt={id}/update',[ProductosController::class, 'productos_update'] )->middleware('logeado')->name('productos_update');
 Route::POST('dashboard/productos/informacion_pdt={id}/delete',[ProductosController::class, 'productos_delete'] )->middleware('logeado')->name('productos_delete');
+// Modificar Stock
+Route::POST('dashboard/productos/informacion_pdt={id}/update_stock',[ProductosController::class, 'productos_update_stock'] )->middleware('logeado')->name('productos_update_stock');
 // Tanto la producción, la compra y la venta, comparte una misma tabla que es la de transacción
 // Pero cada tipo de transacción tendrá su propio controlador
 // Producción
@@ -89,3 +91,6 @@ Route::get('dashboard/',[ControllerNavegacion::class, 'dashboard'] )->middleware
 Route::get('dashboard/reportes',[ReportesController::class, 'reporte_kardex'] )->middleware('logeado')->name('reporte_kardex');
 Route::POST('dashboard/reportes/',[ReportesController::class, 'generar_reporte'] )->middleware('logeado')->name('generar_reporte');
 Route::get('dashboard/reportes/download',[ReportesController::class, 'download_reporte'] )->middleware('logeado')->name('download_reporte');
+
+
+

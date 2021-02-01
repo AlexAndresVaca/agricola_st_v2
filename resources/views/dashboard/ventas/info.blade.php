@@ -29,8 +29,7 @@ active
             <div class="col-12">
                 <div class="card mb-4">
                     <!-- Card Header - Accordion -->
-                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                    <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-secondary">Información de la venta</h6>
                     </a>
                     <!-- Card Content - Collapse -->
@@ -325,12 +324,10 @@ active
                     <div class="table-responsive">
                         <div class="col-12 text-right my-4">
                             @if($read_venta->estado_trans == 'en curso')
-                            <button type="submit" class="btn btn-primary" data-toggle="modal"
-                                data-target="#cerrarventa">Cerrar venta</button>
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#cerrarventa">Cerrar venta</button>
                             @endif
                         </div>
-                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos"
-                            width="100%" cellspacing="0">
+                        <table class="table table-light table-bordered table-striped table-hover" id="tablaProductos" width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -343,7 +340,7 @@ active
                                 </tr>
                             </thead>
                             <tbody class="">
-                            @foreach($detalle as $item)
+                                @foreach($detalle as $item)
                                 <tr>
                                     <td scope="row">{{$item->cod_det}}</td>
                                     <td>{{$item->tipo_prod}}</td>
@@ -352,15 +349,17 @@ active
                                     <td>{{$item->tamano_prod}}</td>
                                     <td>{{$item->cantidad_det}}</td>
                                     <td class="text-center w-75px">
-                                        @if($read_venta->estado_trans == 'en curso')
-                                        <form
-                                            action="{{route('delete_prod_det',['id' => $read_venta, 'id_det' => $item->cod_det ,'tipo' => 'venta'])}}"
-                                            method="POST">
+                                        @if($read_venta->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Administrador')
+                                        <form action="{{route('delete_prod_det',['id' => $read_venta, 'id_det' => $item->cod_det ,'tipo' => 'venta'])}}" method="POST">
                                             @CSRF
                                             <button type="submit" class="btn btn-circle btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @elseif($read_venta->estado_trans == 'en curso' AND session('cargo_usuario_activo')=='Empleado')
+                                        <button type="button" class="btn btn-circle btn-sm btn-secondary" title="Si desea eliminar el registro, informe al administrado.">
+                                            <i class="fas fa-question"></i>
+                                        </button>
                                         @else
                                         <button type="button" class="btn btn-circle btn-sm btn-success">
                                             <i class="fas fa-check"></i>
@@ -382,8 +381,11 @@ active
             <div class="row justify-content-between">
                 <a href="{{route('venta')}}" class="text-gray-600 my-2 "><i class="fa fa-angle-left"></i>
                     Regresar</a>
-                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal"
-                    data-target="#cancelarventa"><i class="far fa-trash-alt"></i> Eliminar venta</button>
+                @if(session('cargo_usuario_activo')=='Administrador')
+                <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-toggle="modal" data-target="#cancelarventa"><i class="far fa-trash-alt"></i> Eliminar venta</button>
+                @else
+                <button type="button" class="btn btn-outline-secondary btn-sm shadow-sm" title="Si desea eliminar la venta, informe al administrado."> <i class="far fa-trash-alt"></i> Eliminar</button>
+                @endif
             </div>
         </div>
     </div>
