@@ -33,6 +33,7 @@ class validacionCI implements Rule
             $verificador = substr($value,-4,1);
             $longitud = true;
         }else{
+            $verificador = null;
             $longitud = false;
         }
         // Validar que solo sean numeros

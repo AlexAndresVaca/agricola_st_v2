@@ -58,7 +58,7 @@ class LoginController extends Controller
             return back()->withErrors(['ci_usu'=>'Revisa tus datos y vuelve a intentar!'])->withInput();
         }
         elseif($request->clave_usu !== Crypt::decrypt($login->clave_usu)){
-            return back()->withErrors(['ci_usu'=>'Revisa tus datos y vuelve a intentars!'])->withInput();
+            return back()->withErrors(['ci_usu'=>'Revisa tus datos y vuelve a intentar!'])->withInput();
 
         }
         elseif($login->estado_usu == false){
